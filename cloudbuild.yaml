@@ -1,0 +1,39 @@
+steps:
+  - name: node:16
+    entrypoint: npm
+    args: ["install"]
+    dir: "frontend"
+    id: "install-frontend"
+    waitFor: ["-"]
+  # If you have to add env variables to the frontend
+  # You then need to add the env to the cloud build trigger, in the substitution variables
+  # - name: node:16
+  #   entrypoint: npm
+  #   args: ["run", "create-env"]
+  #   env:
+  #     - "NUXT_ENV_API_KEY=${_NUXT_ENV_API_KEY}"
+  #   dir: "frontend"
+  #   id: "envs-frontend"
+  #   waitFor: ["install-frontend"]
+  - name: node:16
+    entrypoint: npm
+    args: ["run", "build"]
+    dir: "frontend"
+    id: "build-frontend"
+    waitFor: ["install-frontend"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
+    dir: "frontend"
+    id: "deploy-frontend"
+    waitFor: ["install-frontend", "build-frontend"]
+  - name: node:16
+    entrypoint: npm
+    args: ["install"]
+    dir: "server"
+    id: "install-server"
+    waitFor: ["-"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
+    dir: "server"
+    id: "deploy-server"
+    waitFor: ["install-server", "deploy-frontend"]
