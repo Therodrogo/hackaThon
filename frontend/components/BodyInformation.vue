@@ -1,8 +1,9 @@
 <template>
 
     <div class = "informationContainer" >
-        En este apartado va la información de la página <br>
+       <h1 class="fonts"> En este apartado va la información de la página <br>
         In this part goes the page information :)
+        </h1>
     </div>
 </template>
 
@@ -16,7 +17,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 35vh;
+    height: 37vh;
+    background: white;
+    
+}
+.fonts{
+    color: black;
 }
 
 </style>

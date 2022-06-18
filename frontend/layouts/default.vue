@@ -1,5 +1,7 @@
 <template>
+
   <div class="defaultStyle">
+    
    <nuxt />
   </div>
      
@@ -13,7 +15,7 @@ export default {
 }
 </script>
 <style scoped>
-  
+ 
   .defaultStyle{
       font-family: Century Gothic;
   }

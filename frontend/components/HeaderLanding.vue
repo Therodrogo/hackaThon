@@ -1,14 +1,14 @@
 <template>
 <div>
     <div class="contenedor">
-        <div @click="cerrarSesion" class="cerrarSesion" v-if="mostrarLogin && estadoMensaje">
+        <div class="cerrarSesion">
           
         </div>
         <!-- <img  @click="mostrarIzquierda" class="menu" src="https://i.ibb.co/BBJKGTk/menu.png" alt=""  height="37">
          -->
         <img  class="logo" src="https://puropellet.cl/wp-content/uploads/2019/02/utalca-puropellet.png" alt=""  height="37">
        
-        <button class="botoniniciar" small elevation="" @click="mostrar" >
+        <button class="botoniniciar" small elevation="">
             <img class="user" src="https://i.ibb.co/VLJ6CsC/user.png" alt="" width="40">
             
         </button>
