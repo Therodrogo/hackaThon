@@ -1,28 +1,11 @@
-const mockData = [
-    {
-        id: 1,
-        name: 'test1',
-        description: 'test1 description',
-        price: 1.99,
-    },
-    {
-        id: 2,
-        name: 'test2',
-        description: 'test2 description',
-        price: 2.99,
-    },
-    {
-        id: 3,
-        name: 'test3',
-        description: 'test3 description',
-        price: 3.99,
-    },
-];
-
+const { find } = require('../models/testModel');
+const serviceSchema = require('../models/testModel')
 
 const testService = {
     async getTests() {
-        if (mockData.length == 0) {
+        const tests = await serviceSchema.find()
+
+        if (tests == 0) {
             return {
                 status: 'failed',
                 code: 404,
@@ -34,11 +17,11 @@ const testService = {
             status: 'success',
             code: 200,
             message: 'Tests found',
-            data: mockData,
+            data: tests,
         };
     },
     async getTestById(id) {
-        const test = mockData.find(test => test.id === id);
+        const test = await serviceSchema.find({_id:id});
         if (test) {
             return {
                 status: 'success',
@@ -51,6 +34,40 @@ const testService = {
             status: 'failed',
             code: 404,
             message: 'Test with id ' + id + ' not found',
+            data: {},
+        };
+    },async postService(req,res) {
+        const test = serviceSchema(req.body)
+        test.save()
+        if (test) {
+            return {
+                status: 'success',
+                code: 200,
+                message: 'Test post is created',
+                data: test,
+            };
+        }
+        return {
+            status: 'failed',
+            code: 404,
+            message: 'Test post not created',
+            data: {},
+        };
+        
+    }, async deleteService(id){
+        const test = await serviceSchema.deleteOne({_id:id});
+        if (test) {
+            return {
+                status: 'success',
+                code: 200,
+                message: 'Test with id ' + id + ' removed',
+                data: test,
+            };
+        }
+        return {
+            status: 'failed',
+            code: 404,
+            message: 'Test with id ' + id + ' not removed',
             data: {},
         };
     }
