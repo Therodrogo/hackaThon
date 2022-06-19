@@ -27,7 +27,29 @@ const userController = {
             res.status(err.code).json(err);
         });
         
+    },async getUserById(req, res) {
+        const id = req.params.id;
+        await userService
+            .getUserById(id)
+            .then((result) => {
+                res.status(result.code).json(result);
+            })
+            .catch((err) => {
+                res.status(err.code).json(err);
+            });
     },
+    async deleteUser(req,res){
+        
+        const id = req.params.id;
+        await userService.deleteUser(id)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+
+    }
 
 
 };

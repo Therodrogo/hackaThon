@@ -37,6 +37,40 @@ const userService = {
             message: 'User post not created',
             data: {},
         };
+    },
+    async getUserById(id) {
+        const user = await userSchema.find({_id:id});
+        if (user) {
+            return {
+                status: 'success',
+                code: 200,
+                message: 'User with id ' + id + ' found',
+                data: user,
+            };
+        }
+        return {
+            status: 'failed',
+            code: 404,
+            message: 'User with id ' + id + ' not found',
+            data: {},
+        };
+    },async deleteUser(id){
+        const user = await userSchema.deleteOne({_id:id});
+        if (user) {
+        
+            return {
+                status: 'success',
+                code: 200,
+                message: 'User with id ' + id + ' removed',
+                data: user,
+            };
+        }
+        return {
+            status: 'failed',
+            code: 404,
+            message: 'user with id ' + id + ' not removed',
+            data: {},
+        };
     }
 };
 
