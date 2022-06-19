@@ -7,6 +7,7 @@ const moongoose = require("mongoose");
 
 // Router Imports
 const testRouter = require('./routes/testRouter');
+const userRouter = require('./routes/userRouter');
 
 // App Settings and Middlewares
 app.use(cors({ origin: '*' }));
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/test', testRouter);
+app.use('/user', userRouter);
 
 // App Serving
 app.listen(port);
