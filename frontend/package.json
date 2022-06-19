@@ -13,9 +13,9 @@
     "create-env": "printenv > .env"
   },
   "dependencies": {
-    "@mdi/font": "^6.7.96",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
+    "@vee-validate/rules": "^4.5.11",
     "core-js": "^3.19.3",
     "nuxt": "^2.15.8",
     "vue": "^2.6.14",

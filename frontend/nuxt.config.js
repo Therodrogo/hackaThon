@@ -52,7 +52,15 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    theme: { disable: true },
+    theme: {
+      light: true,
+      themes: {
+        light: {
+          primary: "#00CCB1",
+          secondary: "#CC7C0A",
+        },
+      },
+    },
     customVariables: ['~/assets/variables.scss'],
   },
 
