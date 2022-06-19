@@ -1,112 +1,132 @@
 <template>
-<div>
-    <div class="contenedor">
-        <div class="cerrarSesion">
-          
-        </div>
-        <!-- <img  @click="mostrarIzquierda" class="menu" src="https://i.ibb.co/BBJKGTk/menu.png" alt=""  height="37">
-         -->
-        <img  class="logo" src="https://puropellet.cl/wp-content/uploads/2019/02/utalca-puropellet.png" alt=""  height="37">
-       
-        <button class="botoniniciar" small elevation="">
-            <img class="user" src="https://i.ibb.co/VLJ6CsC/user.png" alt="" width="40">
-            
-        </button>
+  <v-app-bar min-height="80px" color="#00CCB1" scroll-target="#scrolling-techniques-7">
+    <v-container fluid>
+      <v-row align="center" justify="center">
+        <v-col>
+          <img class="logo" src="https://puropellet.cl/wp-content/uploads/2019/02/utalca-puropellet.png">
 
-           
-   
+        </v-col>
 
-        
-    </div>
-    
 
-</div>
 
-     
+        <v-col cols="5">
+
+          <center>
+
+            <nuxt-link to="/">
+              <v-btn :color="colorBotones">
+                Home
+
+              </v-btn>
+
+            </nuxt-link>
+
+            <nuxt-link to="/aboutUs">
+              <v-btn :color="colorBotones">
+                Nosotros
+              </v-btn>
+            </nuxt-link>
+
+
+            <nuxt-link to="/ComoParticipar">
+              <v-btn :color="colorBotones">
+                Como participar
+              </v-btn>
+            </nuxt-link>
+            <nuxt-link to="/PremiosV">
+              <v-btn :color="colorBotones">
+                Premios
+              </v-btn>
+            </nuxt-link>
+
+          </center>
+
+        </v-col>
+
+
+        <v-col>
+          <v-btn color="white" class="btnLogin" height="fit-content" to="/loginWindow">
+            <v-img class="user" lazy-src="https://cdn-icons-png.flaticon.com/512/72/72648.png" width="50"
+              src="https://cdn-icons-png.flaticon.com/512/72/72648.png"></v-img>
+          </v-btn>
+
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app-bar>
+
+
 </template>
 
+
+
+     
 <script>
-
 export default {
-    components: {
-  
-},
-    data(){
-        return{
-            test: {
-                nombreusuario: "....",
-                contraseña: ""
-            },
-            test1: false,
-            test2:"",
-
-
-
-        }
-    },
-    props:{
-        
-        menuEstudiante: Boolean,
-        menuAdministrador: Boolean,
-        posicionMono: String,
-        
-    },
-    methods:{
-       
-            
-           
-    },
+  data() {
+    return {
+      value: 'recent',
+      test: {
+        nombreusuario: '....',
+        contraseña: '',
+      },
+      test1: false,
+      test2: '',
+      colorBotones: '#575654',
+    }
+  },
+  props: {
+    menuEstudiante: Boolean,
+    menuAdministrador: Boolean,
+    posicionMono: String,
+  },
+  methods: {
+    loginAppear: function () {
+      console.log("aa")
+    }
+  },
 }
 </script>
 
 <style scoped>
-
-.contenedor{
- 
-    width: auto;
-    background-color: #00CCB1;
-    height: 90px;
-    color: aliceblue ;
+.v-btn {
+  margin-inline: 10px;
 }
 
-.logo{
-    margin-left: 15px;
-    margin-top: 10px;
-    position: relative;
-    z-index: 7;
-    height: 70px;
+.contenedor {
+  width: 300px;
+  background-color: #00ccb1;
+  height: fit-content;
+  color: aliceblue;
+  margin-top: 1%;
+  margin-left: 35%;
+  margin-right: 40%;
 }
 
-.botoniniciar{
-    float: right;
-    background: #313C75;
-    position: relative;
-    margin: 5px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    transition: 0.5s;
-    z-index: 6;
+.menu {
+  justify-content: center;
+  align-content: center;
 }
 
-.botoniniciar:hover {
-
-    background: #677EF5;
-    transition: 0.5s;
-
+.logo {
+  margin-left: 50px;
+  margin-top: 15px;
+  height: 60px;
 }
 
+.btnLogin {
 
-ion-icon{
-    position: absolute;
-    margin: 0px 0 0 5px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    transition: 0.5s;
-}
-ion-icon:hover{
-    background: #677EF5;
+  float: right;
+  background: #313c75;
+  position: relative;
+  margin: 5px;
+  width: 80px;
+  transition: 0.5s;
+  z-index: 6;
 }
 
+.btnLogin:hover {
+  background: #677ef5;
+  transition: 0.5s;
+}
 </style>
