@@ -1,9 +1,12 @@
 <template>
  <v-app class="app">
     <div class="defaultStyle">
+     
       <HeaderLanding @loginAppear="showLogin"/>
-    
+      <v-divider></v-divider>
+      
       <nuxt />
+      <FutterInformation />
     </div>
   </v-app>
      
@@ -13,9 +16,11 @@
 <script>
 import HeaderLanding from '~/components/HeaderLanding.vue';
 import LoginWindow from '~/components/LoginWindow.vue';
+import FutterInformation from '~/components/FutterInformation.vue';
+
 export default {
     name: "DefaultLayout",
-    components: { HeaderLanding, LoginWindow },
+    components: { HeaderLanding, LoginWindow, FutterInformation },
     data() {
       return {
         loginOn: false

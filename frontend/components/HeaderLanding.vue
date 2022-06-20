@@ -1,53 +1,62 @@
 <template>
-  <v-app-bar min-height="80px" color="#00CCB1" scroll-target="#scrolling-techniques-7">
+  <v-app-bar min-height="100px" color="white" scroll-target="#scrolling-techniques-7">
     <v-container fluid>
       <v-row align="center" justify="center">
         <v-col>
-          <img class="logo" src="https://puropellet.cl/wp-content/uploads/2019/02/utalca-puropellet.png">
+          <img class="logo" src="https://i.ibb.co/3hgwd3t/u-logo.png">
 
         </v-col>
 
 
 
-        <v-col cols="5">
+        <v-col class="nuxtFont" cols="5" >
 
           <center>
+          
+            <nuxt-link  to="/">
+              <div class="bar">
+                  Home
+              </div>
+                
 
-            <nuxt-link to="/">
-              <v-btn :color="colorBotones">
-                Home
-
-              </v-btn>
+              
 
             </nuxt-link>
+
 
             <nuxt-link to="/aboutUs">
-              <v-btn :color="colorBotones">
-                Nosotros
-              </v-btn>
+            <div class="bar">
+                  Nosotros
+              </div>
+                
+             
             </nuxt-link>
 
-
+           
             <nuxt-link to="/ComoParticipar">
-              <v-btn :color="colorBotones">
-                Como participar
-              </v-btn>
+               <div class="bar">
+                  ¿Cómo participar?
+              </div>
+                
             </nuxt-link>
+        
             <nuxt-link to="/PremiosV">
-              <v-btn :color="colorBotones">
-                Premios
-              </v-btn>
+                 <div class="bar">
+                  Eventos
+              </div>
             </nuxt-link>
-
+   
+          
           </center>
 
         </v-col>
 
 
         <v-col>
-          <v-btn color="white" class="btnLogin" height="fit-content" to="/loginWindow">
-            <v-img class="user" lazy-src="https://cdn-icons-png.flaticon.com/512/72/72648.png" width="50"
-              src="https://cdn-icons-png.flaticon.com/512/72/72648.png"></v-img>
+          <!-- LOGO -->
+          <v-btn color="#00c58e" class="btnLogin" height="fit-content" to="/loginWindow">
+            <v-img  lazy-src="https://cdn-icons-png.flaticon.com/512/72/72648.png" width="50"
+              src="https://i.ibb.co/xqKnzvb/user-White.png"></v-img>
           </v-btn>
 
         </v-col>
@@ -72,7 +81,7 @@ export default {
       },
       test1: false,
       test2: '',
-      colorBotones: '#575654',
+      colorBotones: 'white',
     }
   },
   props: {
@@ -89,10 +98,37 @@ export default {
 </script>
 
 <style scoped>
-.v-btn {
-  margin-inline: 10px;
-}
 
+.bar{
+  margin-inline: 20px;
+  display: inline-block;
+  color: black;
+  padding: 10px;
+  margin-top: 90px;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+
+ transition: 0.5s;
+}
+a.nuxt-link{
+  margin-inline: 30px;
+  margin-top: 30px;
+  background: #313c75;
+  background-color: #313c75;
+  color:rgb(223, 223, 223);
+
+}
+.user{
+  margin-top: 10px;
+}
+.nuxtFont{
+  font-size: 20px;
+
+}
+a.nuxt-link-exact-active .bar{
+  background-color: #00c58e;
+  color: white;
+}
 .contenedor {
   width: 300px;
   background-color: #00ccb1;
@@ -110,8 +146,8 @@ export default {
 
 .logo {
   margin-left: 50px;
-  margin-top: 15px;
-  height: 60px;
+  margin-top: 35px;
+  height: 90px;
 }
 
 .btnLogin {
@@ -123,6 +159,7 @@ export default {
   width: 80px;
   transition: 0.5s;
   z-index: 6;
+  margin-top: 35px;
 }
 
 .btnLogin:hover {

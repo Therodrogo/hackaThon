@@ -1,24 +1,24 @@
 <template>
     <v-app id="inspire" class="white">
-        <v-content class="white">
-            <v-container fluid fill-height class="white">
-                <v-layout align-center justify-center class="white">
-                    <v-flex xs12 sm8 md4>
-                        <v-card color="#575654">
-                            <v-toolbar :color="primaryColor">
-                                <v-toolbar-title>Login form</v-toolbar-title>
+        <v-content >
+            <v-container fluid fill-height>
+                <v-layout align-center justify-center>
+                    <v-flex xs18 sm1 md4 >
+                        <v-card color="#00CCB1" height="300px" >
+                            <v-toolbar color="white">
+                                <h1>Iniciar Sesión</h1>
                             </v-toolbar>
-                            <v-card-text>
-                                <v-form>
-                                    <v-text-field name="login" label="Login" type="text"></v-text-field>
-                                    <v-text-field id="password" name="password" label="Password" type="password">
+                            <v-card-text >
+                                <v-form >
+                                    <v-text-field name="login" label="Usuario" type="text" color="#3d4545" ></v-text-field>
+                                    <v-text-field id="password" name="password" label="Contraseña" type="password" color="#3d4545">
                                     </v-text-field>
                                 </v-form>
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn :color="primaryColor" to="/">Crear Usuario</v-btn>
-                                <v-btn :color="primaryColor" to="/">Login</v-btn>
+                                <v-btn color="white" to="/createUser"><v-text class="textBtn">Crear Usuario</v-text></v-btn>
+                                <v-btn color="white" to="/"><v-text class="textBtn">Login</v-text></v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-flex>
@@ -43,4 +43,10 @@ export default {
 </script>
 
 <style>
+.textBtn{
+    color: #00ccb1;
+}
+h1{
+    color: #00ccb1;
+}
 </style>
