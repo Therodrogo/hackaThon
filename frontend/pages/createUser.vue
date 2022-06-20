@@ -1,23 +1,25 @@
 <!--https://github.com/zakaria-29-dev/Vuejs-Vuetify-Login-Application-Moden-->
 <template>
   <v-app id="register">
-    <v-content>
+    <v-main>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="8">
             <v-card class="elevation-12">
                 <v-row class="fill-height">
                     <v-col cols="12" md="6" class="primary">
+                     <img class="logo-utalca" alt="logo-utalca" src="/logo-utalca.png" />
                     </v-col>
                     <v-col cols="12" md="6">
                       <v-card-text class="mt-6" >
-                        <p class="text-center">Crear Usuario</p>
+                        <p class="text-center">Crear un usuario</p>
                         <h3 class="text-center mt-5">Ingresa tus datos</h3>
                           <v-form
+                            @submit.prevent
                             ref="form"
                             v-model="valid"
                             lazy-validation
-                          />
+                          >
                           <v-text-field
                             v-model="name"
                             :rules="nameRules"
@@ -44,36 +46,37 @@
                             :rules="passwordRules"
                             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                             :type="show ? 'text' : 'password'"
-                            @click:append="show = !show"
+                            v-on:click:append="show = !show"
                             label="Contraseña"
                             prepend-icon="mdi-lock"
                             required
                           ></v-text-field>
+                          </v-form>
                       </v-card-text>
                       <div class="text-center">
                         <v-btn 
                           :disabled="!valid"
-                          type="submit"
                           color="primary"
                           large
-                          @click="validate"
+                          v-on:click="submit"
                         >
-                          Registrar
+                          crear usuario
                         </v-btn>
                       </div>
                     </v-col>
                   </v-row>
-
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
- export default {
+  import axios from 'axios';
+  import swal from 'sweetalert'
+  export default {
     data: () => ({
       show: false,
       valid: true,
@@ -94,14 +97,41 @@
       password: '',
       passwordRules: [
         v => !!v || 'Contraseña es requerida',
-        v =>  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})/.test(v) 
-        || 'Min. 5 caracteres con al menos una mayúscula, un número y una caracter especial',
+        v =>  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W+)(?=.{5,})/.test(v) 
+        || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y una caracter especial',
       ],
     }),
-
     methods: {
-      validate () {
-        this.$refs.form.validate()
+      reset () {
+        this.$refs.form.reset()
+      },
+      submit () {
+        if(this.$refs.form.validate()){
+          let data = { name: this.name, 
+                        password: this.password,
+                        role: 'Participant',
+                        mail: this.email,
+                        career: '',
+                        phone: this.phoneNumber
+                      }
+            axios.post('http://localhost:9000/user/postUser', data)
+            .then(function (response) {
+              swal({
+                  title: "¡Excelente!",
+                  text: "Tu usuario se ha creado correctamente",
+                  icon: "success",
+                })
+              console.log(response);
+              
+            })
+            .catch(function (error) {
+               swal({
+                  title: "Ha ocurrido un error",
+                  icon: "error",
+                });
+              console.log(error);
+            });
+        }
       },
     },
   }
@@ -120,4 +150,36 @@
   h3{
      font-family: "Century Gothic", sans-serif;
   }
+  .logo-utalca{
+    width: 25%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    
+  }
+  .v-main{
+    background-image:url('/25329.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  .swal-title {
+    font-family: "Century Gothic", sans-serif;
+    color: black;
+  }
+  .swal-text {
+    font-family: "Century Gothic", sans-serif;
+    color: black;
+  }
+  .swal-button {
+    font-family: "Century Gothic", sans-serif;
+    background-color: #00CCB1;
+    border: 1px solid #00CCB1;
+  }
+
 </style>
