@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <v-container :style="isShowError ? 'border-radius: 0px;' : 'border: 3px solid black;'">
+    
     <v-row >
       <v-col cols="12" >
         <v-card
@@ -14,11 +15,13 @@
         ></v-img>
         </v-card>
       </v-col>
-      <v-col cols="6" >
-        <v-card 
+      <v-col cols="6"  >
+        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid black;'"
           class="pa-2"
           outlined
           tile
+          color = "#DAE8FC"
+          
         >
           Nombre del evento: hackathon 2022
           <br>
@@ -32,8 +35,9 @@
           <br>
 
         <v-col cols="3" >
-          <v-btn 
+          <v-btn
           elevation="2"
+          color = "#00CCB1"
           x-large
           >
           Crear Grupo
@@ -43,6 +47,7 @@
         <v-col cols="2" >
           <v-btn
           elevation="3"
+          color = "#00CCB1"
           x-large
           >
           Ver lista de Grupos
@@ -53,10 +58,11 @@
         </v-card>
       </v-col>
       <v-col cols="6">
-        <v-card
+        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid black;'"
           class="pa-2"
           outlined
           tile
+          color = "#DAE8FC"
         >
           Descripcion: 
           <br>Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur 
