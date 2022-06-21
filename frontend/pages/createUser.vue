@@ -12,7 +12,7 @@
                     </v-col>
                     <v-col cols="12" md="6">
                       <v-card-text class="mt-6" >
-                        <p class="text-center">Crear un usuario</p>
+                        <p class="text-center">Crear usuario</p>
                         <h3 class="text-center mt-5">Ingresa tus datos</h3>
                           <v-form
                             @submit.prevent
