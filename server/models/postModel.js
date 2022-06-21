@@ -1,21 +1,25 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-const testSchema = new Schema({
-    name: {
+const postSchema = new Schema({
+    title: {
         type: String,
+        required: true,
+    },
+    date: {
+        type: Date,
         required: true,
     },
     description: {
         type: String,
         required: true,
     },
-    price: {
-        type: Number,
-        required: true,
+    imageUrl: {
+        type: String,
+        required: false,
     },
 },{
     versionKey:false
 });
 
-module.exports = mongoose.model('Test', testSchema);
+module.exports = mongoose.model('Post', postSchema);

@@ -2,13 +2,27 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+require("dotenv").config();
+const moongoose = require("mongoose");
 
 // Router Imports
 const testRouter = require('./routes/testRouter');
+const userRouter = require('./routes/userRouter');
+const eventRouter = require('./routes/eventRouter');
+const postRouter = require('./routes/postRouter');
 
 // App Settings and Middlewares
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+
+//database connection
+moongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connect to the database"))
+  .catch((err) => console.log(err));
 
 // Configuring port
 const port = process.env.PORT || 9000;
@@ -19,6 +33,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/test', testRouter);
+app.use('/user', userRouter);
+app.use('/event', eventRouter);
+app.use('/post', postRouter);
 
 // App Serving
 app.listen(port);
