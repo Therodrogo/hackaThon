@@ -1,5 +1,5 @@
 <template>
-  <v-container :style="isShowError ? 'border-radius: 0px;' : 'border: 3px solid black;'">
+  <v-container :style="isShowError ? 'border-radius: 0px;' : 'border: 2px solid #84848d;'">
     
     <v-row >
       <v-col cols="12" >
@@ -16,7 +16,7 @@
         </v-card>
       </v-col>
       <v-col cols="6"  >
-        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid black;'"
+        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid #84848d;'"
           class="pa-2"
           outlined
           tile
@@ -34,31 +34,35 @@
           Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
           <br>
 
-        <v-col cols="3" >
-          <v-btn
-          elevation="2"
-          color = "#00CCB1"
-          x-large
-          >
-          Crear Grupo
-          </v-btn>
-        </v-col>
+        <v-row
+        >
           
-        <v-col cols="2" >
-          <v-btn
-          elevation="3"
-          color = "#00CCB1"
-          x-large
-          >
-          Ver lista de Grupos
-          </v-btn>
+          <v-col >
+            <v-btn 
+            rounded
+            elevation="2"
+            color = "#00CCB1"
+            >
+            Crear Grupo
+            </v-btn>
+          </v-col>
+            
+          <v-col cols="6" >
+            <v-btn 
+            rounded   
+            elevation="3"
+            color = "#00CCB1"
+            >
+            Ver lista de Grupos
+            </v-btn>
 
-        </v-col>
+          </v-col>
+        </v-row>
            
         </v-card>
       </v-col>
       <v-col cols="6">
-        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid black;'"
+        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid #84848d;'"
           class="pa-2"
           outlined
           tile
@@ -76,3 +80,10 @@
     </v-row>
   </v-container>
 </template>
+<style>
+  .v-card {
+    padding:10px;
+    text-align:center ;
+  }
+
+</style>
