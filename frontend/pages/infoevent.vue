@@ -69,13 +69,17 @@
           color = "#DAE8FC"
         >
           Descripcion: 
-          <br>Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur 
+          <br>
+          <p>
+          Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur 
           adipisicing elit. Corrupti modi aperiam quaerat vero animi. Recusandae id alias ea necessitatibus odit 
           velit facere quisquam. Non consequatur in suscipit repellendus, illo a! Lorem ipsum dolor sit amet 
           consectetur adipisicing elit. Sunt quidem minus totam praesentium, voluptas rerum ducimus et aut veritatis. 
           Minus mollitia nobis odio excepturi. Earum asperiores modi explicabo necessitatibus facere.
           
-        </v-card>
+          </p>
+          
+        </div>
       </v-col>
     </v-row>
   </v-container>
