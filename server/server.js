@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+app.use('/events', eventRouter);
 app.use('/test', testRouter);
 app.use('/user', userRouter);
 app.use('/event', eventRouter);
