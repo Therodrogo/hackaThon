@@ -2,17 +2,6 @@
   <v-app style="
     background: #ffffff;"
   >
-    <v-app-bar
-      app
-      shrink-on-scroll
-    >
-      <v-toolbar-title><v-img max-width="100" src="/utalca.png"/></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-title>
-        Events
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-app-bar>
 
     <v-main>
       <v-container>

@@ -2,7 +2,7 @@
   <div class="contenedor">
       <div>
         <img class="logo" src="https://i.ibb.co/3hgwd3t/u-logo.png">
-      </div>   
+      </div>
       <div class="nav">
 
             <nuxt-link  to="/">
@@ -17,23 +17,23 @@
             <div class="bar">
                   Nosotros
               </div>
-                
-             
+
+
             </nuxt-link>
-           
+
             <nuxt-link to="/ComoParticipar">
                <div class="bar">
                   ¿Cómo participar?
               </div>
-                
+
             </nuxt-link>
-        
-            <nuxt-link to="/PremiosV">
+
+            <nuxt-link to="/events">
                  <div class="bar">
                   Eventos
               </div>
             </nuxt-link>
-          
+
         </div>
 
          <nuxt-link to="/loginWindow">
@@ -42,13 +42,13 @@
           <img  width="45"
           src="https://i.ibb.co/xqKnzvb/user-White.png">
            </div>
-          </nuxt-link>   
+          </nuxt-link>
   </div>
 </template>
 
 
 
-     
+
 <script>
 export default {
   data() {
@@ -106,7 +106,7 @@ export default {
 
 .bar:hover, .bar:focus{
   background-size: 100% 3px;
-} 
+}
 
 
 a.nuxt-link{
