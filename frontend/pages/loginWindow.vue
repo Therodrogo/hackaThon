@@ -42,7 +42,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.v-main{
+  background-image:url('/25329.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 .textBtn{
     color: #00ccb1;
 }

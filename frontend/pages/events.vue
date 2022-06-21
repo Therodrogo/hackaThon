@@ -27,7 +27,7 @@
         <p>Finish date: {{n[2]}}</p>
       </v-card-text>
     <v-card-actions>
-      <v-btn color=#00ccb1>
+      <v-btn color=#00ccb1 to="/infoEvent">
         More info
       </v-btn>
     </v-card-actions>
