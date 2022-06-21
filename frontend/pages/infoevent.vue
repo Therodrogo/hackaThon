@@ -80,6 +80,7 @@
           </p>
           
         </div>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
