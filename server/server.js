@@ -5,6 +5,7 @@ const cors = require('cors');
 
 // Router Imports
 const testRouter = require('./routes/testRouter');
+const eventRouter = require ('./routes/eventRouter');
 
 // App Settings and Middlewares
 app.use(cors({ origin: '*' }));
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+app.use('/events', eventRouter);
 app.use('/test', testRouter);
 
 // App Serving
