@@ -2,7 +2,9 @@
 
   <div>
 
+
     <v-carousel :continuous="false" :cycle="cycle" :show-arrows="true" hide-delimiter-background
+      
       delimiter-icon="mdi-minus" height="500">
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
         <v-sheet :color="colors[i]" height="100%">
@@ -24,7 +26,7 @@ export default {
   data() {
     return {
       colors: [
-        '#800E0D',
+        '#00CCB1',
         '#00CCB1',
         '#CC7C0A',
         '#0a5ecc',
@@ -46,14 +48,12 @@ export default {
 <style scoped>
 .app {
   height: max-content;
-
 }
 
 .container {
-
-
+  margin: 100px;
   text-align: center;
-
-  font-size: 100px;
+  font-size: 80px;
 }
+
 </style>

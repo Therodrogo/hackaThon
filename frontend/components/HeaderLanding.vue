@@ -15,7 +15,7 @@
           
             <nuxt-link  to="/">
               <div class="bar">
-                  Home
+                  Inicio
               </div>
                 
 
@@ -55,7 +55,7 @@
         <v-col>
           <!-- LOGO -->
           <v-btn color="#00c58e" class="btnLogin" height="fit-content" to="/loginWindow">
-            <v-img  lazy-src="https://cdn-icons-png.flaticon.com/512/72/72648.png" width="50"
+            <v-img  lazy-src="https://cdn-icons-png.flaticon.com/512/72/72648.png" width="45"
               src="https://i.ibb.co/xqKnzvb/user-White.png"></v-img>
           </v-btn>
 
@@ -107,9 +107,20 @@ export default {
   margin-top: 90px;
   border-top-left-radius: 25%;
   border-top-right-radius: 25%;
-
- transition: 0.5s;
+  text-decoration: none;
+  background-image: linear-gradient(#CC7C0A,#CC7C0A);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px ;
+  transition: background-size .3s;
 }
+
+
+.bar:hover, .bar:focus{
+  background-size: 100% 3px;
+} 
+
+
 a.nuxt-link{
   margin-inline: 30px;
   margin-top: 30px;
@@ -119,22 +130,21 @@ a.nuxt-link{
 
 }
 .user{
-  margin-top: 10px;
+  margin-top: 15px;
 }
 .nuxtFont{
   font-size: 20px;
 
 }
 a.nuxt-link-exact-active .bar{
-  background-color: #00c58e;
-  color: white;
+  background-size: 100% 4px;
 }
 .contenedor {
-  width: 300px;
+  width: 400px;
   background-color: #00ccb1;
   height: fit-content;
   color: aliceblue;
-  margin-top: 1%;
+  margin-top: 2%;
   margin-left: 35%;
   margin-right: 40%;
 }
@@ -145,21 +155,20 @@ a.nuxt-link-exact-active .bar{
 }
 
 .logo {
-  margin-left: 50px;
-  margin-top: 35px;
+  margin-left: 300px;
+  margin-top: 50px;
   height: 90px;
 }
 
 .btnLogin {
-
   float: right;
   background: #313c75;
   position: relative;
-  margin: 5px;
-  width: 80px;
+  margin-right: 90px;
+  width: 60px;
   transition: 0.5s;
   z-index: 6;
-  margin-top: 35px;
+  margin-top: 45px;
 }
 
 .btnLogin:hover {

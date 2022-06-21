@@ -2,6 +2,7 @@
 
     <div>
         <BodyLanding />
+        
         <BodyInformation />
      
     </div>
