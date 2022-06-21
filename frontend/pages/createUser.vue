@@ -114,7 +114,7 @@
                         career: '',
                         phone: this.phoneNumber
                       }
-            axios.post('http://localhost:9000/user/postUser', data)
+            axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
             .then(function (response) {
               swal({
                   title: "¡Excelente!",
