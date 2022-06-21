@@ -1,25 +1,14 @@
 <template>
-  <v-app-bar min-height="100px" color="white" scroll-target="#scrolling-techniques-7">
-    <v-container fluid>
-      <v-row align="center" justify="center">
-        <v-col>
-          <img class="logo" src="https://i.ibb.co/3hgwd3t/u-logo.png">
+  <div class="contenedor">
+      <div>
+        <img class="logo" src="https://i.ibb.co/3hgwd3t/u-logo.png">
+      </div>   
+      <div class="nav">
 
-        </v-col>
-
-
-
-        <v-col class="nuxtFont" cols="5" >
-
-          <center>
-          
             <nuxt-link  to="/">
               <div class="bar">
                   Inicio
-              </div>
-                
-
-              
+             </div>
 
             </nuxt-link>
 
@@ -31,7 +20,6 @@
                 
              
             </nuxt-link>
-
            
             <nuxt-link to="/ComoParticipar">
                <div class="bar">
@@ -45,26 +33,17 @@
                   Eventos
               </div>
             </nuxt-link>
-   
           
-          </center>
+        </div>
 
-        </v-col>
-
-
-        <v-col>
+         <nuxt-link to="/loginWindow">
           <!-- LOGO -->
-          <v-btn color="#00c58e" class="btnLogin" height="fit-content" to="/loginWindow">
-            <v-img  lazy-src="https://cdn-icons-png.flaticon.com/512/72/72648.png" width="45"
-              src="https://i.ibb.co/xqKnzvb/user-White.png"></v-img>
-          </v-btn>
-
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app-bar>
-
-
+          <div class="logoLogin" >
+          <img  width="45"
+          src="https://i.ibb.co/xqKnzvb/user-White.png">
+           </div>
+          </nuxt-link>   
+  </div>
 </template>
 
 
@@ -99,14 +78,23 @@ export default {
 
 <style scoped>
 
+
+.contenedor{
+  height: 150px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.nav{
+  display: inline-block;
+  margin: 40px;
+}
 .bar{
   margin-inline: 20px;
   display: inline-block;
   color: black;
   padding: 10px;
-  margin-top: 90px;
-  border-top-left-radius: 25%;
-  border-top-right-radius: 25%;
   text-decoration: none;
   background-image: linear-gradient(#CC7C0A,#CC7C0A);
   background-position: 0% 100%;
@@ -134,19 +122,9 @@ a.nuxt-link{
 }
 .nuxtFont{
   font-size: 20px;
-
 }
 a.nuxt-link-exact-active .bar{
   background-size: 100% 4px;
-}
-.contenedor {
-  width: 400px;
-  background-color: #00ccb1;
-  height: fit-content;
-  color: aliceblue;
-  margin-top: 2%;
-  margin-left: 35%;
-  margin-right: 40%;
 }
 
 .menu {
@@ -155,24 +133,28 @@ a.nuxt-link-exact-active .bar{
 }
 
 .logo {
-  margin-left: 300px;
-  margin-top: 50px;
   height: 90px;
+  float: left;
+  margin: 20px;
+  margin-right: 300px;
 }
-
+.logoLogin{
+  float: right;
+  background: #00ccb1;
+  position: relative;
+  width: 60px;
+  text-align: center;
+  margin: 20px;
+  margin-left: 300px;
+}
 .btnLogin {
   float: right;
-  background: #313c75;
+  background: #00ccb1;
   position: relative;
   margin-right: 90px;
   width: 60px;
   transition: 0.5s;
-  z-index: 6;
   margin-top: 45px;
 }
 
-.btnLogin:hover {
-  background: #677ef5;
-  transition: 0.5s;
-}
 </style>

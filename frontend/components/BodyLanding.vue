@@ -1,11 +1,9 @@
 <template>
 
-  <div>
-
-
+  <div class="carrouselContainer">
     <v-carousel :continuous="false" :cycle="cycle" :show-arrows="true" hide-delimiter-background
       
-      delimiter-icon="mdi-minus" height="500">
+      delimiter-icon="mdi-minus" >
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
         <v-sheet :color="colors[i]" height="100%">
           <v-row class="fill-height" justify="center">
@@ -55,5 +53,10 @@ export default {
   text-align: center;
   font-size: 80px;
 }
-
+.carrouselContainer {
+  height: 500px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
 </style>
