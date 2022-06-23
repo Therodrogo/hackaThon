@@ -1,7 +1,13 @@
 <template>
   <div class="contenedor">
       <div>
+
+         <nuxt-link to="/">
+
+
         <img class="logo" src="https://i.ibb.co/3hgwd3t/u-logo.png">
+
+        </nuxt-link>
       </div>
       <div class="nav">
 
@@ -12,12 +18,10 @@
 
             </nuxt-link>
 
-
             <nuxt-link to="/aboutUs">
             <div class="bar">
                   Nosotros
               </div>
-
 
             </nuxt-link>
 
