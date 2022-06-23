@@ -20,7 +20,7 @@ const GroupService = {
         
         try{
             const group = GroupSchema(req.body)
-            group.userID.push("62b4e462d1c562bfc1326cfc")
+            group.userID.push(group.leaderID)
             await group.save()
             return{   status: 'success',code: 200,message: 'group is created',data: group}
                 
