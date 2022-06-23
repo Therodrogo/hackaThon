@@ -3,72 +3,47 @@ const GroupSchema = require('../models/groupModel')
 
 const GroupService = {
     async getGroups(){
-        const Groups = await GroupSchema.find()
-        if (Groups == 0) {
-            return {
-                status: 'failed',
-                code: 404,
-                message: 'No Groups found',
-                data: {},
-            };
+        try{
+            const groups = await GroupSchema.find()
+            if(groups.length>0){
+                return{   status: 'success',code: 200,message: 'groups found',data: groups}
+            }else{
+                return{   status: 'failed',code: 400,message: 'groups not found',data: []}    
+            }
+            
+                
+        }catch(e){
+           return{status: 'Failed',code: 400,message: e.message,data: []}
         }
-        return {
-            status: 'success',
-            code: 200,
-            message: 'Groups found',
-            data: Groups,
-        };
     },
     async postGroup(req,res) {
-        const Group = GroupSchema(req.body)
-        Group.save()
-        if (Group) {
-            return {
-                status: 'success',
-                code: 200,
-                message: 'Group post is created',
-                data: Group,
-            };
-        }
-        return {
-            status: 'failed',
-            code: 404,
-            message: 'Group post not created',
-            data: {},
-        };
+        
+        try{
+            const group = GroupSchema(req.body)
+            group.userID.push(group.leaderID)
+            await group.save()
+            return{   status: 'success',code: 200,message: 'group is created',data: group}
+                
+        }catch(e){
+           return{status: 'Failed',code: 400,message: e.message,data: {}}
+        } 
     },
     async getGroupById(id) {
-        const Group = await GroupSchema.find({_id:id});
-        if (Group) {
-            return {
-                status: 'success',
-                code: 200,
-                message: 'Group with id ' + id + ' found',
-                data: Group,
-            };
-        }
-        return {
-            status: 'failed',
-            code: 404,
-            message: 'Group with id ' + id + ' not found',
-            data: {},
-        };
+        try{
+            const group = await GroupSchema.find({_id:id});
+            return{   status: 'success',code: 200,message: 'group with id ' + id + ' is found',data: group}
+                
+        }catch(e){
+           return{status: 'Failed',code: 400,message: e.message,data: {}}
+        } 
     },async deleteGroup(id){
-        const Group = await GroupSchema.deleteOne({_id:id});
-        if (Group) {
-            return {
-                status: 'success',
-                code: 200,
-                message: 'Group with id ' + id + ' removed',
-                data: Group,
-            };
+        try{
+            const group = await GroupSchema.deleteOne({_id:id});
+            return{   status: 'success',code: 200,message: 'group with id ' + id + ' is removed',data: group}
+                
+        }catch(e){
+           return{status: 'Failed',code: 400,message: e.message,data: {}}
         }
-        return {
-            status: 'failed',
-            code: 404,
-            message: 'Group with id ' + id + ' not removed',
-            data: {},
-        };
     }
 };
 
