@@ -4,7 +4,6 @@
 
          <nuxt-link to="/">
 
-
         <img class="logo" src="https://i.ibb.co/3hgwd3t/u-logo.png">
 
         </nuxt-link>
