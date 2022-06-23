@@ -10,6 +10,7 @@ const testRouter = require('./routes/testRouter');
 const userRouter = require('./routes/userRouter');
 const eventRouter = require('./routes/eventRouter');
 const postRouter = require('./routes/postRouter');
+const groupRouter = require('./routes/groupRouter');
 
 // App Settings and Middlewares
 app.use(cors({ origin: '*' }));
@@ -37,6 +38,7 @@ app.use('/test', testRouter);
 app.use('/user', userRouter);
 app.use('/event', eventRouter);
 app.use('/post', postRouter);
+app.use('/group', groupRouter);
 
 // App Serving
 app.listen(port);

@@ -28,6 +28,15 @@ const userSchema = new Schema({
         unique: true,
         required: true,
     },
+    groupsID:
+    [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "groups",
+            unique: true,
+            required: true,    
+        }
+    ]
 },{
     versionKey:false
 });
