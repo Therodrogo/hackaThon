@@ -1,3 +1,4 @@
+const { ObjectID } = require('bson');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -30,11 +31,13 @@ const userSchema = new Schema({
     },
     groupsID:
     [
+        
         {
             type: Schema.Types.ObjectId,
             ref: "groups",
-            unique: true,
-            required: true,    
+            
+            required: true,  
+            
         }
     ]
 },{
