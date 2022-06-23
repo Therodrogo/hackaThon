@@ -1,86 +1,94 @@
 <template>
-  <v-container :style="isShowError ? 'border-radius: 0px;' : 'border: 2px solid #84848d;'">
 
-    <v-row >
+
+
+  <v-container class="rounded" :style="isShowError ? 'border-radius: 0px;' : 'border: 2px solid #84848d;'">
+
+
+   <v-row >
       <v-col cols="12" >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
+        <div class="justify-center text-center ">
+
+        
           <v-img
           max-height="400"
               class="grey darken-4"
           src="https://image.shutterstock.com/image-vector/hackathon-concept-icon-set-big-260nw-2019732209.jpg"
         ></v-img>
-        </v-card>
+        <h1 class="mt-5" >HACKATHON 2022</h1>
+        
+        </div>
       </v-col>
-      <v-col cols="6"  >
-        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid #84848d;'"
-          class="pa-2"
-          outlined
-          tile
-          color = "#DAE8FC"
+      
 
-        >
-          Nombre del evento: hackathon 2022
+      
+      <v-col cols="6">
+        <v-card-text>
+
+          <v-row
+          color = "#DAE8FC"
+          >
+
+
+          </v-row>
           <br>
+          <v-icon>mdi-map-marker</v-icon>  
           Direccion del evento: utalca?
           <br>
-          Fecha inicio:
           <br>
-          Fecha termino:
+          <v-icon>mdi-calendar</v-icon>  Fecha inicio:
           <br>
-          Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
           <br>
+          <v-icon>mdi-calendar</v-icon>  Fecha termino:
+          <br>
+     
+          <br>
+          <br>
+          
+          <v-row >
+            <v-col class="d-flex flex-column mb-3">
+              <v-btn
+              rounded
+              elevation="2"
+              color = "#00CCB1"
+              >
+              Crear Grupo
+              </v-btn>
 
-        <v-row
-        >
+            </v-col>
 
-          <v-col >
-            <v-btn
-            rounded
-            elevation="2"
-            color = "#00CCB1"
-            >
-            Crear Grupo
-            </v-btn>
-          </v-col>
-
-          <v-col cols="6" >
-            <v-btn
-            rounded
-            elevation="3"
-            color = "#00CCB1"
-            >
-            Ver lista de Grupos
-            </v-btn>
-
-          </v-col>
-        </v-row>
-
-        </v-card>
+            <v-col class="d-flex flex-column mb-3">
+              <v-btn
+              rounded
+              elevation="3"
+              color = "#00CCB1"
+              >
+              Lista de Grupos
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-text>
       </v-col>
+
+
       <v-col cols="6">
-        <v-card :style="isShowError ? 'border-radius: 0px;' : 'border: 1px solid #84848d;'"
+        <v-card-text
           class="pa-2"
-          outlined
-          tile
           color = "#DAE8FC"
         >
-          Descripcion:
-          <br>
-          <p>
+        <h4> Descripcion:</h4>
+         
+          <subtitle-1 class="">
           Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur
           adipisicing elit. Corrupti modi aperiam quaerat vero animi. Recusandae id alias ea necessitatibus odit
           velit facere quisquam. Non consequatur in suscipit repellendus, illo a! Lorem ipsum dolor sit amet
           consectetur adipisicing elit. Sunt quidem minus totam praesentium, voluptas rerum ducimus et aut veritatis.
           Minus mollitia nobis odio excepturi. Earum asperiores modi explicabo necessitatibus facere.
 
-          </p>
+          </subtitle-1>
 
-        </div>
-        </v-card>
+        
+        </v-card-text>
       </v-col>
     </v-row>
   </v-container>
