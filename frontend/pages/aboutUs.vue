@@ -1,54 +1,90 @@
 <template>
-   <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-5">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">Nosotros </h2>
-            <p>Sobre nosotros ....</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 mb-5 ftco-animate">
-            <div class="block-10">
-              <div class="person-info mb-2">
-                <span class="name">Nombre 1</span>
-                <span class="position">Que hace</span>
-              </div>
-              <img src="images/person_1.jpg" alt="" class="img-fluid mb-3">
-              <p>Informacion de persona 1</p>
-            </div>
-          </div>
-          <div class="col-md-4 mb-5 ftco-animate">
-            <div class="block-10">
-              <div class="person-info mb-2">
-                <span class="name">Persona 2</span>
-                <span class="position">Que hace</span>
-              </div>
-              <img src="images/person_3.jpg" alt="" class="img-fluid mb-3">
-              <p>Informacion persona 2</p>
-            </div>
-          </div>
-          <div class="col-md-4 mb-5 ftco-animate">
-            <div class="block-10">
-              <div class="person-info mb-2">
-                <span class="name">Persona 3</span>
-                <span class="position">Que hace</span>
-              </div>
-              <img src="images/person_2.jpg" alt="" class="img-fluid mb-3">
-              <p>Informacion persona 3</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div>
+     <v-card-title class="text-center justify-center py-6"> <!-- Cambiar letra, dar estilos-->
+      <h1 class="font-weight-bold text-h2 basil--text">
+        Conoce al Team!
+      </h1>
+    </v-card-title>
 
+    <v-container
+      v-for="align in alignments"
+      :key="align"
+      class="grey lighten-5 mb-6"
+    >
+      <v-row
+        :align="align"
+        no-gutters
+        style="height: 320px;"
+      ><!-- Aquí repite el ciclo para cada grid -->
+        <v-col
+          v-for="n in 3"
+          :key="n"
+        >
+
+      <v-card
+      class="mx-auto"
+      max-width="344"
+    >
+      <v-img
+        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+        height="200px"
+      ></v-img>
+
+      <v-card-title>
+        Top western road trips
+      </v-card-title>
+
+      <v-card-subtitle>
+        1,000 miles of wonder
+      </v-card-subtitle>
+
+      <v-card-actions>
+        <v-btn
+          color="orange lighten-2"
+          text
+        >
+          Explore
+        </v-btn>
+
+        <v-spacer></v-spacer>
+
+        <v-btn
+          icon
+          @click="show = !show"
+        >
+          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
+      </v-card-actions>
+      <v-expand-transition>
+        <div v-show="show">
+          <v-divider></v-divider>
+          <v-card-text>
+            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+        </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
+<!-- Script del ciclo temporal para cada -->
 <script>
-export default {
-
-}
+  export default {
+    data: () => ({
+      alignments: [
+        'start',
+        'center',
+        'end',
+      ],
+    }),
+  }
 </script>
 
 <style>
+
+
+
 </style>
