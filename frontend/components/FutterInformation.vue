@@ -1,9 +1,9 @@
 <template>
 
-  <v-footer v-bind="absolute" :padless="padless">
-    <v-card flat tile width="100%" class="gray lighten-1 text-center">
+  <v-footer v-bind="absolute" :padless="padless" >
+    <v-card flat tile width="100%" class="black lighten-1 text-center">
       <v-card-text>
-        <v-btn v-for="icon in icons" :key="icon" class="mx-4" icon>
+        <v-btn v-for="icon in icons" :key="icon" class="mx-4" color="white" icon>
           <v-icon size="24px">
             {{ icon }}
           </v-icon>
@@ -29,7 +29,10 @@ export default {
       'mdi-home',
       'mdi-email',
       'mdi-calendar',
-    ],
+    
+    ],  
+    
+
     items: [
       'default',
       'absolute',
