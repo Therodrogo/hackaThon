@@ -11,6 +11,7 @@ const userRouter = require('./routes/userRouter');
 const eventRouter = require('./routes/eventRouter');
 const postRouter = require('./routes/postRouter');
 const groupRouter = require('./routes/groupRouter');
+const projectRouter = require('./routes/projectRouter');
 
 // App Settings and Middlewares
 app.use(cors({ origin: '*' }));
@@ -39,6 +40,7 @@ app.use('/user', userRouter);
 app.use('/event', eventRouter);
 app.use('/post', postRouter);
 app.use('/group', groupRouter);
+app.use('/project', projectRouter);
 
 // App Serving
 app.listen(port);

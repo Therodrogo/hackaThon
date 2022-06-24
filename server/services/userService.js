@@ -19,10 +19,6 @@ const userService = {
         } 
     },
     async postUser(req,res) {
-       
-        
-        
-        
         try{
             const user = userSchema(req.body)
             await user.save()
