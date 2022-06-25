@@ -34,6 +34,12 @@
               </div>
             </nuxt-link>
 
+            <nuxt-link to="/homePage">
+                 <div class="bar">
+                  Pagina creador
+              </div>
+            </nuxt-link>
+
         </div>
 
          <nuxt-link to="/loginWindow">

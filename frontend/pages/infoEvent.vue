@@ -1,7 +1,8 @@
 <template>
   <v-container :style="isShowError ? 'border-radius: 0px;' : 'border: 2px solid #84848d;'">
 
-    <v-row >
+    <v-row v-for="event in events" :key="event">
+
       <v-col cols="12" >
         <v-card
           class="pa-2"
@@ -11,7 +12,7 @@
           <v-img
           max-height="400"
               class="grey darken-4"
-          src="https://image.shutterstock.com/image-vector/hackathon-concept-icon-set-big-260nw-2019732209.jpg"
+          :src = "event.coverURL"
         ></v-img>
         </v-card>
       </v-col>
@@ -23,13 +24,13 @@
           color = "#DAE8FC"
 
         >
-          Nombre del evento: hackathon 2022
+          Nombre del evento: {{event.name}}
           <br>
-          Direccion del evento: utalca?
+          Direccion del evento: {{event.location}}
           <br>
-          Fecha inicio:
+          Fecha inicio: {{event.dateStart}}
           <br>
-          Fecha termino:
+          Fecha termino: {{event.dateFinish}}
           <br>
           Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
           <br>
@@ -71,11 +72,7 @@
           Descripcion:
           <br>
           <p>
-          Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Corrupti modi aperiam quaerat vero animi. Recusandae id alias ea necessitatibus odit
-          velit facere quisquam. Non consequatur in suscipit repellendus, illo a! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Sunt quidem minus totam praesentium, voluptas rerum ducimus et aut veritatis.
-          Minus mollitia nobis odio excepturi. Earum asperiores modi explicabo necessitatibus facere.
+          {{event.description}}
 
           </p>
 
@@ -92,3 +89,18 @@
   }
 
 </style>
+
+<script>
+  export default {
+    data (){
+      return {
+        events: [
+          {name: "hackaton ucm", dateStart: "24 de julio, 2023", dateFinish: "31 de marzo, 2024", location: "Talca", coverURL: "https://y26uq11r8xr1zyp0d3inciqv-wpengine.netdna-ssl.com/wp-content/uploads/2021/01/663-1.jpg",
+          description: "Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur y aqui voy a escribir cualaquier cosa"}
+        
+        
+        ]
+      }
+    }
+  }
+</script>
