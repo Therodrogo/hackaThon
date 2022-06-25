@@ -4,20 +4,23 @@
         <v-main>
             <v-container class="fill-height" fluid>
                 <v-row align="center" justify="center">
-                    <v-col cols="8">
-                        <v-container>
-                            <v-card class="elevation-12">
-                              <v-card-title class="text-h6 font-weight-regular justify-space-between">
-                              Editar Usuario
-                                </v-card-title>
-                                <v-container>
-                                    <v-form
+                    <v-col cols="12">
+                        <v-container >
+                         <v-card class="elevation-12">
+                            <div class="title-card"> 
+                                <v-card-text>
+                                    <div class="text-title">Editar Usuario</div>
+                                </v-card-text>
+                            </div>
+                            <v-container fluid>
+                                <v-form
+                                    
                                         @submit.prevent
                                         ref="form"
                                         v-model="valid"
                                         lazy-validation
                                     >
-                                        <v-row class="fill-height">
+                                        <v-row>
                                             <v-col cols="12" md="6">
                                                 <v-text-field
                                                 v-model="name"
@@ -31,12 +34,12 @@
                                                 label="E-mail"
                                                 required
                                             ></v-text-field>
-                                            <v-text-field
+                                             <v-text-field
                                                 v-model="phoneNumber"
                                                 :rules="phoneRules"
                                                 label="Teléfono"
                                                 required
-                                            ></v-text-field>
+                                                ></v-text-field>
                                             </v-col>
                                             <v-col cols="12" md="6">
                                                 <v-text-field
@@ -44,27 +47,9 @@
                                                 label="Carrera"
                                                 required
                                             ></v-text-field>
-                                            <v-select
-                                                :items="items"
-                                                v-model="select"
-                                                label="Rol"
-                                                required
-                                            ></v-select>
                                             </v-col>
                                         </v-row>
                                     </v-form>
-                        
-                                <!--<v-text-field
-                                    v-model="password"
-                                    :rules="passwordRules"
-                                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="show ? 'text' : 'password'"
-                                    v-on:click:append="show = !show"
-                                    label="Contraseña"
-                                    prepend-icon="mdi-lock"
-                                    required
-                                ></v-text-field>-->
-                            
                 
                             <div class="text-right">
                                 <v-btn
@@ -78,7 +63,7 @@
                                 <v-btn
                                 color="secondary"
                                 large
-                                v-on:click=""
+                                v-on:click="reset"
                                 >
                                 Cancelar
                                 </v-btn>
@@ -86,7 +71,6 @@
                             </v-container>
                             </v-card>
                         </v-container>
-                        
                     </v-col>
                 </v-row>
             </v-container>
@@ -96,11 +80,10 @@
 
 <script>
     import axios from 'axios';
-    import swal from 'sweetalert'
+    import Swal from 'sweetalert2'
     export default {
     data: () => ({
-        select: 'Participante',
-        items: ['Participante', 'Organizador'],
+
         show: false,
         valid: true,
         career: '',
@@ -118,83 +101,75 @@
             v => !!v || 'Teléfono es requerido',
             v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v) || 'Teléfono debe ser valido',
         ],
-        password: '',
-        passwordRules: [
-            v => !!v || 'Contraseña es requerida',
-            v =>  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*(\W|_)+)(?=.{5,})/.test(v)
-            || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y una caracter especial',
-        ],
         }),
     methods: {
         reset () {
-            this.$refs.form.reset()
+            this.$refs.form.reset();
+            window.location = "/";
         },
         submit () {
             if(this.$refs.form.validate()){
-            let data = { name: this.name,
-                            password: this.password,
-                            role: 'Participant',
+            let data = {    name: this.name,
                             mail: this.email,
                             career: this.career,
                             phone: this.phoneNumber
                         }
-                axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
+                //put
+                //axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
                 .then(function (response) {
-                swal({
-                    title: "¡Excelente!",
-                    text: "Tu usuario se ha creado correctamente",
-                    icon: "success",
-                    })
-                console.log(response);
-
-                })
-                .catch(function (error) {
-                swal({
-                    title: "Ha ocurrido un error",
-                    icon: "error",
-                    });
-                console.log(error);
+              Swal.fire({
+                title: "¡Excelente!",
+                text: "Tu usuario se ha creado correctamente",
+                icon: "success",
+                confirmButtonColor: "#00CCB1",
+              }).then(function() {
+                    window.location = "/loginWindow";
                 });
-            }
+              console.log(response);
+            })
+            .catch(function (error) {
+              Swal.fire({
+                title: "Ha ocurrido un error",
+                icon: "error",
+                confirmButtonColor: "#00CCB1",
+              });
+              console.log(error);
+            });
+        }
         },
+        getUser() {
+            const path = `https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/get/62b772e22772f275b69a6d3d`;
+            axios
+                .get(path)
+                .then((response) => {
+                    let userData = response.data.data[0];
+                    this.name = userData.name;
+                    this.email =  userData.mail;
+                    this.career =  userData.career;
+                    this.phoneNumber =  userData.phone;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+        },
+        created() {
+            this.getUser();
         },
     }
 </script>
 
 <style>
-  p{
-    font-family: "Century Gothic", sans-serif;
-    font-size: 40px;
-    font-weight: 900;
-    color: #00CCB1;
-  }
-  h3{
-     font-family: "Century Gothic", sans-serif;
-  }
-  .logo-utalca{
-    width: 25%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-
-  }
-
-  .swal-title {
-    font-family: "Century Gothic", sans-serif;
-    color: black;
-  }
-  .swal-text {
-    font-family: "Century Gothic", sans-serif;
-    color: black;
-  }
-  .swal-button {
-    font-family: "Century Gothic", sans-serif;
+  .title-card{
     background-color: #00CCB1;
-    border: 1px solid #00CCB1;
   }
-
+  .text-title{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: "Century Gothic", sans-serif;
+  }
+  .swal2-popup{
+    font-family: "Century Gothic", sans-serif;    
+  }
 </style>

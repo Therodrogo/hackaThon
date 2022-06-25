@@ -172,7 +172,6 @@
     transform: translateY(-50%);
 
   }
-
   .v-main{
     background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/25329.jpg');
     background-position: center center;
