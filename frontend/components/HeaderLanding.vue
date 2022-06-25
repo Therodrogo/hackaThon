@@ -83,7 +83,7 @@ export default {
 
 
 .contenedor{
-  height: 150px;
+  height: 120px;
   display: inline-block;
   width: 100%;
   text-align: center;
