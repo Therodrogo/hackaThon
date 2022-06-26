@@ -119,6 +119,15 @@ export default class API{
             return error.response.data
         }
     }
+    static async getGroupByCode(code){
+        try {
+            const res = await axios.get(url+"group/get-by-code/"+code)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
     static async deleteGroupByID(id){
         try {
             const res = await axios.delete(url+"group/delete/"+id)

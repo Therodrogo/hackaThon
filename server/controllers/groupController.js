@@ -27,7 +27,8 @@ const GroupController = {
             res.status(err.code).json(err);
         });
         
-    },async getGroupById(req, res) {
+    },
+    async getGroupById(req, res) {
         const id = req.params.id;
         await GroupService
             .getGroupById(id)
@@ -61,7 +62,19 @@ const GroupController = {
             res.status(err.code).json(err);
         });
 
-    }
+    },
+
+    async getGroupByCode(req, res) {
+        const codeGroup = req.params.code;
+        await GroupService
+            .getGroupByCode(codeGroup)
+            .then((result) => {
+                res.status(result.code).json(result);
+            })
+            .catch((err) => {
+                res.status(err.code).json(err);
+            });
+    },
 
 
 };
