@@ -2,7 +2,6 @@
   <v-app style="
     background: #ffffff;"
   >
-
     <v-main>
       <v-container>
         <v-row>
@@ -41,7 +40,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import { restElement } from '@babel/types';
+  import API from '~/api';
   export default {
     data (){
       return {
@@ -50,12 +50,16 @@
       }
     },
     methods:{
-      async loadEvents(){
-        const p = await axios.get("http://localhost:9000/event/get-all")
-        this.events = p.data.data
+      async getAllEvents(){
+        try {
+          const res = await API.getAllEvents()
+          this.events = res.data
+        } catch (error) {
+          console.log(error)
+        }
       }
     }, beforeMount() {
-        this.loadEvents()
+        this.getAllEvents()
     }
   }
 </script>
