@@ -2,7 +2,7 @@
 
 
 
-  <v-container class="rounded" :style="isShowError ? 'border-radius: 0px;' : 'border: 2px solid #84848d;'">
+  <v-container >
 
 
    <v-row >
@@ -46,26 +46,7 @@
           <br>
           
           <v-row >
-            <v-col class="d-flex flex-column mb-3">
-              <v-btn
-              rounded
-              elevation="2"
-              color = "#00CCB1"
-              >
-              Crear Grupo
-              </v-btn>
-
-            </v-col>
-
-            <v-col class="d-flex flex-column mb-3">
-              <v-btn
-              rounded
-              elevation="3"
-              color = "#00CCB1"
-              >
-              Lista de Grupos
-              </v-btn>
-            </v-col>
+            
           </v-row>
         </v-card-text>
       </v-col>
@@ -90,6 +71,26 @@
         
         </v-card-text>
       </v-col>
+      <v-col class="justify-center text-center">
+              <v-btn
+              rounded
+              elevation="2"
+              color = "#00CCB1"
+              >
+              Crear Grupo
+              </v-btn>
+
+            </v-col>
+
+            <v-col class="justify-center text-center ">
+              <v-btn
+              rounded
+              elevation="3"
+              color = "#00CCB1"
+              >
+              Lista de Grupos
+              </v-btn>
+            </v-col>
     </v-row>
   </v-container>
 </template>
