@@ -15,7 +15,7 @@
           >
           <v-card>
             <v-img
-              :src="n.coverURL"
+              :src="n.coverUrl"
               height="200px"
             >
             <v-card-title><p class="textBorder">{{n.name}}</p></v-card-title>
@@ -24,8 +24,8 @@
         <p>Location: {{n.location}}</p>
       </v-card-subtitle>
       <v-card-text class="text--primary">
-        <p>Date start: {{n.dateStart}}</p>
-        <p>Date finish: {{n.dateFinish}}</p>
+        <p>Date start: {{n.dateStart.slice(0,10)}}</p>
+        <p>Date finish: {{n.dateFinish.slice(0,10)}}</p>
       </v-card-text>
     <v-card-actions>
       <v-btn color=#009a82 to="/infoEvent" class="white--text">
@@ -41,15 +41,21 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     data (){
       return {
         events: [
-          {id: "", name: "hackaton ucm", dateStart: "24 de julio, 2023", dateFinish: "31 de marzo, 2024", location: "Talca", coverURL: "https://www.profesionalreview.com/wp-content/uploads/2020/05/hackathon-esquema.jpg"},
-          {id: "", name: "miauthon", dateStart: "25 de julio, 2023", dateFinish: "29 de enero, 2030", location: "Little Rock", coverURL: "https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/Purina%C2%AE%20La%20llegada%20del%20gatito%20a%20casa.jpg?itok=-tX3EMqT"},
-          {id: "", name: "piumba", dateStart: "21 de septiembre, 2023", dateFinish: "30 de enero, 2024", location: "Curico", coverURL: "https://scontent.fscl10-1.fna.fbcdn.net/v/t1.6435-9/42837656_10209778115209747_7485570677676703744_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=174925&_nc_ohc=dn3vRO51pIgAX-nLPGD&_nc_ht=scontent.fscl10-1.fna&oh=00_AT8nAKZQvCjJa4sWLqCne8azP4-MPUmvCCEHxW-ncqwOvw&oe=62DC728B"},
         ]
       }
+    },
+    methods:{
+      async loadEvents(){
+        const p = await axios.get("http://localhost:9000/event/get-all")
+        this.events = p.data.data
+      }
+    }, beforeMount() {
+        this.loadEvents()
     }
   }
 </script>
