@@ -34,12 +34,23 @@ const userSchema = new Schema({
         
         {
             type: Schema.Types.ObjectId,
-            ref: "groups",
+            ref: "group",
+            
+            required: true,  
+            
+        }
+    ],
+    eventsID:
+    [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Event",
             
             required: true,  
             
         }
     ]
+
 },{
     versionKey:false
 });

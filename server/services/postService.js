@@ -6,9 +6,9 @@ const postService = {
         try{
             const posts = await postSchema.find()
             if(posts.length>0){
-                return{   status: 'success',code: 200,message: 'posts found',data: posts}
+                return{   status: 'Success',code: 200,message: 'posts found',data: posts}
             }else{
-                return{   status: 'failed',code: 400,message: 'posts not found',data: []}    
+                return{   status: 'Failed',code: 400,message: 'posts not found',data: []}    
             }
             
                 
@@ -22,7 +22,7 @@ const postService = {
         try{
             const post = postSchema(req.body)
             await post.save()
-            return{   status: 'success',code: 200,message: 'Post is created',data: post}
+            return{   status: 'Success',code: 200,message: 'Post is created',data: post}
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
@@ -32,7 +32,7 @@ const postService = {
         
         try{
             const post = await postSchema.find({_id:id});
-            return{   status: 'success',code: 200,message: 'Post with id ' + id + ' is found',data: post}
+            return{   status: 'Success',code: 200,message: 'Post with id ' + id + ' is found',data: post}
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
@@ -40,7 +40,7 @@ const postService = {
     },async deletePost(id){
         try{
             const post = await postSchema.deleteOne({_id:id});
-            return{   status: 'success',code: 200,message: 'post with id ' + id + ' is removed',data: post}
+            return{   status: 'Success',code: 200,message: 'post with id ' + id + ' is removed',data: post}
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}

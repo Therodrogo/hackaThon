@@ -49,6 +49,18 @@ const GroupController = {
             res.status(err.code).json(err);
         });
 
+    },
+    async joinGroup(req,res){
+        
+        
+        await GroupService.joinGroup(req.body)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+
     }
 
 

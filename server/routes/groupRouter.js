@@ -14,6 +14,8 @@ groupRouter.get('/get/:id', groupController.getGroupById);
 
 groupRouter.delete('/delete/:id',groupController.deleteGroup)
 
+groupRouter.post('/joinGroup',groupController.joinGroup)
+
 
 
 module.exports = groupRouter;

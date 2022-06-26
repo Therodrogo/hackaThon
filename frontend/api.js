@@ -79,6 +79,15 @@ export default class API{
             return error.response.data
         }    
     }
+    static async getGroupsFromEvent(id){
+        try {
+            const res = await axios.get(url+"event/getGroupsFromEvent/"+id)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }    
+
+    }
 
 
     //GroupMethods
@@ -117,6 +126,16 @@ export default class API{
         } catch (error) {
             return error.response.data
         }    
+    }
+    static async joinGroup(data){
+        try {
+            const res = await axios.post(url+"group/joinGroup",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+            
+        }
+
     }
 
 

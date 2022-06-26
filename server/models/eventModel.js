@@ -34,8 +34,8 @@ const eventSchema = new Schema({
     groupsID:
     [
         {
-            type: Schema.Types.ObjectId,
-            ref: "groups",
+            type: mongoose.Types.ObjectId,
+            ref: "group",
             
             required: true,    
         }

@@ -8,9 +8,9 @@ const userService = {
         try{
             const users = await userSchema.find()
             if(users.length>0){
-                return{   status: 'success',code: 200,message: 'Users found',data: users}
+                return{   status: 'Success',code: 200,message: 'Users found',data: users}
             }else{
-                return{   status: 'failed',code: 400,message: 'Users not found',data: []}    
+                return{   status: 'Failed',code: 400,message: 'Users not found',data: []}    
             }
             
                 
@@ -22,7 +22,7 @@ const userService = {
         try{
             const user = userSchema(req.body)
             await user.save()
-            return{   status: 'success',code: 200,message: 'User is created',data: user}
+            return{   status: 'Success',code: 200,message: 'User is created',data: user}
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
@@ -32,7 +32,7 @@ const userService = {
         
         try{
             const user = await userSchema.find({_id:id});
-            return{   status: 'success',code: 200,message: 'User with id ' + id + ' is found',data: user}
+            return{   status: 'Success',code: 200,message: 'User with id ' + id + ' is found',data: user}
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
@@ -42,7 +42,7 @@ const userService = {
         
         try{
             const user = await userSchema.deleteOne({_id:id});
-            return{   status: 'success',code: 200,message: 'User with id ' + id + ' is removed',data: user}
+            return{   status: 'Success',code: 200,message: 'User with id ' + id + ' is removed',data: user}
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
