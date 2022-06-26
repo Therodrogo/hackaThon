@@ -31,8 +31,13 @@
           <v-row color="#DAE8FC">
           </v-row>
           <br>
+<<<<<<< Updated upstream
           <v-icon>mdi-map-marker</v-icon>
           Utalca
+=======
+          <v-icon>mdi-map-marker</v-icon>  
+          Utalca Los Niches
+>>>>>>> Stashed changes
           <br>
           <br>
           <v-icon>mdi-calendar</v-icon> Fecha inicio:
