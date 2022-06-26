@@ -1,6 +1,6 @@
 <template>
 
-  <v-footer v-bind="absolute" :padless="padless" >
+  <v-footer  :padless="padless" >
     <v-card flat tile width="100%" class="grey darken-4 text-center">
       <v-card-text>
         <v-btn v-for="icon in icons" :key="icon" class="mx-4" color="white" icon>
