@@ -32,7 +32,7 @@ const userService = {
     async getUserById(id) {
         
         try{
-            const user = await userSchema.find({_id:id});
+            const user = await userSchema.findOne({_id:id});
             return{   status: 'Success',code: 200,message: 'User with id ' + id + ' is found',data: user}
                 
         }catch(e){
