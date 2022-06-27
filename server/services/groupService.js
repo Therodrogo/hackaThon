@@ -31,7 +31,6 @@ const GroupService = {
 
             if (!IsOnGroup) {
                 const codeGroup = await this.generateCode();
-                console.log(codeGroup);
                 group.code = codeGroup;
                 await group.save()
                 await eventSchema.findOneAndUpdate(
@@ -57,7 +56,6 @@ const GroupService = {
     async getGroupById(id) {
         try {
             const group = await GroupSchema.findOne({ _id: id });
-            console.log(group)
             return { status: 'Success', code: 200, message: 'group with id ' + id + ' is found', data: group }
 
         } catch (e) {
@@ -130,7 +128,7 @@ const GroupService = {
     async getGroupByCode(code) {
         try {
             const group = await GroupSchema.findOne({ code: code });
-            console.log(group);
+            
             if (group == null) {
                 return { status: 'Failed', code: 400, message: "no data with the code " + code, data: {} }
             } else {
@@ -151,10 +149,8 @@ const GroupService = {
             for (let i = 0; i < 5; i++) {
                 let index = Math.floor(Math.random() * (max - min)) + min;
                 code = code + arrayCode[index];
-            }
-            console.log(code);
-            const verification = await this.getGroupByCode(code);
-            console.log("verification: " + verification.code);
+            }            
+            const verification = await this.getGroupByCode(code);       
             if (verification.code == 400) {
                 repeat = false;
             }

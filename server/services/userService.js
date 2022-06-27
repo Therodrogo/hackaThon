@@ -1,5 +1,5 @@
-const { singUpUser } = require('../controllers/userController');
-const { find } = require('../models/userModel');
+
+
 const userSchema = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 
@@ -52,7 +52,6 @@ const userService = {
 
         const salt = await bcrypt.genSalt(4);
         const hash = bcrypt.hash(password, salt);
-        console.log(hash);
         return hash;
 
     },async signUpUser(email, password){   
