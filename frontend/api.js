@@ -39,6 +39,14 @@ export default class API{
             return error.response.data
         }    
     }
+    static async signUpUser(data){
+        try {
+            const res = await axios.post(url + "user/signUp/", data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }    
+    }
 
 
 
