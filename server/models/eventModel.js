@@ -5,6 +5,7 @@ const eventSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true
     },
     dateStart: {
         type: Date,
@@ -22,6 +23,23 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
+    groupLimit:{
+        type:Number,
+        required: true,
+        
+    },
+    coverUrl:{
+        type:String,
+    },
+    groupsID:
+    [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "groups",
+            
+            required: true,    
+        }
+    ]
 },{
     versionKey:false
 });
