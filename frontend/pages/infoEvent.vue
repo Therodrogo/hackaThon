@@ -52,21 +52,23 @@
       <v-col cols="12">
         <div class="justify-center text-center">
           <v-row>
-            <v-col class="d-flex flex-column mb-3">
+            
+          </v-row>
+        </div>
+      </v-col>
+      
+    </v-row>
+            <v-col class="d-flex justify-center text-center ">
               <v-btn rounded elevation="2" color="#00CCB1" max-width="150px">
                 Crear Grupo
               </v-btn>
             </v-col>
-            <v-col class="d-flex flex-column mb-3">
+            <v-col  class="d-flex justify-center text-center ">
               <v-btn rounded elevation="2" color="#00CCB1" max-width="150px">
                 Lista de Grupos
               </v-btn>
             </v-col>
-          </v-row>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+    </v-container>
 </template>
 <style scoped>
 .v-card {
