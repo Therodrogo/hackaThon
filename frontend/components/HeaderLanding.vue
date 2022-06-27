@@ -1,6 +1,6 @@
 <template>
 
-  <div class="header">
+  <div>
     <v-app-bar dense fixed app height="100">
       <!-- Add this class to show menu icon only on small screen -->
       <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-md-none"></v-app-bar-nav-icon>
@@ -49,10 +49,20 @@
 
           <nuxt-link to="/loginWindow">
 
-            <!-- LOGO -->
+            <!-- Login -->
 
             <div class="loginText">
-              Iniciar Sesion
+              Iniciar Sesión
+            </div>
+
+          </nuxt-link>
+
+          <nuxt-link to="/createUser">
+
+            <!-- RegisterUser -->
+
+            <div class="registerText">
+              Crear Usuario
             </div>
 
           </nuxt-link>
@@ -70,7 +80,7 @@
           <v-list-item>
             <v-list-item-title>
               <nuxt-link to="/">
-                <div class="bar">
+                <div class="drawerBar">
                   Inicio
                 </div>
               </nuxt-link>
@@ -79,7 +89,7 @@
           <v-list-item>
             <v-list-item-title>
               <nuxt-link to="/aboutUs">
-                <div class="bar">
+                <div class="drawerBar">
                   Nosotros
                 </div>
 
@@ -90,7 +100,7 @@
 
             <v-list-item-title>
               <nuxt-link to="/ComoParticipar">
-                <div class="bar">
+                <div class="drawerBar">
                   ¿Cómo participar?
                 </div>
 
@@ -101,7 +111,7 @@
 
             <v-list-item-title>
               <nuxt-link to="/events">
-                <div class="bar">
+                <div class="drawerBar">
                   Eventos
                 </div>
               </nuxt-link>
@@ -115,14 +125,25 @@
                 <!-- LOGO -->
 
                 <div class="loginText">
-                  Iniciar Sesion
+                  Iniciar Sesión
                 </div>
 
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <nuxt-link to="/createUser">
 
+                <!-- RegisterUser -->
 
+                <div class="registerText">
+                  Crear Usuario
+                </div>
+
+              </nuxt-link>
+            </v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -136,7 +157,7 @@
 export default {
   data() {
     return {
-            drawer: false,
+      drawer: false,
 
     }
   },
@@ -154,20 +175,28 @@ export default {
 </script>
 
 <style scoped>
-
-
-.header{
-  position: relative;
-  top: 0;
-} 
-
 .bar {
   margin-inline: 10px;
   margin-top: 40px;
   display: inline-flex;
   color: black;
   padding: 10px;
-  text-decoration: underline ;
+  text-decoration: underline;
+  text-decoration-color: rgb(245, 245, 245);
+  background-image: linear-gradient(#CC7C0A, #CC7C0A);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+}
+
+.drawerBar {
+  margin-inline: 10px;
+  margin-top: 40px;
+  display: inline-flex;
+  color: black;
+  padding: 10px;
+  text-decoration: underline;
   text-decoration-color: white;
   background-image: linear-gradient(#CC7C0A, #CC7C0A);
   background-position: 0% 100%;
@@ -181,19 +210,39 @@ export default {
   margin-inline: 10px;
   margin-top: 40px;
   display: inline-flex;
-  color: black;
+  color: white;
   text-shadow: white;
   padding: 10px;
   text-decoration: none;
-  background-image: linear-gradient(#CC7C0A, #CC7C0A);
   background-position: 0% 100%;
   background-repeat: no-repeat;
   background-size: 0% 2px;
   transition: background-size .3s;
   background-color: #00CCB1;
 }
-.loginText:hover{
+
+.loginText:hover {
   background-color: #04e4c6;
+}
+
+.registerText {
+  position: relative;
+  margin-inline: 10px;
+  margin-top: 40px;
+  display: inline-flex;
+  color: white;
+  text-shadow: white;
+  text-decoration: none;
+  padding: 10px;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+  background-color: #CC7C0A;
+}
+
+.registerText:hover {
+  background-color: #f89914;
 }
 
 .bar:hover,
