@@ -12,26 +12,26 @@
             sm="6"
             xs="12"
           >
-          <v-card>
-            <v-img
-              :src="n.coverUrl"
-              height="200px"
-            >
-            <v-card-title><p class="textBorder">{{n.name}}</p></v-card-title>
-            </v-img>
-      <v-card-subtitle class="pb-0">
-        <p>Location: {{n.location}}</p>
-      </v-card-subtitle>
-      <v-card-text class="text--primary">
-        <p>Date start: {{n.dateStart.slice(0,10)}}</p>
-        <p>Date finish: {{n.dateFinish.slice(0,10)}}</p>
-      </v-card-text>
-    <v-card-actions>
-      <v-btn color=#009a82 to="/infoEvent" class="white--text">
-        More info
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+            <v-card>
+              <v-img
+                :src="n.coverUrl"
+                height="200px"
+              >
+                <v-card-title><p class="textBorder">{{n.name}}</p></v-card-title>
+              </v-img>
+              <v-card-subtitle class="pb-0">
+                <p>Location: {{n.location}}</p>
+              </v-card-subtitle>
+              <v-card-text class="text--primary">
+                <p>Date start: {{n.dateStart.slice(0,10)}}</p>
+                <p>Date finish: {{n.dateFinish.slice(0,10)}}</p>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color=#009a82 to="/infoEvent" class="white--text">
+                  More info
+                </v-btn>
+              </v-card-actions>
+            </v-card>
           </v-col>
         </v-row>
       </v-container>
