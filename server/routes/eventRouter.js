@@ -13,4 +13,6 @@ eventRouter.get('/get/:id', eventController.getEventById);
 
 eventRouter.delete('/delete/:id',eventController.deleteEvent)
 
+eventRouter.get('/getGroupsFromEvent/:id',eventController.getGroupsFromEvent);
+
 module.exports = eventRouter;

@@ -11,8 +11,8 @@ const groupSchema = new Schema({
     userID:
     [   
         {
-            type: Schema.Types.ObjectId,
-            ref: "users",   
+            type: mongoose.Types.ObjectId,
+            ref: "User",   
         }
     ],
     visibility:
@@ -22,19 +22,26 @@ const groupSchema = new Schema({
     },
     code:{
         type: String,
-        required: true,
-       
-        
+        unique: true,
+        required: true,   
     },
     leaderID:{
         
-        type: Schema.Types.ObjectId,
-        ref: "users",
+        type: mongoose.Types.ObjectId,
+        ref: "User",
         required: true,
-        unique:true
         
         
-    },
+        
+    },eventID:{
+        
+        type: mongoose.Types.ObjectId,
+        ref: "Event",
+        required: true,
+        
+        
+        
+    }
 },{
     versionKey:false
 });

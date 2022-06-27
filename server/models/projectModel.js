@@ -26,8 +26,8 @@ const projectSchema = new Schema({
         required: true
     },
     groupID: {
-        type: Schema.Types.ObjectId,
-        ref: "groups",
+        type: mongoose.Types.ObjectId,
+        ref: "group",
         required: true
     },
 }, {

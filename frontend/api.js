@@ -39,6 +39,14 @@ export default class API{
             return error.response.data
         }    
     }
+    static async signUpUser(data){
+        try {
+            const res = await axios.post(url + "user/signUp/", data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }    
+    }
 
 
 
@@ -79,6 +87,15 @@ export default class API{
             return error.response.data
         }    
     }
+    static async getGroupsFromEvent(id){
+        try {
+            const res = await axios.get(url+"event/getGroupsFromEvent/"+id)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }    
+
+    }
 
 
     //GroupMethods
@@ -110,6 +127,15 @@ export default class API{
             return error.response.data
         }
     }
+    static async getGroupByCode(code){
+        try {
+            const res = await axios.get(url+"group/get-by-code/"+code)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
     static async deleteGroupByID(id){
         try {
             const res = await axios.delete(url+"group/delete/"+id)
@@ -117,6 +143,16 @@ export default class API{
         } catch (error) {
             return error.response.data
         }    
+    }
+    static async joinGroup(data){
+        try {
+            const res = await axios.post(url+"group/joinGroup",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+            
+        }
+
     }
 
 
