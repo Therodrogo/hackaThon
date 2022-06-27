@@ -5,6 +5,7 @@
         <v-btn>
           editar perfil
         </v-btn>
+        
         <v-row>
           <v-col 
             lg="4"
@@ -68,6 +69,23 @@
             </v-sheet>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="3">
+          <v-form>
+          <v-text-field
+            label="Codigo de invitacion"
+            placeholder="Ingresar codigo"
+            filled
+          ></v-text-field>
+          </v-form>
+          </v-col>
+          <v-card-actions class="px-1 pb-10">
+          <v-btn color = "#00CCB1">
+            <v-icon>mdi-send</v-icon>
+          </v-btn>
+          </v-card-actions>
+        </v-row>
+        
       </v-container>
     </v-main>
   </v-app>
@@ -84,6 +102,8 @@
                     {name: "dasfad", userID: "pila", eventID:""},
                 ] 
             } 
-        } 
-    } 
+        }
+         
+    }
+
 </script>
