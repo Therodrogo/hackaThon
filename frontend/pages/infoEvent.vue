@@ -15,7 +15,7 @@
               class="grey darken-4"
           :src="Banner"
         ></v-img>
-        <h1 class="mt-5" >HACKATHON 2022</h1>
+        <h1 class="mt-5" >{{NombreEvento}}</h1>
         
         </div>
       </v-col>
@@ -43,7 +43,7 @@
           <br>
           <br>
           <v-icon>mdi-map-marker</v-icon>  
-          UTALCA
+          {{Ubicacion}}
           
             <v-dialog
               v-model="dialog"
@@ -64,7 +64,7 @@
 
               <v-card>
                 <v-card-title class="text-h5 grey lighten-2">
-                  HACKATHON 2022
+                  {{NombreEvento}}
                 </v-card-title>
 
                 <v-card-text>
@@ -88,10 +88,10 @@
           
           <br>
           <br>
-          <v-icon>mdi-calendar</v-icon> Fecha inicio:
+          <v-icon>mdi-calendar</v-icon> Fecha inicio: {{FecInicio}}
           <br>
           <br>
-          <v-icon>mdi-calendar</v-icon> Fecha termino:
+          <v-icon>mdi-calendar</v-icon> Fecha termino: {{FecTermino}}
           <br>
           <br>
           <br>
@@ -145,6 +145,10 @@ import API from '~/api'
         Descripcion:"",
         Maps:"",
         Banner:"",
+        NombreEvento:"",
+        Ubicacion:"",
+        FecInicio:"",
+        FecTermino:"",
 
         dialog: false,
       }
@@ -157,8 +161,16 @@ import API from '~/api'
         this.Descripcion=res.data.description
         this.Maps=res.data.mapUrl
         this.Banner=res.data.coverUrl
+        this.NombreEvento=res.data.name
+        this.Ubicacion=res.data.location
+        this.FecInicio=res.data.dateStart
+        this.FecTermino=res.data.dateFinish
+        this.FecInicio=FecInicio.toString()
+        this.FecTermino=FecTermino.toString()
         console.log(res.data)
         console.log(this.Maps)
+        console.log(this.FecInicio)
+        console.log(this.FecTermino)
         
       } catch (error) {
         
