@@ -22,6 +22,8 @@ groupRouter.post('/leaveGroup',groupController.leaveGroup)
 
 groupRouter.post('/isLeader', groupController.isLeader)
 
+groupRouter.post('/kickMember', groupController.kickMember)
+
 
 
 module.exports = groupRouter;

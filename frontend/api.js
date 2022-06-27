@@ -165,6 +165,17 @@ export default class API{
 
     }
 
+    static async kickMember(data){
+        try {
+            const res = await axios.post(url+"group/kickMember",data)
+            return res.data
+        } catch (error) {
+            return error.response.data       
+        }
+
+    }
+
+
 
     //PostMethods
     static async postPost(data){  

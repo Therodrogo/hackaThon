@@ -211,16 +211,24 @@ const GroupService = {
         }
     },
 
-    /*async kickMember(req){//idkick, idleader, codeGroup
+    async kickMember(req){
         try {
             const kickID = req.body.userID;
             const leaderID = req.body.leaderID;
-            const groupID = req.body.code;
-
+            const groupCode = req.body.code;
+            const group = await GroupSchema.findOne({code: groupCode});
+            if (group.leaderID == leaderID){
+                await GroupSchema.findOneAndUpdate({code: groupCode},{ "$pull": { "userID": kickID }});
+                await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "groupsID": group._id } });
+                await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "eventsID": group.eventID }});
+                return { status: 'Success', code: 200, message: 'User with id '+ kickID +'was kick from the group with id '+group._id , data: group }
+            } else{
+                return { status: 'Failed', code: 400, message: 'the user with id '+leaderID+' does not have the permissions to perform this action', data: {} }
+            }
         } catch (error) {
-            
+            return { status: 'Failed', code: 400, message: error.message, data: {} }
         }
-    }*/
+    }
 };
 
 module.exports = GroupService;

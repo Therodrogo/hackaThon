@@ -1,5 +1,6 @@
 
 
+const { kickMember } = require('../services/groupService');
 const GroupService = require('../services/groupService');
 
 
@@ -96,7 +97,19 @@ const GroupController = {
         .catch((err) => {
             res.status(err.code).json(err);
         });
+    },
+
+    async kickMember(req,res){
+        await GroupService
+        .kickMember(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
     }
+
 
 
 };
