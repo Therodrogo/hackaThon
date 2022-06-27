@@ -31,7 +31,7 @@ const postService = {
     async getPostById(id) {
         
         try{
-            const post = await postSchema.find({_id:id});
+            const post = await postSchema.findOne({_id:id});
             return{   status: 'Success',code: 200,message: 'Post with id ' + id + ' is found',data: post}
                 
         }catch(e){
