@@ -111,7 +111,7 @@ export default {
 
 <style scoped>
 .v-main{
-  background-image:url('/25329.jpg');
+  background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/25329.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;

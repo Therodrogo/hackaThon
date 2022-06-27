@@ -87,7 +87,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import API from "../api";
   import Swal from 'sweetalert2'
   export default {
     data: () => ({
@@ -131,7 +131,7 @@
       reset () {
         this.$refs.form.reset()
       },
-      submit () {
+      async submit () {
         if(this.$refs.form.validate()){
           let data = { name: this.name,
                         password: this.password,
@@ -140,8 +140,7 @@
                         career: this.career,
                         phone: this.phoneNumber
                       }
-            axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
-            .then(function (response) {
+            await API.postUser(data).then(function (response) {
               Swal.fire({
                 title: "¡Excelente!",
                 text: "Tu usuario se ha creado correctamente",

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import API from "../api";
     import Swal from 'sweetalert2'
     export default {
     data: () => ({
@@ -107,7 +107,7 @@
             this.$refs.form.reset();
             window.location = "/";
         },
-        submit () {
+        async submit () {
             if(this.$refs.form.validate()){
             let data = {    name: this.name,
                             mail: this.email,
@@ -137,12 +137,9 @@
             });
         }
         },
-        getUser() {
-            const path = `https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/get/62b772e22772f275b69a6d3d`;
-            axios
-                .get(path)
-                .then((response) => {
-                    let userData = response.data.data[0];
+        async getUser() {
+                 await API.getUserByID("62b8feb28fa7ebd55f486a8f").then((response) => {
+                    let userData = response.data[0];
                     this.name = userData.name;
                     this.email =  userData.mail;
                     this.career =  userData.career;
