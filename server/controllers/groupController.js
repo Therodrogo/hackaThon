@@ -1,13 +1,13 @@
-const { postService } = require('../services/eventService');
-const eventService = require('../services/eventService');
+
+const GroupService = require('../services/groupService');
 
 
 // Create the controller to handle all the services
-const eventController = {
+const GroupController = {
     // Here you add all the controllers of the service
-    async getEvents(req, res) {
-        await eventService
-            .getEvents()
+    async getGroups(req, res) {
+        await GroupService
+            .getGroups()
             .then((result) => {
                 res.status(result.code).json(result);
             })
@@ -16,10 +16,10 @@ const eventController = {
             });
     },
 
-    async postEvent(req,res){
+    async postGroup(req,res){
         
-        await eventService
-        .postEvent(req)
+        await GroupService
+        .postGroup(req)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -27,10 +27,11 @@ const eventController = {
             res.status(err.code).json(err);
         });
         
-    },async getEventById(req, res) {
+    },
+    async getGroupById(req, res) {
         const id = req.params.id;
-        await eventService
-            .getEventById(id)
+        await GroupService
+            .getGroupById(id)
             .then((result) => {
                 res.status(result.code).json(result);
             })
@@ -38,10 +39,10 @@ const eventController = {
                 res.status(err.code).json(err);
             });
     },
-    async deleteEvent(req,res){
+    async deleteGroup(req,res){
         
         const id = req.params.id;
-        await eventService.deleteEvent(id)
+        await GroupService.deleteGroup(id)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -49,18 +50,33 @@ const eventController = {
             res.status(err.code).json(err);
         });
 
-    },async getGroupsFromEvent(req,res){
-        const id = req.params.id;
-        await eventService.getGroupsFromEvent(id)
+    },
+    async joinGroup(req,res){
+        
+        
+        await GroupService.joinGroup(req.body)
         .then((result) => {
             res.status(result.code).json(result);
         })
         .catch((err) => {
             res.status(err.code).json(err);
         });
-    }
+
+    },
+
+    async getGroupByCode(req, res) {
+        const codeGroup = req.params.code;
+        await GroupService
+            .getGroupByCode(codeGroup)
+            .then((result) => {
+                res.status(result.code).json(result);
+            })
+            .catch((err) => {
+                res.status(err.code).json(err);
+            });
+    },
 
 
 };
 
-module.exports = eventController;
+module.exports = GroupController;
