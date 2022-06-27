@@ -2,17 +2,11 @@
 
 
 
-<<<<<<< HEAD
-  <v-container class="rounded">
-    <v-row>
-      <v-col cols="12">
-=======
   <v-container >
 
 
    <v-row >
       <v-col cols="12" >
->>>>>>> JuanV2
         <div class="justify-center text-center ">
           <v-img max-height="400" class="grey darken-4"
             src="https://image.shutterstock.com/image-vector/hackathon-concept-icon-set-big-260nw-2019732209.jpg">
@@ -20,21 +14,6 @@
           <h1 class="mt-5">HACKATHON 2022</h1>
         </div>
       </v-col>
-<<<<<<< HEAD
-
-      <v-col cols="6">
-        <v-card-text class="pa-2" color="#DAE8FC">
-          <h2> Descripción:</h2>
-          <body-1 class="">
-            Este evento será el evento del año para los programadores Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Corrupti modi aperiam quaerat vero animi. Recusandae id alias ea necessitatibus odit
-            velit facere quisquam. Non consequatur in suscipit repellendus, illo a! Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Sunt quidem minus totam praesentium, voluptas rerum ducimus et aut veritatis.
-            Minus mollitia nobis odio excepturi. Earum asperiores modi explicabo necessitatibus facere.
-          </body-1>
-        </v-card-text>
-      </v-col>
-=======
       
       <v-col cols="6"  >
         <v-card-text 
@@ -58,24 +37,10 @@
       
       <v-col cols="6" >
         <v-card-text>
-
-          <v-row
-          color = "#DAE8FC"
-          >
-
->>>>>>> JuanV2
-
-      <v-col cols="6">
-        <v-card-text>
           <v-row color="#DAE8FC">
           </v-row>
           <br>
-<<<<<<< HEAD
-
-          <v-icon>mdi-map-marker</v-icon>
-          Utalca
-
-=======
+          <br>
           <v-icon>mdi-map-marker</v-icon>  
           UTALCA
           
@@ -121,8 +86,6 @@
             </v-dialog>
           
           
->>>>>>> JuanV2
-          <br>
           <br>
           <v-icon>mdi-calendar</v-icon> Fecha inicio:
           <br>
@@ -131,50 +94,17 @@
           <br>
           <br>
           <br>
-<<<<<<< HEAD
-          <v-row>
-=======
+          <br>
           
           <v-row >
             
->>>>>>> JuanV2
           </v-row>
         </v-card-text>
       </v-col>
 
-<<<<<<< HEAD
-      <v-col cols="12">
-        <div class="justify-center text-center">
-          <v-row>
-            
-          </v-row>
-        </div>
-      </v-col>
-      
-=======
 
       
-      <v-col class="justify-center text-center">
-              <v-btn
-              rounded
-              elevation="2"
-              color = "#00CCB1"
-              >
-              Crear Grupo
-              </v-btn>
-
-            </v-col>
-
-            <v-col class="justify-center text-center ">
-              <v-btn
-              rounded
-              elevation="3"
-              color = "#00CCB1"
-              >
-              Lista de Grupos
-              </v-btn>
-            </v-col>
->>>>>>> JuanV2
+      
     </v-row>
             <v-col class="d-flex justify-center text-center ">
               <v-btn rounded elevation="2" color="#00CCB1" max-width="150px">
