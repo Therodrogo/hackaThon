@@ -159,12 +159,6 @@ export default {
 </script>
 
 <style scoped>
-.contenedor {
-  height: 150px;
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-}
 
 .bar {
   margin-inline: 10px;
@@ -172,7 +166,8 @@ export default {
   display: inline-flex;
   color: black;
   padding: 10px;
-  text-decoration: none;
+  text-decoration: underline ;
+  text-decoration-color: white;
   background-image: linear-gradient(#CC7C0A, #CC7C0A);
   background-position: 0% 100%;
   background-repeat: no-repeat;
