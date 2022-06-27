@@ -89,6 +89,7 @@
 <script>
   import axios from 'axios';
   import Swal from 'sweetalert2'
+  import API from '~/api';
   export default {
     data: () => ({
       select: 'Participante',
@@ -111,7 +112,7 @@
       phoneNumber: '',
       phoneRules: [
         v => !!v || 'Teléfono es requerido',
-        v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v) 
+        v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v)
         || 'Teléfono debe ser válido, se permite formato +569XXXXXXXX, 569XXXXXXXX, 9XXXXXXXX',
       ],
       password: '',
@@ -131,38 +132,49 @@
       reset () {
         this.$refs.form.reset()
       },
-      submit () {
+      async submit () {
         if(this.$refs.form.validate()){
-          let data = { name: this.name,
-                        password: this.password,
-                        role: this.select,
-                        mail: this.email,
-                        career: this.career,
-                        phone: this.phoneNumber
-                      }
-            axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
-            .then(function (response) {
+        let data = { name: this.name,
+          password: this.password,
+          role: this.select,
+          mail: this.email,
+          career: this.career,
+          phone: this.phoneNumber
+        }
+        let result = await API.postUser(data)
+          if(typeof result === 'undefined'){
+            Swal.fire({
+              title: "Ha ocurrido un error de conexión",
+              icon: "error",
+              confirmButtonColor: "#00CCB1",
+            });
+          }
+          else{
+            if(result.code == 200){
               Swal.fire({
                 title: "¡Excelente!",
                 text: "Tu usuario se ha creado correctamente",
                 icon: "success",
                 confirmButtonColor: "#00CCB1",
               }).then(function() {
-                    window.location = "/loginWindow";
-                });
-              console.log(response);
-            })
-            .catch(function (error) {
+                window.location = "/loginWindow";
+              });
+            }
+            else{
               Swal.fire({
-                title: "Ha ocurrido un error",
+                title: "El E-mail o Teléfono ingresado estan duplicados",
                 icon: "error",
                 confirmButtonColor: "#00CCB1",
               });
-              console.log(error);
-            });
+            }
+          }
         }
       },
     },
+
+    beforeMount() {
+      this.submit()
+    }
   }
 </script>
 
@@ -201,6 +213,6 @@
   }
   .swal2-popup{
     font-family: "Century Gothic", sans-serif;
-    
+
   }
 </style>
