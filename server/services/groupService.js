@@ -163,8 +163,7 @@ const GroupService = {
             const userID = req.body.userID
             const group = await GroupSchema.findOne({_id:groupID}).populate({path:"leaderID",select:"_id"})
             if (group!=null){
-                if(!group.leaderID.equals(userID)){
-                    console.log("no son iguales")
+                if(!group.leaderID.equals(userID)){                   
                     await GroupSchema.findOneAndUpdate({ _id: groupID },{ "$pull": { "userID": userID }})
                     await userSchema.findOneAndUpdate({ _id: userID },{ "$pull": { "groupsID": groupID } })
                     await userSchema.findOneAndUpdate({ _id: userID },{ "$pull": { "eventsID": group.eventID }})

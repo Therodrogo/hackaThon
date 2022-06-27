@@ -164,6 +164,15 @@ export default class API{
         }
 
     }
+    static async leaveGroup(data){
+        try {
+            const res = await axios.post(url+"group/leaveGroup",data)
+            return res.data
+        } catch (error) {
+            return error.response.data        
+        }
+
+    }
 
     static async kickMember(data){
         try {
