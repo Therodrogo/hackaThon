@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <v-app-bar height="100">
+
+  <div class="header">
+    <v-app-bar dense fixed app height="100">
       <!-- Add this class to show menu icon only on small screen -->
       <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-md-none"></v-app-bar-nav-icon>
       <v-row>
@@ -11,12 +12,6 @@
 
           </nuxt-link>
         </v-col>
-
-
-
-
-
-
 
         <!-- Add this class to show tabs only on medium screen and above -->
         <v-col md="10" class="d-none d-md-flex columnNavBar">
@@ -160,6 +155,12 @@ export default {
 
 <style scoped>
 
+
+.header{
+  position: relative;
+  top: 0;
+} 
+
 .bar {
   margin-inline: 10px;
   margin-top: 40px;
@@ -176,6 +177,7 @@ export default {
 }
 
 .loginText {
+  position: relative;
   margin-inline: 10px;
   margin-top: 40px;
   display: inline-flex;
@@ -202,11 +204,13 @@ export default {
 
 
 .logoUtal {
+  position: relative;
   height: 80px;
 
 }
 
 .columnNavBar {
+  position: relative;
   height: 100px;
   align-content: center;
   justify-content: center;

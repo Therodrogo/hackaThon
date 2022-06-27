@@ -1,7 +1,9 @@
 <template>
    <div class="py-16 grey lighten-4" xs6> 
     <v-row class="text-center">
-      <v-col><h2 class="text-h4 text-sm-h3 text-capitalize font-weight-black mb-4"> Conoce al equipo </h2>
+      <v-col><h2 class="text-h4 text-sm-h3 font-weight-black mb-4"> 
+        <br> <br> Conoce al equipo
+        </h2>
       </v-col>
     </v-row>
    <v-layout >
