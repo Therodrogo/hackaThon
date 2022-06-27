@@ -155,6 +155,16 @@ export default class API{
 
     }
 
+    static async isLeader(data){
+        try {
+            const res = await axios.post(url+"group/isLeader",data)
+            return res.data
+        } catch (error) {
+            return error.response.data       
+        }
+
+    }
+
 
     //PostMethods
     static async postPost(data){  

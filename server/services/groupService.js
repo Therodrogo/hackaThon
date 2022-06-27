@@ -156,7 +156,8 @@ const GroupService = {
             }
         }
         return code;
-    },async leaveGroup(req){
+    },
+    async leaveGroup(req){
         try {
             const groupID = req.body.groupID
             const userID = req.body.userID
@@ -192,7 +193,34 @@ const GroupService = {
             return { status: 'Failed', code: 400, message: e.message, data: false }    
         }
 
-    }
+    },
+
+    async isLeader(req){
+        try {
+            const groupUser = req.body.userID;
+            const groupID = req.body.code;
+            const group = await GroupSchema.findOne({code:groupID});
+            if (group.leaderID == groupUser){
+                return { status: 'Success', code: 200, message: 'user is Leader', data: true }  
+            }
+            else {
+                return { status: 'Failed', code: 400, message: 'user is not Leader', data: false }  
+            }
+        } catch (error) {
+            return { status: 'Failed', code: 400, message: error.message, data: false }    
+        }
+    },
+
+    /*async kickMember(req){//idkick, idleader, codeGroup
+        try {
+            const kickID = req.body.userID;
+            const leaderID = req.body.leaderID;
+            const groupID = req.body.code;
+
+        } catch (error) {
+            
+        }
+    }*/
 };
 
 module.exports = GroupService;

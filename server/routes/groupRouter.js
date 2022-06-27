@@ -20,6 +20,8 @@ groupRouter.post('/joinGroup',groupController.joinGroup)
 
 groupRouter.post('/leaveGroup',groupController.leaveGroup)
 
+groupRouter.post('/isLeader', groupController.isLeader)
+
 
 
 module.exports = groupRouter;
