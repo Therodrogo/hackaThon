@@ -48,6 +48,14 @@
                             required
                           ></v-select>
                           <v-text-field
+                            v-model="career"
+                            :disabled="isDisabled"
+                            :rules="select=='Participante' ? careerRules : []"
+                            label="Carrera"
+                            prepend-icon="mdi-school"
+                            required
+                          ></v-text-field>
+                          <v-text-field
                             v-model="password"
                             :rules="passwordRules"
                             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -87,6 +95,10 @@
       items: ['Participante', 'Organizador'],
       show: false,
       valid: true,
+      career: '',
+      careerRules: [
+        v => !!v || 'Carrera es requerida',
+      ],
       name: '',
       nameRules: [
         v => !!v || 'Nombre es requerido',
@@ -109,6 +121,12 @@
         || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y una caracter especial',
       ],
     }),
+    computed: {
+      isDisabled() {
+        this.career=''
+        return this.select === 'Organizador';
+      },
+    },
     methods: {
       reset () {
         this.$refs.form.reset()
@@ -119,7 +137,7 @@
                         password: this.password,
                         role: this.select,
                         mail: this.email,
-                        career: '',
+                        career: this.career,
                         phone: this.phoneNumber
                       }
             axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
