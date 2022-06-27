@@ -156,6 +156,42 @@ const GroupService = {
             }
         }
         return code;
+    },async leaveGroup(req){
+        try {
+            const groupID = req.body.groupID
+            const userID = req.body.userID
+            const group = await GroupSchema.findOne({_id:groupID}).populate({path:"leaderID",select:"_id"})
+            if (group!=null){
+                if(!group.leaderID.equals(userID)){
+                    console.log("no son iguales")
+                    await GroupSchema.findOneAndUpdate({ _id: groupID },{ "$pull": { "userID": userID }})
+                    await userSchema.findOneAndUpdate({ _id: userID },{ "$pull": { "groupsID": groupID } })
+                    await userSchema.findOneAndUpdate({ _id: userID },{ "$pull": { "eventsID": group.eventID }})
+                    return { status: 'Success', code: 200, message: 'You are removed from the group with ID: '+groupID, data: true }
+                }else{
+                    if(group.userID.length>1){
+                        await GroupSchema.findOneAndUpdate({ _id: groupID },{ "$pull": {"userID": userID }})
+                        await GroupSchema.findOneAndUpdate({ _id: groupID },{ leaderID: group.userID[1]})
+                        await userSchema.findOneAndUpdate({ _id: userID },{ "$pull": { "groupsID": groupID }})
+                        await userSchema.findOneAndUpdate({ _id: userID },{ "$pull": { "eventsID": group.eventID}})
+                        return { status: 'Success', code: 200, message: 'You are the leader of this group, another user will be selected as group leader with ID'+groupID, data: true}    
+                    }else{
+                        await GroupSchema.findOneAndUpdate({ _id: groupID },{ "$pull": {"userID": userID}})
+                        await userSchema.findOneAndUpdate({ _id: userID },{"$pull": { "groupsID": groupID}})
+                        await userSchema.findOneAndUpdate({ _id: userID },{"$pull":{"eventsID": group.eventID}})
+                        await eventSchema.findOneAndUpdate({ _id: group.eventID },{ "$pull":{"groupsID":group.eventID}})
+                        await GroupSchema.deleteOne({_id:groupID})
+                        return { status: 'Success', code: 200, message: 'You are the leader of this group and there are no more participants, the group will be deleted from the system', data: true } 
+
+                    }
+                }
+            }else{
+                return { status: 'Failed', code: 400, message: "This group does not exist", data: false }
+            }      
+        } catch (error) {
+            return { status: 'Failed', code: 400, message: e.message, data: false }    
+        }
+
     }
 };
 

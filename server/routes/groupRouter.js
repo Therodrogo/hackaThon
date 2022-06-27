@@ -18,6 +18,8 @@ groupRouter.get('/get-by-code/:code', groupController.getGroupByCode);
 
 groupRouter.post('/joinGroup',groupController.joinGroup)
 
+groupRouter.post('/leaveGroup',groupController.leaveGroup)
+
 
 
 module.exports = groupRouter;
