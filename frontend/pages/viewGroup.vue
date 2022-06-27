@@ -3,7 +3,7 @@
     <v-main class="white">
       <v-container>
         <v-btn>
-            editar perfil
+          editar perfil
         </v-btn>
         <v-row>
           <v-col 
@@ -27,12 +27,10 @@
                 v-model="model"
                 mandatory
                 color="#00CCB1">
-                    <v-list-item v-for="n in groups" :key="n" link>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                              {{n.name}}
-                            </v-list-item-title>
-                        </v-list-item-content>
+                    <v-list-item v-for="n in groups" :key="n">
+                      <v-btn @click="selectedGroup = n.name" text left min-width="100%">
+                        {{n.name}}
+                      </v-btn>
                     </v-list-item>
                 </v-list-item-group>
 
@@ -50,9 +48,23 @@
           </v-col>
           <v-col>
             <v-sheet
-              height="60vh"
+              height="500"
               rounded="lg"
               color="#00CCB1">
+              <template v-slot>
+                <span v-for="n in groups" :key="n">
+                  <p v-if="n.name == selectedGroup">
+                    <v-card>
+                      <v-card-title>
+                        Group name: {{n.name}}
+                      </v-card-title>
+                      <v-card-text class="text--primary">
+                        Leader: {{n.userID}}
+                    </v-card-text>
+                  </v-card>
+                  </p>  
+                </span>
+              </template>
             </v-sheet>
           </v-col>
         </v-row>
@@ -65,10 +77,11 @@
     export default {
         data (){ 
             return { 
+              selectedGroup: "los vios",
                 groups:[ 
-                    {name: "los vios"},
-                    {name: "simps de profe Daniel"}, 
-                    {name: "dasfad"},
+                    {name: "los vios", userID: "pila", eventID:""},
+                    {name: "simps de profe Daniel", userID: "pila", eventID:""}, 
+                    {name: "dasfad", userID: "pila", eventID:""},
                 ] 
             } 
         } 
