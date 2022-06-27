@@ -1,5 +1,7 @@
+const { ObjectID } = require('bson');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
 
 const userSchema = new Schema({
     name: {
@@ -28,6 +30,28 @@ const userSchema = new Schema({
         unique: true,
         required: true,
     },
+    groupsID:
+    [
+        
+        {
+            type: Schema.Types.ObjectId,
+            ref: "group",
+            
+            required: true,  
+            
+        }
+    ],
+    eventsID:
+    [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Event",
+            
+            required: true,  
+            
+        }
+    ]
+
 },{
     versionKey:false
 });
