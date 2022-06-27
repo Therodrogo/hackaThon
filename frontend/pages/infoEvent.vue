@@ -85,7 +85,7 @@
               </v-card>
             </v-dialog>
           
-          
+          <br>
           <br>
           <v-icon>mdi-calendar</v-icon> Fecha inicio:
           <br>
@@ -104,7 +104,26 @@
 
 
       
-      
+      <v-col class="justify-center text-center">
+              <v-btn
+              rounded
+              elevation="2"
+              color = "#00CCB1"
+              >
+              Crear Grupo
+              </v-btn>
+
+            </v-col>
+
+            <v-col class="justify-center text-center ">
+              <v-btn
+              rounded
+              elevation="3"
+              color = "#00CCB1"
+              >
+              Lista de Grupos
+              </v-btn>
+            </v-col>
     </v-row>
             <v-col class="d-flex justify-center text-center ">
               <v-btn rounded elevation="2" color="#00CCB1" max-width="150px">
