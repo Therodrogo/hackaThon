@@ -88,10 +88,15 @@
           
           <br>
           <br>
-          <v-icon>mdi-calendar</v-icon> Fecha inicio: {{FecInicio}}
+          <v-icon>mdi-calendar</v-icon> Fecha inicio: {{FecInicio.slice(0,10)}}
+          <br>
+          <v-icon>mdi-clock</v-icon>  {{FecInicio.slice(11,19)}} 
+                
           <br>
           <br>
-          <v-icon>mdi-calendar</v-icon> Fecha termino: {{FecTermino}}
+          <v-icon>mdi-calendar</v-icon> Fecha termino: {{FecTermino.slice(0,10)}}
+          <br>
+          <v-icon>mdi-clock</v-icon>  {{FecTermino.slice(11,19)}} 
           <br>
           <br>
           <br>
@@ -157,7 +162,7 @@ import API from '~/api'
       async getEventByID(){
       try {
         const res = await API.getEventByID('62b9f13f03bf61e2924a3135');
-        
+
         this.Descripcion=res.data.description
         this.Maps=res.data.mapUrl
         this.Banner=res.data.coverUrl
@@ -165,12 +170,16 @@ import API from '~/api'
         this.Ubicacion=res.data.location
         this.FecInicio=res.data.dateStart
         this.FecTermino=res.data.dateFinish
-        this.FecInicio=FecInicio.toString()
-        this.FecTermino=FecTermino.toString()
+
+        const date = new Date(this.FecInicio);
+
         console.log(res.data)
         console.log(this.Maps)
         console.log(this.FecInicio)
         console.log(this.FecTermino)
+        console.log(date.getDay(),date.getMonth(),date.getHours(),date.getFullYear())
+        
+
         
       } catch (error) {
         
