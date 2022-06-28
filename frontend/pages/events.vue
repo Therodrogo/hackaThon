@@ -3,8 +3,16 @@
     background: #ffffff;"
   >
     <v-main>
+
       <v-container>
+
+        <h2 class="text-h4 text-sm-h3 font-weight-black mb-4"> 
+
+          <br> <br> Eventos próximos: <br> </br>
+          </h2>
+        
         <v-row>
+
           <v-col
             v-for="n in events" :key="n"
             lg="4"

@@ -54,12 +54,29 @@
                           </v-form>
                       </v-card-text>
                       <div class="text-center">
+
+
+                        <v-btn
+                          to="/loginWindow"
+                          color="primary"
+                          fab
+                          small
+                          >
+
+                        <v-icon dark>
+                            mdi-arrow-left-bold
+                        </v-icon>
+
+                        </v-btn>
+
+
                         <v-btn
                           :disabled="!valid"
                           color="primary"
                           large
                           v-on:click="submit"
-                        >
+                          right
+                          >
                           crear usuario
                         </v-btn>
                       </div>

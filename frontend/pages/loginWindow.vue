@@ -17,6 +17,22 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
+                                
+                                <v-btn  to="/"
+                                
+                                color="primary"
+                                fab
+                                small
+                                
+                                >
+                                <v-icon dark>
+                                    mdi-arrow-left-bold
+                                </v-icon>
+                                
+                                <v-text class="textBtn"></v-text>
+                                
+                                
+                                </v-btn>
                                 <v-btn color="white" to="/createUser"><v-text class="textBtn">Crear Usuario</v-text></v-btn>
                                 <v-btn color="white" to="/"><v-text class="textBtn">Login</v-text></v-btn>
                             </v-card-actions>
@@ -29,6 +45,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: 'Login',
     props: {

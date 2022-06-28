@@ -1,28 +1,75 @@
 <template>
+  <div>
+    <v-container>
+        <v-layout>
+            <v-row class="py-16">
+             </v-row>
+            <v-row>
+                <v-col
+                    cols="12"
+                    md="4"
+                >
+                    <v-skeleton-loader
+                    v-bind="attrs"
+                    type="card-avatar, article, actions"
+                    ></v-skeleton-loader>
 
-    <div class="informationContainer">
-        <h1 class="fonts"> En este apartado va la información de la página <br>
-            In this part goes the page information :)
-        </h1>
-    </div>
+                    <v-skeleton-loader
+                    v-bind="attrs"
+                    type="date-picker"
+                    ></v-skeleton-loader>
+                </v-col>
+
+                <v-col
+                    cols="12"
+                    md="4"
+                >
+                    <v-skeleton-loader
+                    v-bind="attrs"
+                    type="article, actions"
+                    ></v-skeleton-loader>
+
+                    <v-skeleton-loader
+                    v-bind="attrs"
+                    type="table-heading, list-item-two-line, image, table-tfoot"
+                    ></v-skeleton-loader>
+                </v-col>
+
+                <v-col
+                    cols="12"
+                    md="4"
+                >
+                    <v-skeleton-loader
+                    v-bind="attrs"
+                    type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
+                    ></v-skeleton-loader>
+
+                    <v-skeleton-loader
+                    v-bind="attrs"
+                    type="list-item-avatar-three-line, image, article"
+                    ></v-skeleton-loader>
+                </v-col>
+            </v-row>
+        </v-layout>
+  </v-container>
+  </div>
 </template>
 
+<!-- Script del ciclo temporal para cada -->
 <script>
-
+ export default {
+    data: () => ({
+      attrs: {
+        class: 'mb-6',
+        boilerplate: true,
+        elevation: 2,
+      },
+    }),
+  }
 </script>
 
-<style scoped>
-.informationContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 37vh;
-    background: white;
+<style>
 
-}
 
-.fonts {
-    color: black;
-}
+
 </style>
-
