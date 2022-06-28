@@ -39,7 +39,9 @@ const eventSchema = new Schema({
             
             required: true,    
         }
-    ]
+    ],mapUrl:{
+        type: String,  
+    }
 },{
     versionKey:false
 });

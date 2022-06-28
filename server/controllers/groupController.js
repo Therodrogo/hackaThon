@@ -1,4 +1,6 @@
 
+
+const { kickMember } = require('../services/groupService');
 const GroupService = require('../services/groupService');
 
 
@@ -75,6 +77,39 @@ const GroupController = {
                 res.status(err.code).json(err);
             });
     },
+    async leaveGroup(req,res){
+        await GroupService
+        .leaveGroup(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+    },
+
+    async isLeader(req,res){
+        await GroupService
+        .isLeader(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+    },
+
+    async kickMember(req,res){
+        await GroupService
+        .kickMember(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+    }
+
 
 
 };
