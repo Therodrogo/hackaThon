@@ -111,12 +111,14 @@ export default {
     async submit() {
       if (this.$refs.form.validate()) {
         let data = {
+          userID: '62b8feb28fa7ebd55f486a8f',
           name: this.name,
           mail: this.email,
           career: this.career,
           phone: this.phoneNumber,
         }
         let result = await API.updateUserData(data)
+        console.log(result)
         if (typeof result === 'undefined') {
           Swal.fire({
             title: 'Ha ocurrido un error de conexión',

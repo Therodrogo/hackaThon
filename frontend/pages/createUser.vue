@@ -188,9 +188,6 @@ export default {
       }
     },
   },
-  beforeMount() {
-    this.submit();
-  },
 };
 </script>
 
