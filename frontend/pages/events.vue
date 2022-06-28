@@ -5,7 +5,7 @@
 
       <v-container>
 
-        <h2 class="">
+        <h2 class="text-sm-h4">
          Eventos próximos:
         </h2>
 
@@ -70,7 +70,8 @@
   }
 </script>
 
-<style scoped>
+<style>
+
   .textBorder{
     text-shadow: 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0);
     color: #fff

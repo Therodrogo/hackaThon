@@ -224,8 +224,4 @@
     background-size: cover;
 
   }
-  .swal2-popup{
-    font-family: "Century Gothic", sans-serif;
-
-  }
 </style>

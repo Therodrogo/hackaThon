@@ -17,12 +17,10 @@
 import HeaderLanding from '~/components/HeaderLanding.vue';
 import LoginWindow from '~/components/LoginWindow.vue';
 import FooterInformation from '~/components/FooterInformation.vue';
-import events from '~/pages/events.vue';
 
 export default {
     name: "DefaultLayout",
     components: { HeaderLanding, LoginWindow, FooterInformation },
-    pages: {events},
     data() {
       return {
         loginOn: false

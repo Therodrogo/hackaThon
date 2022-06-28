@@ -8,7 +8,7 @@
                 <v-row class="fill-height">
                     <v-col  cols="12" md="6" class="primary">
                      <img class="logo-utalca"  height="100px" alt="logo-utalca" src="/logo-utalca.png" />
-                     
+
                 </v-col>
                 <v-col cols="12" md="6">
                     <v-card-text class="mt-6" >
@@ -24,7 +24,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn class="primary" to="/createUser">
-                            <v-text class="textBtn" >Crear Usuario</v-text>
+                            <v-text class="textBtn">Crear Usuario</v-text>
                             </v-btn>
                             <v-btn color="primary" v-on:click="submit()">
                             <v-text class="textBtn" >Login</v-text>
@@ -111,7 +111,7 @@ export default {
 
 <style scoped>
 .v-main{
-  background-image:url('/25329.jpg');
+  background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/25329.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -135,7 +135,6 @@ h1{
 
   }
   p{
-    font-family: "Century Gothic", sans-serif;
     font-size: 40px;
     font-weight: 900;
     color: #00CCB1;
