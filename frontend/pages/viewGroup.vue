@@ -77,11 +77,10 @@
                   v-model="code"
                   label="Codigo de invitacion"
                   placeholder="Ingresar codigo"
-                  filled
                 >
                 
                 </v-text-field>
-                <v-btn color = "#00CCB1" type="submit" x-large outlined>
+                <v-btn color = "#00CCB1" type="submit" large outlined>
                   <v-icon>mdi-send</v-icon>
                 </v-btn>
               </v-row>
