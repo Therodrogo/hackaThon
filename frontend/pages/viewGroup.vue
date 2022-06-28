@@ -1,0 +1,89 @@
+<template>
+  <v-app id="inspire">
+    <v-main class="white">
+      <v-container>
+        <v-btn>
+          editar perfil
+        </v-btn>
+        <v-row>
+          <v-col 
+            lg="4"
+            md="4"
+            sm="6"
+            xs="12">
+            <v-sheet rounded="lg">
+              <v-list>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      Groups
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-divider class="my-2"></v-divider>
+
+                <v-list-item-group
+                v-model="model"
+                mandatory
+                color="#00CCB1">
+                    <v-list-item v-for="n in groups" :key="n">
+                      <v-btn @click="selectedGroup = n.name" text left min-width="100%">
+                        {{n.name}}
+                      </v-btn>
+                    </v-list-item>
+                </v-list-item-group>
+
+                <v-divider class="my-2"></v-divider>
+
+                <v-list-item link>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      New group
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-sheet>
+          </v-col>
+          <v-col>
+            <v-sheet
+              height="500"
+              rounded="lg"
+              color="#00CCB1">
+              <template v-slot>
+                <span v-for="n in groups" :key="n">
+                  <p v-if="n.name == selectedGroup">
+                    <v-card>
+                      <v-card-title>
+                        Group name: {{n.name}}
+                      </v-card-title>
+                      <v-card-text class="text--primary">
+                        Leader: {{n.userID}}
+                    </v-card-text>
+                  </v-card>
+                  </p>  
+                </span>
+              </template>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
+
+<script> 
+    export default {
+        data (){ 
+            return { 
+              selectedGroup: "los vios",
+                groups:[ 
+                    {name: "los vios", userID: "pila", eventID:""},
+                    {name: "simps de profe Daniel", userID: "pila", eventID:""}, 
+                    {name: "dasfad", userID: "pila", eventID:""},
+                ] 
+            } 
+        } 
+    } 
+</script>
