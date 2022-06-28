@@ -29,7 +29,7 @@ const eventService = {
     },
     async getEventById(id) {
         try{
-            const event = await eventSchema.find({_id:id});
+            const event = await eventSchema.findOne({_id:id});
             return{   status: 'Success',code: 200,message: 'event with id ' + id + ' is found',data: event}
                 
         }catch(e){

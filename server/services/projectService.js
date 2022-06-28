@@ -28,7 +28,7 @@ const projectService = {
     },
     async getProjectById(id) {
         try{
-            const project = await projectSchema.find({_id:id});
+            const project = await projectSchema.findOne({_id:id});
             return{   status: 'Success',code: 200,message: 'project with id ' + id + ' is found',data: project}
                 
         }catch(e){
