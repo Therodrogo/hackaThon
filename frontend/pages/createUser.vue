@@ -168,7 +168,7 @@
             if(result.code == 200){
               Swal.fire({
                 title: "¡Excelente!",
-                text: "Tu usuario se ha creado correctamente",
+                text: "Tu usuario se ha modificado correctamente",
                 icon: "success",
                 confirmButtonColor: "#00CCB1",
               }).then(function() {
@@ -186,7 +186,6 @@
         }
       },
     },
-
     beforeMount() {
       this.submit()
     }

@@ -11,6 +11,7 @@ export default class API{
             return error.response.data
         }
     }
+
     static async getAllUsers(){
 
         try {
@@ -20,9 +21,8 @@ export default class API{
         } catch (error) {
             return error.response.data
         }
-
-
     }
+
     static async getUserByID(id){
         try {
             const res = await axios.get(url+"user/get/"+id)
@@ -31,6 +31,7 @@ export default class API{
             return error.response.data
         }
     }
+
     static async deleteUserByID(id){
         try {
             const res = await axios.delete(url+"user/delete/"+id)
@@ -39,7 +40,8 @@ export default class API{
             return error.message
         }
     }
-    static async signUpUser(data){
+
+    static async signInUser(data){
         try {
             const res = await axios.post(url + "user/signUp/", data)
             return res.data
@@ -48,7 +50,14 @@ export default class API{
         }
     }
 
-
+  static async editUser(data){
+      try {
+        const res = await axios.post(url + "user/signUp/", data)
+        return res.data
+      } catch (error) {r
+        return error.response.data
+      }
+  }
 
     //EventMethods
     static async postEvent(data){

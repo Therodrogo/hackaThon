@@ -116,27 +116,9 @@ export default {
           career: this.career,
           phone: this.phoneNumber,
         }
-          //put
-          //axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
-          .then(function(response) {
-            Swal.fire({
-              title: '¡Excelente!',
-              text: 'Tu usuario se ha creado correctamente',
-              icon: 'success',
-              confirmButtonColor: '#00CCB1',
-            }).then(function() {
-              window.location = '/loginWindow';
-            });
-            console.log(response);
-          })
-          .catch(function(error) {
-            Swal.fire({
-              title: 'Ha ocurrido un error',
-              icon: 'error',
-              confirmButtonColor: '#00CCB1',
-            });
-            console.log(error);
-          });
+        let result = await API.postUser(data)
+
+
       }
     },
     async getUser() {
