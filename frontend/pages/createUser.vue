@@ -194,7 +194,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .v-text-field{
     padding-right: 5%
   }
