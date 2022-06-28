@@ -15,4 +15,6 @@ userRouter.delete('/delete/:id', userController.deleteUser);
 
 userRouter.post('/signUp', userController.signUpUser);
 
+userRouter.post('/updateUserData', userController.updateUserData);
+
 module.exports = userRouter;

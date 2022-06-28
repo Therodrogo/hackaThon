@@ -48,6 +48,15 @@ export default class API{
         }    
     }
 
+    static async updateUserData(data){
+        try {
+            const res = await axios.post(url + "user/updateUserData/", data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }    
+    }
+
 
 
     //EventMethods
