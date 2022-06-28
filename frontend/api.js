@@ -11,7 +11,6 @@ export default class API{
             return error.response.data
         }
     }
-
     static async getAllUsers(){
 
         try {
@@ -21,8 +20,9 @@ export default class API{
         } catch (error) {
             return error.response.data
         }
-    }
 
+
+    }
     static async getUserByID(id){
         try {
             const res = await axios.get(url+"user/get/"+id)
@@ -31,17 +31,15 @@ export default class API{
             return error.response.data
         }
     }
-
     static async deleteUserByID(id){
         try {
             const res = await axios.delete(url+"user/delete/"+id)
             return res.data
         } catch (error) {
-            return error.message
+            return error.response.data
         }
     }
-
-    static async signInUser(data){
+    static async signUpUser(data){
         try {
             const res = await axios.post(url + "user/signUp/", data)
             return res.data
@@ -50,14 +48,15 @@ export default class API{
         }
     }
 
-  static async editUser(data){
-      try {
-        const res = await axios.post(url + "user/signUp/", data)
-        return res.data
-      } catch (error) {r
-        return error.response.data
-      }
-  }
+    static async updateUserData(data){
+        try {
+            const res = await axios.post(url + "user/updateUserData/", data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
 
     //EventMethods
     static async postEvent(data){
@@ -163,6 +162,36 @@ export default class API{
         }
 
     }
+
+    static async isLeader(data){
+        try {
+            const res = await axios.post(url+"group/isLeader",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+
+    }
+    static async leaveGroup(data){
+        try {
+            const res = await axios.post(url+"group/leaveGroup",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+
+    }
+
+    static async kickMember(data){
+        try {
+            const res = await axios.post(url+"group/kickMember",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+
+    }
+
 
 
     //PostMethods

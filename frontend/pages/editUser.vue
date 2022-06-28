@@ -116,9 +116,33 @@ export default {
           career: this.career,
           phone: this.phoneNumber,
         }
-        let result = await API.postUser(data)
-
-
+        let result = await API.updateUserData(data)
+        if (typeof result === 'undefined') {
+          Swal.fire({
+            title: 'Ha ocurrido un error de conexión',
+            icon: 'error',
+            confirmButtonColor: '#00CCB1',
+          });
+        }
+        else {
+          if (result.code == 200) {
+            Swal.fire({
+              title: '¡Excelente!',
+              text: 'Tu usuario se ha creado correctamente',
+              icon: 'success',
+              confirmButtonColor: '#00CCB1',
+            }).then(function() {
+              window.location = '/loginWindow';
+            });
+          }
+          else {
+            Swal.fire({
+              title: 'El E-mail o Teléfono ingresado estan duplicados',
+              icon: 'error',
+              confirmButtonColor: '#00CCB1',
+            });
+          }
+        }
       }
     },
     async getUser() {
@@ -149,10 +173,5 @@ export default {
   color: white;
   font-size: 1.5rem;
   font-weight: 600;
-  font-family: "Century Gothic", sans-serif;
-}
-
-.swal2-popup {
-  font-family: "Century Gothic", sans-serif;
 }
 </style>
