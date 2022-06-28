@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <v-app-bar dense fixed app height="100">
+    <v-app-bar dense fixed app height="80">
       <!-- Add this class to show menu icon only on small screen -->
       <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-md-none"></v-app-bar-nav-icon>
       <v-row>
@@ -177,7 +177,7 @@ export default {
 <style scoped>
 .bar {
   margin-inline: 10px;
-  margin-top: 40px;
+  margin-top: 20px;
   display: inline-flex;
   color: black;
   padding: 10px;
@@ -192,7 +192,7 @@ export default {
 
 .drawerBar {
   margin-inline: 10px;
-  margin-top: 40px;
+  margin-top: 10px;
   display: inline-flex;
   color: black;
   padding: 10px;
@@ -208,7 +208,7 @@ export default {
 .loginText {
   position: relative;
   margin-inline: 10px;
-  margin-top: 40px;
+  margin-top: 20px;
   display: inline-flex;
   color: white;
   text-shadow: white;
@@ -228,7 +228,7 @@ export default {
 .registerText {
   position: relative;
   margin-inline: 10px;
-  margin-top: 40px;
+  margin-top: 20px;
   display: inline-flex;
   color: white;
   text-shadow: white;
@@ -256,7 +256,7 @@ export default {
 
 .logoUtal {
   position: relative;
-  height: 80px;
+  height: 70px;
 
 }
 

@@ -159,14 +159,11 @@
     padding-right: 5%
   }
   p{
-    font-family: "Century Gothic", sans-serif;
     font-size: 40px;
     font-weight: 900;
     color: #00CCB1;
   }
-  h3{
-     font-family: "Century Gothic", sans-serif;
-  }
+
   .logo-utalca{
     width: 25%;
     height: auto;
@@ -186,15 +183,12 @@
     background-size: cover;
   }
   .swal-title {
-    font-family: "Century Gothic", sans-serif;
     color: black;
   }
   .swal-text {
-    font-family: "Century Gothic", sans-serif;
     color: black;
   }
   .swal-button {
-    font-family: "Century Gothic", sans-serif;
     background-color: #00CCB1;
     border: 1px solid #00CCB1;
   }

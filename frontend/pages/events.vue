@@ -1,16 +1,14 @@
 <template>
   <v-app style="
-    background: #ffffff;"
-  >
+    background: #ffffff;">
     <v-main>
 
       <v-container>
 
-        <h2 class="text-h4 text-sm-h3 font-weight-black mb-4"> 
+        <h2 class="">
+         Eventos próximos:
+        </h2>
 
-          <br> <br> Eventos próximos: <br> </br>
-          </h2>
-        
         <v-row>
 
           <v-col
@@ -72,7 +70,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .textBorder{
     text-shadow: 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0);
     color: #fff
