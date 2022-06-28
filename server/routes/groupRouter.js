@@ -12,7 +12,11 @@ groupRouter.post('/post', groupController.postGroup);
 
 groupRouter.get('/get/:id', groupController.getGroupById);
 
-groupRouter.delete('/delete/:id',groupController.deleteGroup)
+groupRouter.delete('/delete/:id',groupController.deleteGroup);
+
+groupRouter.get('/get-by-code/:code', groupController.getGroupByCode);
+
+groupRouter.post('/joinGroup',groupController.joinGroup)
 
 
 

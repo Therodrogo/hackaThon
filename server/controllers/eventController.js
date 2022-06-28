@@ -49,6 +49,15 @@ const eventController = {
             res.status(err.code).json(err);
         });
 
+    },async getGroupsFromEvent(req,res){
+        const id = req.params.id;
+        await eventService.getGroupsFromEvent(id)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
     }
 
 

@@ -18,8 +18,7 @@
                             @submit.prevent
                             ref="form"
                             v-model="valid"
-                            lazy-validation
-                          >
+                            lazy-validation>
                           <v-text-field
                             v-model="name"
                             :rules="nameRules"
@@ -39,6 +38,21 @@
                             :rules="phoneRules"
                             label="Teléfono"
                             prepend-icon="mdi-cellphone"
+                            required
+                          ></v-text-field>
+                          <v-select
+                            :items="items"
+                            prepend-icon="mdi-account-multiple"
+                            v-model="select"
+                            label="Rol"
+                            required
+                          ></v-select>
+                          <v-text-field
+                            v-model="career"
+                            :disabled="isDisabled"
+                            :rules="select=='Participante' ? careerRules : []"
+                            label="Carrera"
+                            prepend-icon="mdi-school"
                             required
                           ></v-text-field>
                           <v-text-field
@@ -74,9 +88,7 @@
                           :disabled="!valid"
                           color="primary"
                           large
-                          v-on:click="submit"
-                          right
-                          >
+                          v-on:click="submit">
                           crear usuario
                         </v-btn>
                       </div>
@@ -92,11 +104,18 @@
 
 <script>
   import axios from 'axios';
-  import swal from 'sweetalert'
+  import Swal from 'sweetalert2'
+  import API from '~/api';
   export default {
     data: () => ({
+      select: 'Participante',
+      items: ['Participante', 'Organizador'],
       show: false,
       valid: true,
+      career: '',
+      careerRules: [
+        v => !!v || 'Carrera es requerida',
+      ],
       name: '',
       nameRules: [
         v => !!v || 'Nombre es requerido',
@@ -104,12 +123,13 @@
       email: '',
       emailRules: [
         v => !!v || 'E-mail es requerido',
-        v => /.+@.+\..+/.test(v) || 'E-mail debe ser valido',
+        v => /.+@.+\..+/.test(v) || 'E-mail debe ser válido',
       ],
       phoneNumber: '',
       phoneRules: [
         v => !!v || 'Teléfono es requerido',
-        v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v) || 'Teléfono debe ser valido',
+        v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v)
+        || 'Teléfono debe ser válido, se permite formato +569XXXXXXXX, 569XXXXXXXX, 9XXXXXXXX',
       ],
       password: '',
       passwordRules: [
@@ -118,43 +138,63 @@
         || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y una caracter especial',
       ],
     }),
+    computed: {
+      isDisabled() {
+        this.career=''
+        return this.select === 'Organizador';
+      },
+    },
     methods: {
       reset () {
         this.$refs.form.reset()
       },
-      submit () {
+      async submit () {
         if(this.$refs.form.validate()){
-          let data = { name: this.name,
-                        password: this.password,
-                        role: 'Participant',
-                        mail: this.email,
-                        career: '',
-                        phone: this.phoneNumber
-                      }
-            axios.post('https://server-dot-hackathon-construccionu3.rj.r.appspot.com/user/postUser', data)
-            .then(function (response) {
-              swal({
-                  title: "¡Excelente!",
-                  text: "Tu usuario se ha creado correctamente",
-                  icon: "success",
-                })
-              console.log(response);
-
-            })
-            .catch(function (error) {
-               swal({
-                  title: "Ha ocurrido un error",
-                  icon: "error",
-                });
-              console.log(error);
+        let data = { name: this.name,
+          password: this.password,
+          role: this.select,
+          mail: this.email,
+          career: this.career,
+          phone: this.phoneNumber
+        }
+        let result = await API.postUser(data)
+          if(typeof result === 'undefined'){
+            Swal.fire({
+              title: "Ha ocurrido un error de conexión",
+              icon: "error",
+              confirmButtonColor: "#00CCB1",
             });
+          }
+          else{
+            if(result.code == 200){
+              Swal.fire({
+                title: "¡Excelente!",
+                text: "Tu usuario se ha creado correctamente",
+                icon: "success",
+                confirmButtonColor: "#00CCB1",
+              }).then(function() {
+                window.location = "/loginWindow";
+              });
+            }
+            else{
+              Swal.fire({
+                title: "El E-mail o Teléfono ingresado estan duplicados",
+                icon: "error",
+                confirmButtonColor: "#00CCB1",
+              });
+            }
+          }
         }
       },
     },
+
+    beforeMount() {
+      this.submit()
+    }
   }
 </script>
 
-<style scoped>
+<style>
   .v-text-field{
     padding-right: 5%
   }
@@ -175,22 +215,17 @@
     transform: translateY(-50%);
 
   }
+
   .v-main{
-    background-image:url('/25329.jpg');
+    background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/25329.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-  }
-  .swal-title {
-    color: black;
-  }
-  .swal-text {
-    color: black;
-  }
-  .swal-button {
-    background-color: #00CCB1;
-    border: 1px solid #00CCB1;
-  }
 
+  }
+  .swal2-popup{
+    font-family: "Century Gothic", sans-serif;
+
+  }
 </style>
