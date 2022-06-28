@@ -238,7 +238,9 @@ export default {
   background-repeat: no-repeat;
   background-size: 0% 2px;
   transition: background-size .3s;
-  background-color: #CC7C0A;
+  background-color: #cc7c0a;
+  text-decoration: underline;
+  text-decoration-color: #cc7c0a;
 }
 
 .registerText:hover {
