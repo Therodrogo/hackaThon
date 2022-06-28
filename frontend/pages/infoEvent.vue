@@ -15,7 +15,8 @@
               class="grey darken-4"
           :src="Banner"
         ></v-img>
-        <h1 class="mt-5" >{{NombreEvento}}</h1>
+        <h1 class="mt-5" >{{NombreEvento}} </h1>
+        
         
         </div>
       </v-col>
