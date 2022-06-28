@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import API from '../api';
 import Swal from 'sweetalert2';
+import API from '~/api';
 
 export default {
   data: () => ({
