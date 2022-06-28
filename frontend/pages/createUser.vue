@@ -103,7 +103,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import API from "../api";
   import Swal from 'sweetalert2'
   import API from '~/api';
   export default {
@@ -215,7 +215,6 @@
     transform: translateY(-50%);
 
   }
-
   .v-main{
     background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/25329.jpg');
     background-position: center center;
