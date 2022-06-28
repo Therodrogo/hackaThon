@@ -5,6 +5,7 @@
         <v-btn>
           editar perfil
         </v-btn>
+        
         <v-row>
           <v-col 
             lg="4"
@@ -68,6 +69,42 @@
             </v-sheet>
           </v-col>
         </v-row>
+        <v-container>
+          <v-col lg="5">
+            <v-form @submit.prevent="takeCode">
+              <v-row :align="align" no-gutters>
+                <v-text-field
+                  v-model="code"
+                  label="Codigo de invitacion"
+                  placeholder="Ingresar codigo"
+                >
+                
+                </v-text-field>
+                <v-btn color = "#00CCB1" type="submit" large outlined>
+                  <v-icon>mdi-send</v-icon>
+                </v-btn>
+              </v-row>
+            </v-form>
+          </v-col>
+          
+        
+        </v-container>
+        <v-snackbar
+          v-model="snackbar"
+        >
+          {{ text }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="#00CCB1"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Cerrar
+            </v-btn>
+          </template>
+        </v-snackbar>
       </v-container>
     </v-main>
   </v-app>
@@ -82,8 +119,22 @@
                     {name: "los vios", userID: "pila", eventID:""},
                     {name: "simps de profe Daniel", userID: "pila", eventID:""}, 
                     {name: "dasfad", userID: "pila", eventID:""},
-                ] 
+                ],
+                code: '',
+                snackbar:false,
+                text:''
             } 
-        } 
-    } 
+        },
+        methods:{
+          takeCode(){
+            const codigo = this.code
+            console.log(codigo)
+            if(this.code === ''){
+              this.snackbar=true
+              this.text = 'Escriba un código válido'
+            }
+          }
+        }     
+    }
+
 </script>
