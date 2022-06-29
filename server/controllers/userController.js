@@ -1,4 +1,4 @@
-const { postService } = require('../services/userService');
+const { postService, updateUserData } = require('../services/userService');
 const userService = require('../services/userService');
 
 
@@ -49,7 +49,30 @@ const userController = {
             res.status(err.code).json(err);
         });
 
-    }
+    },
+    async signUpUser(req, res){
+        const mail = req.body.mail;
+        const password = req.body.password;
+        await userService.signUpUser(mail, password)
+            .then((result) => {
+                res.status(result.code).json(result);
+            })
+            .catch((err) => {
+                res.status(err.code).json(err);
+            });
+    },
+
+    async updateUserData(req,res){
+        await userService
+        .updateUserData(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+        
+    },
 
 
 };

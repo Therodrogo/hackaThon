@@ -1,13 +1,12 @@
-const { postService } = require('../services/eventService');
-const eventService = require('../services/eventService');
+const projectService = require('../services/projectService');
 
 
 // Create the controller to handle all the services
-const eventController = {
+const projectController = {
     // Here you add all the controllers of the service
-    async getEvents(req, res) {
-        await eventService
-            .getEvents()
+    async getProjects(req, res) {
+        await projectService
+            .getProjects()
             .then((result) => {
                 res.status(result.code).json(result);
             })
@@ -16,10 +15,10 @@ const eventController = {
             });
     },
 
-    async postEvent(req,res){
+    async postProject(req,res){
         
-        await eventService
-        .postEvent(req)
+        await projectService
+        .postProject(req)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -27,10 +26,10 @@ const eventController = {
             res.status(err.code).json(err);
         });
         
-    },async getEventById(req, res) {
+    },async getProjectById(req, res) {
         const id = req.params.id;
-        await eventService
-            .getEventById(id)
+        await projectService
+            .getProjectById(id)
             .then((result) => {
                 res.status(result.code).json(result);
             })
@@ -38,10 +37,10 @@ const eventController = {
                 res.status(err.code).json(err);
             });
     },
-    async deleteEvent(req,res){
+    async deleteProject(req,res){
         
         const id = req.params.id;
-        await eventService.deleteEvent(id)
+        await projectService.deleteProject(id)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -49,18 +48,9 @@ const eventController = {
             res.status(err.code).json(err);
         });
 
-    },async getGroupsFromEvent(req,res){
-        const id = req.params.id;
-        await eventService.getGroupsFromEvent(id)
-        .then((result) => {
-            res.status(result.code).json(result);
-        })
-        .catch((err) => {
-            res.status(err.code).json(err);
-        });
     }
 
 
 };
 
-module.exports = eventController;
+module.exports = projectController;

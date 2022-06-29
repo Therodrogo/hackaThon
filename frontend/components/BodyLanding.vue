@@ -1,19 +1,15 @@
 <template>
 
   <div class="carrouselContainer">
-    <v-carousel :continuous="false" :cycle="cycle" :show-arrows="true" hide-delimiter-background
-      
-      delimiter-icon="mdi-minus" >
-      <v-carousel-item v-for="(slide, i) in slides" :key="i">
-        <v-sheet :color="colors[i]" height="100%">
-          <v-row class="fill-height" justify="center">
-            <div class="container">
-              {{ slide }} Slide
-            </div>
-          </v-row>
-        </v-sheet>
-      </v-carousel-item>
-    </v-carousel>
+    <v-carousel>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      :key="i"
+      :src="item.src"
+      reverse-transition="fade-transition"
+      transition="fade-transition"
+    ></v-carousel-item>
+  </v-carousel>
 
   </div>
 </template>
@@ -38,6 +34,27 @@ export default {
         'Fourth',
         'Fifth',
       ],
+
+    items: [
+          {
+            src: 'https://www.utalca.cl/content/uploads/2022/05/Universidad-de-Talca-2022-05-02T182912.216.png',
+            
+          },
+          {
+            src: 'https://www.utalca.cl/content/uploads/2021/07/Universidad-de-Talca-2021-07-09T135736.555.png',
+          },
+          {
+            src: 'https://www.thinkagro.cl/wp-content/uploads/2021/07/edificio-bicentenario-de-noche-min-1-1050x700.jpg',
+          },
+          {
+            src: 'https://admision.utalca.cl/wp-content/uploads/2021/04/Screenshot_2.png',
+          },
+          {
+            src: 'http://campustv.utalca.cl/wp-content/uploads/2022/03/Cortina-CampusTV-Informa_-800x450.jpg',
+          },
+        ],
+
+
     }
   }
 }
