@@ -144,6 +144,11 @@
 
 <script>
 import API from '~/api'
+
+import {eventStore} from "../store/index.js"
+
+const eventoStore = eventStore()
+
   export default {
     data () {
       return {
@@ -161,7 +166,7 @@ import API from '~/api'
     methods: {
       async getEventByID(){
       try {
-        const res = await API.getEventByID('62b9f13f03bf61e2924a3135');
+        const res = await API.getEventByID(eventoStore.getEventId);
 
         this.Descripcion=res.data.description
         this.Maps=res.data.mapUrl

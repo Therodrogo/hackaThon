@@ -33,7 +33,7 @@
                 <p>Date finish: {{n.dateFinish.slice(0,10)}}</p>
               </v-card-text>
               <v-card-actions>
-                <v-btn color=#009a82 to="/infoEvent" class="white--text">
+                <v-btn @click="selectEvent(n._id)" color=#009a82 to="/infoEvent" class="white--text">
                   More info
                 </v-btn>
               </v-card-actions>
@@ -46,7 +46,11 @@
 </template>
 
 <script>
-  import { restElement } from '@babel/types';
+
+  import {eventStore} from "../store/index.js"
+
+  const eventoStore = eventStore()
+
   import API from '~/api';
   export default {
     data (){
@@ -60,12 +64,23 @@
         try {
           const res = await API.getAllEvents()
           this.events = res.data
+          
         } catch (error) {
           console.log(error)
         }
+      },
+      selectEvent(eventId){
+        console.log(eventId)
+        console.log("pasoooooooooooooooooo")
+        eventoStore.$patch({
+          selectEvent: eventId
+        })
+        console.log(eventoStore.selectEvent)
+
       }
     }, beforeMount() {
         this.getAllEvents()
+        
     }
   }
 </script>

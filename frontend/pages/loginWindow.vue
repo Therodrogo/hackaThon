@@ -45,6 +45,9 @@
 <script>
 import swal from 'sweetalert'
 import API from "../api";
+import {usuarioStore} from "../store/index.js"
+
+const usuario = usuarioStore()
 
 export default {
     name: 'Login',
@@ -70,11 +73,33 @@ export default {
 
       async submit () {
 
-        var allUsersData = new Array();
-        const allUsers = await API.getAllUsers();
-        allUsersData= allUsers.data;
-        console.log(allUsersData);
         if(!this.email == '' && !this.password == ''){
+
+          const user = await API.signUpUser({"mail": this.email,"password":this.password});
+          console.log(user)
+          if (user.code==200){
+            usuario.user = user.data
+
+            swal({
+                  title: "Bienvenido "+user.name,
+                  text: "Tu rol es: "+user.role,
+                  icon: "success",
+                })
+                this.$router.push('events');
+
+            }
+          else{
+            swal({
+                title: "Credenciales incorrectas",
+                icon: "error",
+            });
+          }
+
+
+
+
+
+/* 
           var userFound = false;
           allUsersData.forEach((user) => {
             if(user.mail==this.email){
@@ -82,6 +107,8 @@ export default {
                 //usuario validado!!
                 console.log("INGRESO USUARIO "+user.name +" CON PRIVILEGIOS DE "+user.role);
                 userFound=true;
+                
+
                 swal({
                   title: "Bienvenido "+user.name,
                   text: "Tu rol es: "+user.role,
@@ -96,7 +123,7 @@ export default {
                 title: "Credenciales incorrectas",
                 icon: "error",
             });
-          }
+          } */
         }else{
             swal({
                 title: "Ha ocurrido un error",

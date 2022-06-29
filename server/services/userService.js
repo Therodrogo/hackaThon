@@ -58,15 +58,15 @@ const userService = {
         try{         
             const user = await userSchema.findOne({ mail: email });
             if (user == null) {
-                return{ status: 'Failed',code: 400,message: 'Not User found',data: false}
+                return{ status: 'Failed',code: 400,message: 'Not User found',data: {}}
             }
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                return{ status: 'Failed',code: 400,message: 'Incorrect Data', data: false} 
+                return{ status: 'Failed',code: 400,message: 'Incorrect Data', data: {}} 
             }       
-            return{ status: 'Success',code: 200,message: 'User autenticated',data: true}             
+            return{ status: 'Success',code: 200,message: 'User autenticated',data: user}             
         }catch(e){
-           return{  status: 'Failed',code: 400,message: e.message,data: false}
+           return{  status: 'Failed',code: 400,message: e.message,data: {}}
         }  
     },
 
