@@ -6,7 +6,7 @@
       <v-divider></v-divider>
 
       <nuxt />
-      <FutterInformation />
+      <FooterInformation />
     </div>
   </v-app>
 

@@ -81,6 +81,9 @@
 <script>
 import Swal from 'sweetalert2';
 import API from '~/api';
+import {usuarioStore} from "../store/index.js"
+
+const userStore = usuarioStore()
 
 export default {
   data: () => ({
@@ -106,12 +109,13 @@ export default {
   methods: {
     reset() {
       this.$refs.form.reset();
-      window.location = '/';
+      //TODO: se debe utizar otra opcion para ir a la ruta (nuxt-link o $route)
+      window.location = '/userGroups'; 
     },
     async submit() {
       if (this.$refs.form.validate()) {
         let data = {
-          userID: '62b8feb28fa7ebd55f486a8f',
+          userID: userStore.user._id,
           name: this.name,
           mail: this.email,
           career: this.career,
@@ -134,8 +138,10 @@ export default {
               icon: 'success',
               confirmButtonColor: '#00CCB1',
             }).then(function() {
-              window.location = '/loginWindow';
+              //TODO: se debe utizar otra opcion para ir a la ruta (nuxt-link o $route)
+              window.location = '/userGroups';
             });
+            
           }
           else {
             Swal.fire({
@@ -148,8 +154,9 @@ export default {
       }
     },
     async getUser() {
-      await API.getUserByID('62b8feb28fa7ebd55f486a8f').then((response) => {
-        let userData = response.data[0];
+      
+      await API.getUserByID(userStore.user._id).then((response) => {
+        let userData = response.data;
         this.name = userData.name;
         this.email = userData.mail;
         this.career = userData.career;
@@ -159,9 +166,10 @@ export default {
           console.log(error);
         });
     },
-    created() {
-      this.getUser();
-    },
+    
+  },
+  beforeMount() {
+    this.getUser();
   },
 };
 </script>

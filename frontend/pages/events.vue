@@ -33,9 +33,12 @@
                 <p>Date finish: {{n.dateFinish.slice(0,10)}}</p>
               </v-card-text>
               <v-card-actions>
-                <v-btn @click="selectEvent(n._id)" color=#009a82 to="/infoEvent" class="white--text">
-                  More info
-                </v-btn>
+                <nuxt-link to="/infoEvent">
+                  <v-btn  @click="selectEvent(n._id)" color=#009a82 class="white--text">
+                    More info
+                  </v-btn>
+                </nuxt-link>
+               
               </v-card-actions>
             </v-card>
           </v-col>
@@ -70,12 +73,10 @@
         }
       },
       selectEvent(eventId){
-        console.log(eventId)
-        console.log("pasoooooooooooooooooo")
-        eventoStore.$patch({
-          selectEvent: eventId
-        })
+        
+        eventoStore.setEvent(eventId)
         console.log(eventoStore.selectEvent)
+
 
       }
     }, beforeMount() {

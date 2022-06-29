@@ -79,13 +79,12 @@ export default {
           console.log(user)
           if (user.code==200){
             usuario.user = user.data
-
             swal({
-                  title: "Bienvenido "+user.name,
-                  text: "Tu rol es: "+user.role,
+                  title: "Bienvenido "+usuario.user.name,
+                  text: "Tu rol es: "+usuario.user.role,
                   icon: "success",
                 })
-                this.$router.push('events');
+                this.$router.push('userGroups');
 
             }
           else{
