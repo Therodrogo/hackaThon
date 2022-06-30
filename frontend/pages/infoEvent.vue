@@ -126,6 +126,7 @@
               rounded
               elevation="3"
               color = "#00CCB1"
+              to="/eventGroups"
               >
               Lista de Grupos
               
