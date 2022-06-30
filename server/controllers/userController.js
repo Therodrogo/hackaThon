@@ -72,7 +72,18 @@ const userController = {
             res.status(err.code).json(err);
         });
         
-    },
+    },async getGroupsUser(req,res){
+        
+        const userID = req.params.id
+        await userService
+        .getGroupsUser(userID)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });   
+    }
 
 
 };

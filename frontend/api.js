@@ -56,6 +56,15 @@ export default class API{
             return error.response.data
         }    
     }
+    static async getGroupsUser(id){
+        try {
+            const res = await axios.get(url+"user/getGroupsUser/"+id)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }     
+
+    }
 
 
 

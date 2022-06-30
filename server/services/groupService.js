@@ -28,7 +28,7 @@ const GroupService = {
             user.eventsID.forEach(element => {
                 if (element._id.equals(group.eventID)) IsOnGroup = true
             });
-
+            
             if (!IsOnGroup) {
                 const codeGroup = await this.generateCode();
                 group.code = codeGroup;
@@ -55,8 +55,13 @@ const GroupService = {
     },
     async getGroupById(id) {
         try {
-            const group = await GroupSchema.findOne({ _id: id });
-            return { status: 'Success', code: 200, message: 'group with id ' + id + ' is found', data: group }
+            const group = await GroupSchema.findOne({ _id: id }).populate({path:"userID",select:"name"});
+            if (group!=null){
+                return { status: 'Success', code: 200, message: 'group with id ' + id + ' is found', data: group }    
+            }else{
+                return { status: 'Failed', code: 200, message: 'Group with id ' + id + ' is not found', data: {} }    
+            }
+            
 
         } catch (e) {
             return { status: 'Failed', code: 400, message: e.message, data: {} }
@@ -69,24 +74,23 @@ const GroupService = {
         } catch (e) {
             return { status: 'Failed', code: 400, message: e.message, data: {} }
         }
-    }, async joinGroup(req) {
-
-        const groupID = req.groupID
+    },
+    async joinGroupCode(req){
         const code = req.code
         const userID = req.userID
         try {
-            const user = await userSchema.findOne({ _id: userID }).populate({ path: "groupsID", select: "_id" })
-            const group = await GroupSchema.findOne({ _id: groupID }).populate("eventID").populate("userID")
-            try {
-                if (group.code == code) {
+            const group = await GroupSchema.findOne({ code: code }).populate("eventID").populate("userID") 
+            if(group!=null){
+                if(group.code==code){
+                    const user = await userSchema.findOne({ _id: userID }).populate({ path: "groupsID", select: "_id" })
                     var onUserGroups = false
                     user.groupsID.forEach(element => {
-                        if (element._id == groupID) onUserGroups = true
+                        if (element._id.equals(group._id)) onUserGroups = true
                     });
                     if (!onUserGroups) {
 
                         if (group.userID.length + 1 < group.eventID.groupLimit) {
-                            await GroupSchema.findOneAndUpdate({ _id: groupID },
+                            await GroupSchema.findOneAndUpdate({ _id: group._id },
                                 { "$push": { "userID": userID } }
 
                             )
@@ -104,25 +108,16 @@ const GroupService = {
                     } else {
                         return { status: 'Failed', code: 400, message: "You are already registered in a group for this event", data: false }
                     }
-                } else {
+                }else{
                     return { status: 'Failed', code: 400, message: "This is an invalid code", data: false }
                 }
 
-
-
-            } catch (error) {
-                return { status: 'Failed', code: 400, message: e.message, data: false }
+            }else{
+                return { status: 'Failed', code: 400, message: "This is an invalid code", data: false }    
             }
-
-
-
+        } catch (error) {
+            
         }
-        catch (error) {
-            return { status: 'Failed', code: 400, message: e.message, data: false }
-        }
-
-
-
 
     },
     async getGroupByCode(code) {
