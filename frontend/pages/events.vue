@@ -5,7 +5,8 @@
 
       <v-container>
 
-        <h2 class="text-sm-h4">
+        <h2 class="text-h4 text-sm-h4 font-weight-black mb-4">
+        <br>
          Eventos próximos:
         </h2>
 
