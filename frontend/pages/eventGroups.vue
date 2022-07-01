@@ -4,10 +4,10 @@
       <v-container>
         <v-row>
           <v-col 
-            lg="12"
-            md="12"
-            sm="10"
-            xs="10">
+            lg="9"
+            md="9"
+            sm="9"
+            xs="9">
             <v-sheet rounded="md">
               <v-list>
                 <v-list-item>
@@ -23,10 +23,24 @@
                 <v-list-item-group
                 mandatory
                 color="#00CCB1">
-                    <v-list-item v-for="n in groups" :key="n">
-                      <v-btn @click="selectedGroup = n.name"  left min-width="100%">
-                        {{n.name}}
-                      </v-btn>
+                    <v-text-field
+                    prepend-icon='mdi-card-search-outline'
+                    label='Buscar Grupo'
+                    v-model="findgroup"
+                    
+                    
+                    
+                    ></v-text-field>
+                    <v-list-item  v-for= "(n,i) in FilterGroups" :key="i"  >
+                       
+                      
+                        <v-btn  @click="selectedGroup = n.name"  left min-width="100%">
+                          {{n.name}}
+                        </v-btn>
+                        <h3 class='text-center ml-5 mr-5'> {{n.num}}/5 </h3>
+                        <v-btn   v-if="n.num != 5 " @click = addGroup(n)>+</v-btn>
+                      
+
                     </v-list-item>
                 </v-list-item-group>
 
@@ -64,15 +78,37 @@ const eventoStore = eventStore()
   export default {
     data () {
       return {
+        findgroup:"", 
         selectedGroup: "los vios",
         groups:[ 
         ],
         code: '',
         snackbar:false,
-        text:''
+        text:'',
+        findRules: [
+          v => [this.findgroup].test(v),
+        ],
       }
     }, 
+    computed:{
+      FilterGroups(){
+        return this.groups.filter(newgroup =>{
+          return newgroup.name.match(this.findgroup);
+        })
+      }
+    },
     methods: {
+      addGroup(n){
+          console.log(n);
+          console.log(this.findgroup);
+          return n.num++
+        
+
+      },
+
+
+
+      
       async getEventByID(){
       try {
         const res = await API.getEventByID(eventoStore.getEventId);
@@ -82,13 +118,13 @@ const eventoStore = eventStore()
         ,res.data.location, res.data.dateStart, res.data.dateFinish,res.data.groups)
         
         
-        this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:""});
-        this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:""});
-        this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:""},);
-        this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:""});
-        this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:""},);
-        this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:""});
-        this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:""},);
+        this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:"",num:1});
+        this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:"",num:2});
+        this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:"",num:0},);
+        this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:"",num:3});
+        this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:"",num:0},);
+        this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:"",num:4});
+        this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:"",num:1},);
 
         
 
