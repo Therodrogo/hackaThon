@@ -115,6 +115,7 @@
               rounded
               elevation="2"
               color = "#00CCB1"
+              to="/createGroup"
               >
               Crear Grupo
               </v-btn>
