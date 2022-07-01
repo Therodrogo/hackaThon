@@ -98,6 +98,24 @@ const userService = {
         } catch (error) {
             return{  status: 'Failed',code: 400,message: error.message,data: false}
         }
+    },
+    async getGroupsUser(userID){
+        
+
+        try {
+            const user = await userSchema.findOne({_id:userID}).populate({path:"groupsID",select:"name"})
+            
+            if(user!=null){
+                
+                return  {status: 'Success',code: 200, message: 'User groups found',data: user.groupsID}
+            }else{
+                return{  status: 'Failed',code: 400,message: "This user dont exist",data: {}}
+            }
+            
+        } catch (error) {
+            return{  status: 'Failed',code: 400,message: error.message,data: {}}    
+        }
+
     }
 };
 
