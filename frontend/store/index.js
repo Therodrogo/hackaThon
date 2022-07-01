@@ -1,5 +1,20 @@
 import { defineStore } from "pinia";
 
+//Store para el usuario Activo en el navbar
+export const usuarioActivo = defineStore('usuario', {
+    state: () => ({layout: 'Your default value' , noLogueado: true}),
+    getters: {
+      
+    },
+    actions: {
+        //Cambiar el nav cuando se loguea alguien
+        CHANGE_NAV_LAYOUT(usuarioActivo, layout) {
+            usuarioActivo.layout = layout;
+            usuarioActivo.noLogueado = false;
+        },
+    },
+  })
+
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
