@@ -55,22 +55,56 @@
 </template>
 
 <script> 
-    import API from "../api";
-    export default {
+import API from '~/api'
+
+import {eventStore} from "../store/index.js"
+
+const eventoStore = eventStore()
+
+  export default {
+    data () {
+      return {
+        selectedGroup: "los vios",
+        groups:[ 
+        ],
+        code: '',
+        snackbar:false,
+        text:''
+      }
+    }, 
+    methods: {
+      async getEventByID(){
+      try {
+        const res = await API.getEventByID(eventoStore.getEventId);
+        console.log("sadhsjkdjkahdkhaskdhajhdashdkhsakdhkj")
+        console.log(res.data.description ,res.data.mapUrl 
+        ,res.data.coverUrl ,res.data.name 
+        ,res.data.location, res.data.dateStart, res.data.dateFinish,res.data.groups)
         
-        data (){ 
-            
-            return { 
-              selectedGroup: "evento",
-                groups:[ ],
-                code: '',
-                snackbar:false,
+        
+        this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:""});
+        this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:""});
+        this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:""},);
+        this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:""});
+        this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:""},);
+        this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:""});
+        this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:""},);
 
+        
 
-            }
-            
+        
+      } catch (error) {
+        
+      }  
+      }
 
-        },
+    }, beforeMount() {
+      this.getEventByID()
+
+    }
+
+  }
+        /** 
         async mounted(){// se consultara a la BD
         const dat = {
             name:"Grupo2",
@@ -82,10 +116,10 @@
         }
             const id = "texto";
             //InsertData( id);
-            const datagroups = await API.getAllEvents();
+            const dataevent = await API.getEventByID(evento.getEventId);
             //const datagroups = await API.getGroupsFromEvent(id)
-            console.log( datagroups.data);
-            console.log(datagroups)
+            console.log( dataevent);
+
 
             this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:""});
             this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:""});
@@ -105,7 +139,7 @@
  
             }
 
-        }     
-    }
-
+        }     */
+    
+    
 </script>
