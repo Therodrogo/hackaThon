@@ -50,10 +50,10 @@ const userController = {
         });
 
     },
-    async signUpUser(req, res){
+    async signInUser(req, res){
         const mail = req.body.mail;
         const password = req.body.password;
-        await userService.signUpUser(mail, password)
+        await userService.signInUser(mail, password)
             .then((result) => {
                 res.status(result.code).json(result);
             })

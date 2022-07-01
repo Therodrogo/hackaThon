@@ -2,6 +2,7 @@
 
 const userSchema = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+const jwt =  require('jsonwebtoken');
 
 const userService = {
     async getUsers(){
@@ -18,10 +19,13 @@ const userService = {
            return{status: 'Failed',code: 400,message: e.message,data: []}
         } 
     },
-    async postUser(req,res) {
+    async postUser(req, res) {
         try{
             const user = userSchema(req.body)
             user.password = await this.encryptPassword(user.password)
+            const token = jwt.sign({id: user._id}, 'secretToken', {
+                expiresIn: 60 * 60 * 24
+            });
             await user.save()
             return{   status: 'Success',code: 200,message: 'User is created',data: user}
                 
@@ -54,19 +58,22 @@ const userService = {
         const hash = bcrypt.hash(password, salt);
         return hash;
 
-    },async signUpUser(email, password){   
+    },async signInUser(email, password){   
         try{         
             const user = await userSchema.findOne({ mail: email });
             if (user == null) {
-                return{ status: 'Failed',code: 400,message: 'Not User found',data: {}}
+                return{ status: 'Failed', code: 400, message: 'Not User found', data: {}}
             }
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compare(password, user.password);           
             if (!isMatch) {
-                return{ status: 'Failed',code: 400,message: 'Incorrect Data', data: {}} 
-            }       
-            return{ status: 'Success',code: 200,message: 'User autenticated',data: user}             
+                return{ status: 'Failed', code: 400, message: 'Incorrect Data', data: {}} 
+            }
+            const token = jwt.sign({id: user._id}, 'secretToken', {
+                expiresIn: 60 * 60 * 24
+            });       
+            return{ status: 'Success', code: 200, message: 'User autenticated', {data: user, token}}             
         }catch(e){
-           return{  status: 'Failed',code: 400,message: e.message,data: {}}
+           return{  status: 'Failed', code: 400, message: e.message, data: {}}
         }  
     },
 
