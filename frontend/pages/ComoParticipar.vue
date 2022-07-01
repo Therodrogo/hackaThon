@@ -1,5 +1,5 @@
 <template>
-   <div class="py-16 grey lighten-4" xs6> 
+   <div class="container" xs6> 
     <v-row class="text-center" >
       <v-col><h2 class="text-h4 text-sm-h4 font-weight-black mb-4"> 
         <br> <br> Para participar debes estar registrado en el sistema
@@ -132,8 +132,9 @@
 
 <style scoped>
 
-.v-container{
-  width: 150%;
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
 }
 img{
     width:500%;
