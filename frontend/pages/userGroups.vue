@@ -114,6 +114,7 @@
 </template>
 
 <script> 
+  import {usuarioStore} from "../store/index.js";
     export default {
         data (){ 
             return { 
@@ -137,7 +138,14 @@
               this.text = 'Escriba un código válido'
             }
           }
-        }     
+        },
+         beforeMount() {
+          const userStore = usuarioStore();
+          if(userStore.user === null){
+            this.$router.push({ path: '/loginWindow' })
+          }
+          
+        },
     }
 
 </script>

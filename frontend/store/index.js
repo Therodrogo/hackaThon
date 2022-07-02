@@ -4,8 +4,9 @@ import { defineStore } from "pinia";
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
         user:null,
-        estado:null
+        estado:null,
     }),
+    
     actions:{
         
     },
@@ -13,9 +14,7 @@ export const usuarioStore = defineStore('usuarioStore', {
         getUserId(state){
             return state.user.data._id
         }
-    }
-
-
+    },
   })
 
 export const eventStore = defineStore('eventStore', {
