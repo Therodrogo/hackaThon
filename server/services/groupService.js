@@ -76,8 +76,8 @@ const GroupService = {
         }
     },
     async joinGroupCode(req){
-        const code = req.code
-        const userID = req.userID
+        const code = req.body.code
+        const userID = req.body.userID
         try {
             const group = await GroupSchema.findOne({ code: code }).populate("eventID").populate("userID") 
             if(group!=null){
