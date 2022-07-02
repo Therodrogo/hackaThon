@@ -1,20 +1,21 @@
-import jwt from "jsonwebtoken";
-import User from "../models/userModel";
+const jwt =  require('jsonwebtoken');
+const User = require('../models/userModel');
 
-export const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   let token = req.headers["x-access-token"];
-
-  if (!token) return{ status: 'Failed', code: 200, message: 'No token provided', data: ""}
+  if (!token) return res.status(400).json({ message: "No token provided" });
 
   try {
-    const decoded = jwt.verify(token, config.SECRET);
+    const decoded = jwt.verify(token, 'secretToken');
     req.userId = decoded.id;
 
-    const user = await User.findById(req.userId, { password: 0 });
-    if (!user) return res.status(404).json({ message: "No user found" });
+    const user = await User.findById(req.userId, { password: 0, _id: 0 });
+    if (!user) return res.status(400).json({ message: "No user found" });
 
     next();
-  } catch (error) {
-    return res.status(401).json({ message: "Unauthorized!" });
-  }
+  } catch(e){
+    return res.status(400).json({ message: "Unauthorized!" });
+ }  
 };
+
+module.exports = { verifyToken };
