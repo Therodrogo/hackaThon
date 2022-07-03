@@ -69,14 +69,30 @@
 
 
 
-          <!-- UsuarioActivo -->
-          <h1>{{ usuarioActivoComputed }}</h1>
-            <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
-
-
-        </v-col>
-        <v-col>
-          <!-- BlankSpace -->
+          <!-- UsuarioActivo -->  
+          <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
+          <div>
+            <v-menu offset-y>
+               <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <h1>{{ usuarioActivoComputed }}</h1>
+                </v-btn>
+                </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in items"
+                  :key="index"
+                >
+                  <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </v-col>
       </v-row>
 
@@ -152,9 +168,30 @@
           </v-list-item>
             <v-list-item>
             <v-list-item-title>
-               <!-- UsuarioActivo -->
-                {{ usuarioActivoComputed }}
+               <!-- UsuarioActivo, movil -->
                 <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
+                <div>
+                  <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <h1>{{ usuarioActivoComputed }}</h1>
+                      </v-btn>
+                      </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, index) in items"
+                        :key="index"
+                      >
+                        <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
             </v-list-item-title>
           </v-list-item>
 
@@ -178,7 +215,12 @@ export default {
       drawer: false,
       user: "Iniciar Sesion",
       user2: "Crear Usuario",
- 
+
+      items: [
+        { title: 'Editar perfil',to: "/editUser" },
+        { title: 'Mis grupos',to: "/userGroups" },
+        { title: 'Cerrar sesión',to: "/" },
+      ],
     }
   },
   computed: {
