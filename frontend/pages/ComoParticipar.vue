@@ -32,7 +32,7 @@
           </div>
           <v-card-text class="card">
           <p class="text-h6 text-uppercase font-weight-black mt-6 mb-2" >
-            Contactarse directamente con el profesor a cargo
+            Contactarse con el profesor a cargo
           </p>
           <p class="text--disabled text-uppercase"></p>
         </v-card-text>

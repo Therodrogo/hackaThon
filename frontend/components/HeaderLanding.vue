@@ -68,20 +68,31 @@
           </nuxt-link>
 
 
-
+          <!-- Header --> 
           <!-- UsuarioActivo -->  
           <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
-          <div>
-            <v-menu offset-y>
-               <template v-slot:activator="{ on, attrs }">
-                <v-btn
+          <div >
+            
+            <v-menu offset-y  >
+               <template v-slot:activator="{ on, attrs }" >
+               
+                <v-btn class="miNombre" 
+                 
                   color="primary"
-                  dark
                   v-bind="attrs"
                   v-on="on"
-                >
-                  <h1>{{ usuarioActivoComputed }}</h1>
-                </v-btn>
+                  height="43"
+                  width="130"
+                  
+              >        
+              
+               
+                 <p class="JetBrains Mono">
+                  
+                  {{ usuarioActivoComputed }}
+                   
+                  </p>
+                </v-btn >
                 </template>
               <v-list>
                 <v-list-item
@@ -170,16 +181,19 @@
             <v-list-item-title>
                <!-- UsuarioActivo, movil -->
                 <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
-                <div>
+                <div >
                   <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
+                      <v-btn class="miNombre"
+                       color="primary"
+                      v-bind="attrs"
+                      v-on="on"
+                      height="40"
+                      width="130"
                       >
-                        <h1>{{ usuarioActivoComputed }}</h1>
+                        <p class="JetBrains Mono">
+                          {{ usuarioActivoComputed }}
+                        </p>
                       </v-btn>
                       </template>
                     <v-list>
@@ -283,6 +297,30 @@ export default {
   transition: background-size .3s;
 }
 
+
+.miNombre{
+  position: relative;
+  margin-inline: 10px;
+  margin-top: 20px;
+  display: inline-flex;
+  color: white;
+  text-shadow: white;
+  padding: 10px;
+  text-decoration: none;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+  background-color: #00CCB1;
+  
+}
+
+.miNombre:hover {
+  background-color: #04e4c6;
+}
+
+
+
 .loginText {
   position: relative;
   margin-inline: 10px;
@@ -344,4 +382,8 @@ export default {
   align-content: center;
   justify-content: center;
 }
+
+.v-text-field input {
+    font-size: 1.2em;
+  }
 </style>
