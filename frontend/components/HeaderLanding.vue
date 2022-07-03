@@ -71,7 +71,7 @@
 
           <!-- UsuarioActivo -->
           <h1>{{ usuarioActivoComputed }}</h1>
-
+            <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
 
 
         </v-col>
@@ -154,6 +154,7 @@
             <v-list-item-title>
                <!-- UsuarioActivo -->
                 {{ usuarioActivoComputed }}
+                <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
             </v-list-item-title>
           </v-list-item>
 
