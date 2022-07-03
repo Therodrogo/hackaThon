@@ -1,7 +1,10 @@
 
 const GroupSchema = require('../models/groupModel')
 const userSchema = require('../models/userModel')
-const eventSchema = require('../models/eventModel')
+const eventSchema = require('../models/eventModel');
+
+
+
 
 const GroupService = {
     async getGroups() {
@@ -76,8 +79,10 @@ const GroupService = {
         }
     },
     async joinGroupCode(req){
-        const code = req.body.code
-        const userID = req.body.userID
+        
+        const code = req.code
+        const userID = req.userID
+        
         try {
             const group = await GroupSchema.findOne({ code: code }).populate("eventID").populate("userID") 
             if(group!=null){
@@ -99,7 +104,7 @@ const GroupService = {
                             )
                             await userSchema.findOneAndUpdate({ "_id": userID },
                                 { "$push": { "groupsID": group._id } }
-                            )
+                            ) 
                             return { status: 'Success', code: 200, message: "You have been successfully added", data: true }
                         } else {
                             return { status: 'Failed', code: 400, message: "This group is complete", data: false }
@@ -116,6 +121,8 @@ const GroupService = {
                 return { status: 'Failed', code: 400, message: "This is an invalid code", data: false }    
             }
         } catch (error) {
+           
+            return { status: 'Failed', code: 400, message: error.message, data: false }  
             
         }
 

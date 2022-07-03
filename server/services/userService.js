@@ -101,7 +101,7 @@ const userService = {
         
 
         try {
-            const user = await userSchema.findOne({_id:userID}).populate({path:"groupsID",select:"name"})
+            const user = await userSchema.findOne({_id:userID}).populate({path:"groupsID",select:["name","leaderID"]})
             
             if(user!=null){
                 
