@@ -72,29 +72,16 @@ export default {
 
       async submit () {
         if(!this.email == '' && !this.password == ''){
-          const userSignUp = await API.signUpUser({"mail": this.email,"password":this.password});
           const usuario = usuarioStore();
-          if (typeof userSignUp === 'undefined') {
-            Swal.fire({
-              title: 'Ha ocurrido un error de conexión',
+          if(usuario.login(this.email,this.password)){
+            this.$router.push({ path: '/userGroups' })
+          }
+          else{
+             Swal.fire({
+              title: 'Ha ocurrido un error',
               icon: 'error',
               confirmButtonColor: '#00CCB1',
               })
-          }else{
-            console.log(userSignUp)
-            if (userSignUp.code==200){
-              usuario.user =  userSignUp.data,
-              Swal.fire({
-                    title: "Bienvenido "+usuario.user.name,
-                    text: "Tu rol es: "+usuario.user.role,
-                    icon: "success",
-                    confirmButtonColor: '#00CCB1'
-                   }).then((result) => {  
-                      if (result.isConfirmed) {    
-                        this.$router.push({ path: '/userGroups' })
-                      }
-                  });
-            }
           }
 
 
@@ -127,7 +114,6 @@ export default {
             });
           } */
         }else{
-          usuario.$reset(),
           Swal.fire({
             title: 'Credenciales incorrectas',
             icon: 'error',

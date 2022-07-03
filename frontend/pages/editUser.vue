@@ -155,7 +155,7 @@ export default {
     },
     async getUser() {
       const userStore = usuarioStore();
-      await API.getUserByID(userStore.user._id).then((response) => {
+      await API.getUserByID(userStore.getUserId()).then((response) => {
         let userData = response.data;
         this.name = userData.name;
         this.email = userData.mail;
@@ -169,13 +169,10 @@ export default {
     
   },
   beforeMount() {
-    const userStore = usuarioStore();
-    if(userStore.user === null){
-      this.$router.push({ path: '/loginWindow' })
-    }else{
+  
+   
       this.getUser();
-    }
-    
+  
   },
 };
 </script>

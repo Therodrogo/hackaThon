@@ -140,10 +140,7 @@
           }
         },
          beforeMount() {
-          const userStore = usuarioStore();
-          if(userStore.user === null){
-            this.$router.push({ path: '/loginWindow' })
-          }
+         
           
         },
     }
