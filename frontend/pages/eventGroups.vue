@@ -97,7 +97,8 @@ const activeStore = usuarioActivo()
     computed:{
       FilterGroups(){
         return this.groups.filter(newgroup =>{
-          return newgroup.name.match(this.findgroup);
+
+          return newgroup.name.toLowerCase().trim().match(this.findgroup.toLowerCase().trim());
         })
       }
     },
