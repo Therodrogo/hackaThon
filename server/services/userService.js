@@ -62,7 +62,7 @@ const userService = {
             if (!isMatch) {
                 return{ status: 'Failed', code: 400, message: 'Incorrect Data', data: {}} 
             }     
-            return{ status: 'Success', code: 200, message: 'User autenticated', data: token}             
+            return{ status: 'Success', code: 200, message: 'User autenticated', data: user}             
         }catch(e){
            return{  status: 'Failed', code: 400, message: e.message, data: {}}
         }  

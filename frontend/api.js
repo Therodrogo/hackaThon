@@ -41,7 +41,7 @@ export default class API{
     }
     static async signUpUser(data){
         try {
-            const res = await axios.post(url + "user/signUp/", data)
+            const res = await axios.post(url + "user/signIn/", data)
             return res.data
         } catch (error) {
             return error.response.data

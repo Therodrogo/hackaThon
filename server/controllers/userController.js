@@ -51,6 +51,7 @@ const userController = {
 
     },
     async signInUser(req, res){
+        console.log(req.body)
         const mail = req.body.mail;
         const password = req.body.password;
         await userService.signInUser(mail, password)
