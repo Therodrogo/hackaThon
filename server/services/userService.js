@@ -1,8 +1,5 @@
-
-
 const userSchema = require('../models/userModel');
 const bcrypt = require('bcryptjs');
-const jwt =  require('jsonwebtoken');
 
 const userService = {
     async getUsers(){
@@ -22,12 +19,9 @@ const userService = {
     async postUser(req, res) {
         try{
             const user = userSchema(req.body)
-            user.password = await this.encryptPassword(user.password)
-            const token = jwt.sign({id: user._id}, 'secretToken', {
-                expiresIn: 60 * 60 * 24
-            });
+            user.password = await this.encryptPassword(user.password)           
             await user.save()
-            return{   status: 'Success',code: 200,message: 'User is created',data: user}
+            return{   status: 'Success',code: 200,message: 'User is created', data: token    };
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
@@ -37,7 +31,7 @@ const userService = {
         
         try{
             const user = await userSchema.findOne({_id:id});
-            return{   status: 'Success',code: 200,message: 'User with id ' + id + ' is found',data: user}
+            return{   status: 'Success', code: 200, message: 'User with id ' + id + ' is found', data: user }
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}
@@ -67,11 +61,8 @@ const userService = {
             const isMatch = await bcrypt.compare(password, user.password);           
             if (!isMatch) {
                 return{ status: 'Failed', code: 400, message: 'Incorrect Data', data: {}} 
-            }
-            const token = jwt.sign({id: user._id}, 'secretToken', {
-                expiresIn: 60 * 60 * 24
-            });       
-            return{ status: 'Success', code: 200, message: 'User autenticated', {data: user, token}}             
+            }     
+            return{ status: 'Success', code: 200, message: 'User autenticated', data: token}             
         }catch(e){
            return{  status: 'Failed', code: 400, message: e.message, data: {}}
         }  

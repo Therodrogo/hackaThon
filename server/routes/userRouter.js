@@ -17,6 +17,6 @@ userRouter.post('/signIn', userController.signInUser);
 
 userRouter.post('/updateUserData', userController.updateUserData);
 
-userRouter.get('/getGroupsUser/:id',userController.getGroupsUser)
+userRouter.get('/getGroupsUser/:id', userController.getGroupsUser);
 
 module.exports = userRouter;
