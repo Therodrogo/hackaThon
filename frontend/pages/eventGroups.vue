@@ -37,8 +37,8 @@
                         <v-btn  @click="selectedGroup = n.name"  left min-width="100%">
                           {{n.name}}
                         </v-btn>
-                        <h3 class='text-center ml-5 mr-5'> {{n.num}}/5 </h3>
-                        <v-btn   v-if="n.num != 5 " @click = addGroup(n)>+</v-btn>
+                        <h3 class='text-center ml-5 mr-5'> {{n.user.length}}/5 </h3>
+                        <v-btn   v-if="n.user.length != 5 && estado != null" @click = addGroup(n)>+</v-btn>
                       
 
                     </v-list-item>
@@ -72,17 +72,19 @@
 import API from '~/api'
 
 import {eventStore} from "../store/index.js"
-
+import {usuarioStore} from "../store/index.js"
 const eventoStore = eventStore()
-
+const userStore = usuarioStore()
   export default {
     data () {
       return {
+
         findgroup:"", 
         selectedGroup: "los vios",
         groups:[ 
         ],
-        code: '',
+        estado : null,
+        code: 400,
         snackbar:false,
         text:'',
         findRules: [
@@ -101,7 +103,13 @@ const eventoStore = eventStore()
       addGroup(n){
           console.log(n);
           console.log(this.findgroup);
-          return n.num++
+          swal({
+            title: "Solicitud enviada",
+            text: "a "+n.name,
+            icon: "success",
+          })
+          n.user.push({name:"f"})
+          console.log(n.user)
         
 
       },
@@ -111,20 +119,26 @@ const eventoStore = eventStore()
       
       async getEventByID(){
       try {
+        
         const res = await API.getEventByID(eventoStore.getEventId);
+        //const userdata = await API.getUserByID(userStore.getUserId);
+        //this.estado = userStore.estado;
+        this.estado = "sdasd"
         console.log("sadhsjkdjkahdkhaskdhajhdashdkhsakdhkj")
-        console.log(res.data.description ,res.data.mapUrl 
-        ,res.data.coverUrl ,res.data.name 
-        ,res.data.location, res.data.dateStart, res.data.dateFinish,res.data.groups)
+        console.log(eventoStore);
+
+        
+      
         
         
-        this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:"",num:1});
-        this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:"",num:2});
-        this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:"",num:0},);
-        this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:"",num:3});
-        this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:"",num:0},);
-        this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:"",num:4});
-        this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:"",num:1},);
+        this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:"",num:1,user:[{name:"a"},{name:"c"}]});
+        this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:"",num:2,user:[{name:"a"},{name:"b"}]});
+        this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:"",num:0,user:[{name:"a"},{name:"b"},{name:"c"}]},);
+        this.groups.push({name: "GRUPO 34", userID: "yik1", eventID:"",num:0,user:[{name:"a"},{name:"b"},{name:"c"}]},);
+        this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:"",num:3,user:[{name:"b"},{name:"c"}]});
+        this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:"",num:0,user:[{name:"a"},{name:"b"},{name:"c"},{name:"d"},{name:"e"}]});
+        this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:"",num:4,user:[{name:"a"}]});
+        this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:"",num:1,user:[{name:"a"},{name:"b"}]},);
 
         
 
