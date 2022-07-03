@@ -37,8 +37,8 @@
                         <v-btn  @click="selectedGroup = n.name"  left min-width="100%">
                           {{n.name}}
                         </v-btn>
-                        <h3 class='text-center ml-5 mr-5'> {{n.user.length}}/5 </h3>
-                        <v-btn   v-if="n.user.length != 5 && estado != null" @click = addGroup(n)>+</v-btn>
+                        <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
+                        <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n)>+</v-btn>
                       
 
                     </v-list-item>
@@ -73,17 +73,19 @@ import API from '~/api'
 
 import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
+import {usuarioActivo} from "../store/index.js"
 const eventoStore = eventStore()
 const userStore = usuarioStore()
+const activeStore = usuarioActivo()
   export default {
     data () {
       return {
-
+        grouplimit:5,
         findgroup:"", 
         selectedGroup: "los vios",
         groups:[ 
         ],
-        estado : null,
+        noLogueado : true,
         code: 400,
         snackbar:false,
         text:'',
@@ -100,16 +102,16 @@ const userStore = usuarioStore()
       }
     },
     methods: {
-      addGroup(n){
-          console.log(n);
-          console.log(this.findgroup);
+      SendRequest(n){
+          //console.log(n);
+          //console.log(this.findgroup);
           swal({
             title: "Solicitud enviada",
             text: "a "+n.name,
             icon: "success",
           })
-          n.user.push({name:"f"})
-          console.log(n.user)
+          //n.userID.push({name:userStore.user.name})
+          console.log(userStore.user.name);
         
 
       },
@@ -121,26 +123,48 @@ const userStore = usuarioStore()
       try {
         
         const res = await API.getEventByID(eventoStore.getEventId);
+        console.log(eventoStore.getEventId+ " aqui");
         //const userdata = await API.getUserByID(userStore.getUserId);
-        //this.estado = userStore.estado;
-        this.estado = "sdasd"
+        console.log(userStore.user);
+        
         console.log("sadhsjkdjkahdkhaskdhajhdashdkhsakdhkj")
-        console.log(eventoStore);
+        this.noLogueado = activeStore.noLogueado; // aca se comprueba si esta el usuario logeado
+        //console.log(usuarioStore);
+        
+        
+        
 
         
-      
+        //res.data.groupsID.push({ref:"asadadsd",type:true});
+        const test = res.data.groupsID; 
+        test.push({name: "GRUPO 1", eventID:"",num:1,userID:[{name:"a"},{name:"c"}]});
+        test.push({name: "GRUPO 2", eventID:"",num:2,userID:[{name:"a"},{name:"b"}]});
+        test.push({name: "GRUPO 3", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
+        test.push({name: "GRUPO 34", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
+        test.push({name: "GRUPO 4", eventID:"",num:3,userID:[{name:"b"},{name:"c"}]});
+        test.push({name: "GRUPO 5", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"},{name:"d"},{name:"e"}]});
+        test.push({name: "GRUPO 6", eventID:"",num:4,userID:[{name:"a"}]});
+        test.push({name: "GRUPO 7", eventID:"",num:1,userID:[{name:"a"},{name:"b"}]},);
+        this.grouplimit = res.data.groupLimit;
+        // simula por ahora los grupos que estan en un evento
         
-        
-        this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:"",num:1,user:[{name:"a"},{name:"c"}]});
-        this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:"",num:2,user:[{name:"a"},{name:"b"}]});
-        this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:"",num:0,user:[{name:"a"},{name:"b"},{name:"c"}]},);
-        this.groups.push({name: "GRUPO 34", userID: "yik1", eventID:"",num:0,user:[{name:"a"},{name:"b"},{name:"c"}]},);
-        this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:"",num:3,user:[{name:"b"},{name:"c"}]});
-        this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:"",num:0,user:[{name:"a"},{name:"b"},{name:"c"},{name:"d"},{name:"e"}]});
-        this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:"",num:4,user:[{name:"a"}]});
-        this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:"",num:1,user:[{name:"a"},{name:"b"}]},);
+        const cosa = await API.getAllGroups(); // ACTUALMENTE  USADA
+        console.log(cosa.data); 
+        cosa.data.forEach  (async n => {
+          //res.data.groupsID.forEach(n => {
 
-        
+            //const gro = await API.getGroupByID(n.type);
+            console.log(n._id+" si");
+            const gro = await API.getGroupByID(n._id);
+            console.log(gro);
+            console.log(gro.data.name+" | "+gro.data.userID.length);
+            this.groups.push({id: n._id,name: gro.data.name,count:gro.data.userID.length});
+
+        });
+
+
+       
+        console.log(res.data);
 
         
       } catch (error) {
