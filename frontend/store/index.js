@@ -22,11 +22,14 @@ export const usuarioStore = defineStore('usuarioStore', {
         estado:null
     }),
     actions:{
+        setUser(UserId){
+            this.user = UserId
+        },
         
     },
     getters:{
         getUserId(state){
-            return state.user.data._id
+            return state.user
         }
     }
 

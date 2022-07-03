@@ -91,6 +91,9 @@ export default {
           const usuarioLogeado = usuarioActivo()
           usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, usuario.user.name )
           
+          const userLogged = usuarioStore()
+          userLogged.setUser(usuario.user._id)
+
           this.$router.push('userGroups');
 
         }

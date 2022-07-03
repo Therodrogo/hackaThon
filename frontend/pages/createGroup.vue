@@ -43,6 +43,10 @@
 
 <script>
 import API from "../api";
+import {eventStore} from "../store/index.js"
+import {usuarioStore} from "../store/index.js"
+const userStore = usuarioStore()
+const eventoStore = eventStore()
 
   export default {
     data () {
@@ -54,9 +58,13 @@ import API from "../api";
     },
     methods: {
 
-      crearGrupo(){
+      async crearGrupo(){
+        const res = await API.getUserByID(userStore.getUserId);
+        const resEvent = await API.getEventByID(eventoStore.getEventId);
+        console.log("Se ha creado un grupo llamado: "+this.Nombre+"\nCon el usuario: "+ res.data.name+"\nRegistrado con el mail: " + res.data.mail+"\nEn el evento: "+resEvent.data.name);
         swal({
           title: "Grupo "+this.Nombre+" creado",
+          text: "El lider es: " + res.data.name,
           icon: "success",
         })
         this.$router.push('events');
