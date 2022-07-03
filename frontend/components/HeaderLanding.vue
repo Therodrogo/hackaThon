@@ -47,17 +47,17 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link to="/loginWindow">
+          <nuxt-link v-if="quitarBotones" to="/loginWindow">
 
             <!-- Login -->
 
-            <div class="loginText">
+            <div @click="loginEvent()" class="loginText">
               Iniciar Sesión
             </div>
 
           </nuxt-link>
 
-          <nuxt-link to="/createUser">
+          <nuxt-link v-if="quitarBotones" to="/createUser">
 
             <!-- RegisterUser -->
 
@@ -66,6 +66,13 @@
             </div>
 
           </nuxt-link>
+
+
+
+          <!-- UsuarioActivo -->
+          <h1>{{ usuarioActivoComputed }}</h1>
+            <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
+
 
         </v-col>
         <v-col>
@@ -120,11 +127,11 @@
           <v-list-item>
 
             <v-list-item-title>
-              <nuxt-link to="/loginWindow">
+              <nuxt-link  v-if="quitarBotones" to="/loginWindow">
 
 
                 <div class="loginText">
-                  {{user}}
+                  {{ user }}
                 </div>
 
               </nuxt-link>
@@ -132,7 +139,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <nuxt-link to="/createUser">
+              <nuxt-link v-if="quitarBotones" to="/createUser">
 
                 <!-- RegisterUser -->
 
@@ -143,6 +150,14 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
+            <v-list-item>
+            <v-list-item-title>
+               <!-- UsuarioActivo -->
+                {{ usuarioActivoComputed }}
+                <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
+            </v-list-item-title>
+          </v-list-item>
+
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -153,14 +168,31 @@
 
 
 <script>
+
+import { usuarioActivo } from "../store/index.js"
+
 export default {
+
   data() {
     return {
       drawer: false,
-      user:"Iniciar Sesion",
-      user2:"Crear Usuario"
-
+      user: "Iniciar Sesion",
+      user2: "Crear Usuario",
+ 
     }
+  },
+  computed: {
+    //Actualiza el nombre del usuario
+      usuarioActivoComputed() {
+        const user = usuarioActivo()
+        return user.$state.layout;
+      },
+    //Actualiza los botones al loguearse
+      quitarBotones(){
+        const user = usuarioActivo()
+        return user.$state.noLogueado;
+      }
+
   },
   props: {
     menuEstudiante: Boolean,
@@ -170,8 +202,11 @@ export default {
   methods: {
     loginAppear: function () {
       console.log("aa")
-    }
-  },
+    },
+    
+
+
+  }
 }
 </script>
 
