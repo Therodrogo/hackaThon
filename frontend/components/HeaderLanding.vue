@@ -47,17 +47,17 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link to="/loginWindow">
+          <nuxt-link v-if="quitarBotones" to="/loginWindow">
 
             <!-- Login -->
 
-            <div class="loginText">
+            <div @click="loginEvent()" class="loginText">
               Iniciar Sesión
             </div>
 
           </nuxt-link>
 
-          <nuxt-link to="/createUser">
+          <nuxt-link v-if="quitarBotones" to="/createUser">
 
             <!-- RegisterUser -->
 
@@ -67,9 +67,32 @@
 
           </nuxt-link>
 
-        </v-col>
-        <v-col>
-          <!-- BlankSpace -->
+
+
+          <!-- UsuarioActivo -->  
+          <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
+          <div>
+            <v-menu offset-y>
+               <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <h1>{{ usuarioActivoComputed }}</h1>
+                </v-btn>
+                </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in items"
+                  :key="index"
+                >
+                  <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </v-col>
       </v-row>
 
@@ -120,11 +143,11 @@
           <v-list-item>
 
             <v-list-item-title>
-              <nuxt-link to="/loginWindow">
+              <nuxt-link  v-if="quitarBotones" to="/loginWindow">
 
 
                 <div class="loginText">
-                  {{user}}
+                  {{ user }}
                 </div>
 
               </nuxt-link>
@@ -132,7 +155,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <nuxt-link to="/createUser">
+              <nuxt-link v-if="quitarBotones" to="/createUser">
 
                 <!-- RegisterUser -->
 
@@ -143,6 +166,35 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
+            <v-list-item>
+            <v-list-item-title>
+               <!-- UsuarioActivo, movil -->
+                <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
+                <div>
+                  <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <h1>{{ usuarioActivoComputed }}</h1>
+                      </v-btn>
+                      </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, index) in items"
+                        :key="index"
+                      >
+                        <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+            </v-list-item-title>
+          </v-list-item>
+
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -153,14 +205,36 @@
 
 
 <script>
+
+import { usuarioActivo } from "../store/index.js"
+
 export default {
+
   data() {
     return {
       drawer: false,
-      user:"Iniciar Sesion",
-      user2:"Crear Usuario"
+      user: "Iniciar Sesion",
+      user2: "Crear Usuario",
 
+      items: [
+        { title: 'Editar perfil',to: "/editUser" },
+        { title: 'Mis grupos',to: "/userGroups" },
+        { title: 'Cerrar sesión',to: "/" },
+      ],
     }
+  },
+  computed: {
+    //Actualiza el nombre del usuario
+      usuarioActivoComputed() {
+        const user = usuarioActivo()
+        return user.$state.layout;
+      },
+    //Actualiza los botones al loguearse
+      quitarBotones(){
+        const user = usuarioActivo()
+        return user.$state.noLogueado;
+      }
+
   },
   props: {
     menuEstudiante: Boolean,
@@ -170,8 +244,11 @@ export default {
   methods: {
     loginAppear: function () {
       console.log("aa")
-    }
-  },
+    },
+    
+
+
+  }
 }
 </script>
 
