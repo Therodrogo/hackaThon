@@ -26,23 +26,24 @@ const groupSchema = new Schema({
         unique: true,
         required: true,   
     },
-    leaderID:{
-        
+    leaderID:{      
         type: mongoose.Types.ObjectId,
         ref: "User",
-        required: true,
-        
-        
-        
-    },eventID:{
+        required: true,     
+    },
+    eventID:{
         
         type: mongoose.Types.ObjectId,
         ref: "Event",
-        required: true,
-        
-        
-        
-    }
+        required: true,  
+    },
+
+    requestID:[
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Request"
+        }
+    ]
 },{
     versionKey:false
 });

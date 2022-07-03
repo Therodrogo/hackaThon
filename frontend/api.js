@@ -41,7 +41,7 @@ export default class API{
     }
     static async signUpUser(data){
         try {
-            const res = await axios.post(url + "user/signUp/", data)
+            const res = await axios.post(url + "user/signIn/", data)
             return res.data
         } catch (error) {
             return error.response.data
@@ -281,6 +281,65 @@ export default class API{
             return error.response.data
         }    
     }
+
+    //Request Methods
+    static async getRequests(data){  
+        try {
+            const res = await axios.get(url+"request/get-all",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+    static async postRequest(data){  
+        try {
+            const res = await axios.post(url+"request/post",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+    static async getRequestById(id){  
+        try {
+            const res = await axios.get(url+"request/get/"+id)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+    static async deleteRequestById(id){  
+        try {
+            const res = await axios.delete(url+"request/delete/"+id)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+    static async getRequestGroup(data){  
+        try {
+            const res = await axios.post(url+"request/get-request-group",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+    static async acceptRequest(data){  
+        try {
+            const res = await axios.post(url+"request/accept-request",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+    static async declineRequest(data){  
+        try {
+            const res = await axios.post(url+"request/decline-request",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }   
+    }
+
 
 
 }
