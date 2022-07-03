@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 //Store para el usuario Activo en el navbar
 export const usuarioActivo = defineStore('usuario', {
-    state: () => ({layout: 'Your default value' , noLogueado: true}),
+    state: () => ({layout: '' , noLogueado: true}),
     getters: {
       
     },
