@@ -3,38 +3,21 @@
     background: #ffffff;">
         <v-main>
             <v-container>
-                <v-col cols="12">
-                    <div class="justify-center text-center mb-12">
-                        Admin
-                    </div>
-                    <div class="justify-center text-center mb-3">
-                        <v-btn rounded elevation="2" color="#00CCB1">
-                            Crear Evento
-                        </v-btn>
-                    </div>
-                </v-col>
-                <v-menu
-      transition="slide-x-transition"
-      bottom
-      right
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          class="deep-orange"
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Slide X Transition
-        </v-btn>
-      </template>
+                <v-row>
+                    <v-col cols="6">
+                        <div class="justify-center text-center mb-12 mt-12">
+                            Admin
+                        </div>
+                        <div class="justify-center text-center mb-3">
+                            <v-btn rounded elevation="2" color="#00CCB1">
+                                Crear Evento
+                            </v-btn>
+                        </div>
+                    </v-col>
 
-      <v-list>
-
-          <v-list-item-title>
-            
-            <v-col sm="20" >
+                    <v-col cols="6">
+                        <v-container>
+                <v-col sm="20" >
                     <v-text-field label="ID" prepend-icon="mdi-key"></v-text-field>
                 </v-col>
                 <v-col sm="20">
@@ -61,15 +44,11 @@
                 <v-btn rounded elevation="2" color="#00CCB1">
                             Confirmar evento
                         </v-btn>
-            
-            
-            </v-list-item-title>
-      
-      </v-list>
-    </v-menu>
+            </v-container>
+                    </v-col>
+
+                </v-row>
             </v-container>
         </v-main>
     </v-app>
 </template>
-
-
