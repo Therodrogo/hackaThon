@@ -87,18 +87,24 @@
               >        
               
                
-                 <p class="JetBrains Mono">
+                 <p class="JetBrains Mono" >
                   
-                  {{ usuarioActivoComputed }}
+                  
+                  <br>
+                  {{ usuarioActivoComputed }} 
                    
                   </p>
                 </v-btn >
                 </template>
-              <v-list>
+              <v-list shaped>
                 <v-list-item
-                  v-for="(item, index) in items"
+                  v-for="(item, index) in items2"
                   :key="index"
                 >
+
+                 <v-list-item-icon>
+                      <v-icon v-text="item.icon"></v-icon>
+                      </v-list-item-icon>
                   <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
                 </v-list-item>
               </v-list>
@@ -192,25 +198,37 @@
                       width="130"
                       >
                         <p class="JetBrains Mono">
+                          <br>
                           {{ usuarioActivoComputed }}
                         </p>
                       </v-btn>
                       </template>
-                    <v-list>
-                      <v-list-item
+
+               
+                    <v-list shaped >
+
+                      <v-list-item 
                         v-for="(item, index) in items"
                         :key="index"
+                        
                       >
+                      
                         <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
                       </v-list-item>
+                    
+                 
                     </v-list>
+                  
                   </v-menu>
                 </div>
+                
             </v-list-item-title>
           </v-list-item>
 
         </v-list-item-group>
+    
       </v-list>
+    
     </v-navigation-drawer>
   </div>
 </template>
@@ -230,13 +248,26 @@ export default {
       user: "Iniciar Sesion",
       user2: "Crear Usuario",
 
+
+
+
       items: [
         { title: 'Editar perfil',to: "/editUser" },
-        { title: 'Mis grupos',to: "/userGroups" },
-        { title: 'Cerrar sesión',to: "/" },
+        { title: 'Mis grupos',to: "/userGroups"},
+        { title: 'Cerrar sesión',to: "/"},
       ],
+
+    items2: [
+        { title: 'Editar perfil',to: "/editUser", icon: 'mdi-grease-pencil' },
+        { title: 'Mis grupos',to: "/userGroups", icon: 'mdi-account-group' },
+        { title: 'Cerrar sesión',to: "/", icon: 'mdi-close-circle' },
+      ],
+
+
     }
   },
+
+
   computed: {
     //Actualiza el nombre del usuario
       usuarioActivoComputed() {
