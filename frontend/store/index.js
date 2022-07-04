@@ -5,7 +5,6 @@ export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
         id: JSON.parse(localStorage.getItem('id')),    
         status: localStorage.getItem('status'),
-        userData: JSON.parse((localStorage.getItem('userData')))
     }),
     
     actions:{
