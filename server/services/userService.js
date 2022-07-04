@@ -1,5 +1,7 @@
 const userSchema = require('../models/userModel');
+const groupSchema = require('../models/groupModel')
 const bcrypt = require('bcryptjs');
+const { group } = require('console');
 
 const userService = {
     async getUsers(){
@@ -101,16 +103,28 @@ const userService = {
         
 
         try {
-            const user = await userSchema.findOne({_id:userID}).populate({path:"groupsID",select:["name","leaderID"]})
+            const user = await userSchema.findOne({_id:userID})
+            .populate({path:"groupsID",select:["name","leaderID"]})
             
             if(user!=null){
+                if(user.groupsID.length>0){
+                    const grupos =[]
+                    const gr = await Promise.all(await user.groupsID.map(async (element)=>{
+                        grupos.push(await groupSchema.findOne({_id:element._id}).populate({path:"userID",select:"name"}))    
+                    }))
+                    
+                    
+                    return  {status: 'Success',code: 200, message: 'User groups found',data:grupos}
+                }else{
+                    return{  status: 'Failed',code: 400,message: "This user dont have groups for see",data: {}}
+                }
                 
-                return  {status: 'Success',code: 200, message: 'User groups found',data: user.groupsID}
             }else{
                 return{  status: 'Failed',code: 400,message: "This user dont exist",data: {}}
             }
             
         } catch (error) {
+            console.log(error)
             return{  status: 'Failed',code: 400,message: error.message,data: {}}    
         }
 
