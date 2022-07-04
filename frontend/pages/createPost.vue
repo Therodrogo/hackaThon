@@ -30,8 +30,9 @@
     </v-row>    
     <v-row>
             <v-text-field
-              label="ImagenURL"
+              label="ImagenURL"           
               v-model="ImageURL"
+              :rules="ImageURLRules"
               
               
             ></v-text-field>
@@ -61,7 +62,7 @@ import swal from 'sweetalert'
         Tittle:"",
         TittleRules:[
           v => !!v || 'Un titulo es necesario',
-          v => v.length>=10 && v.length <= 20 || 'El titulo debe tener como minimo  10 caracteres y maximo 20 caracteres',
+          v => v.length>=10 && v.length <= 20 || 'El titulo debe tener entre 10 y 20 caracteres',
         ],
         Description:"",
         DescriptionRules:[
@@ -69,9 +70,10 @@ import swal from 'sweetalert'
            v => v.length>=50 && v.length <= 300 || 'La descripción debe tener como minimo 50 caracteres',
         ],
         ImageURL:"",
-        
-
-        
+        ImageURLRules:[
+          v => v.text.substr(-4) == ".jpg" ||  v.text.substr(-4) == ".png" || 'La URL debe finalizar en "jpg" o "png"',
+        ]
+             
       }
     },methods: {
       async createPost(){
