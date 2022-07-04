@@ -62,6 +62,13 @@ const eventoStore = eventStore()
         const res = await API.getUserByID(userStore.getUserId);
         const resEvent = await API.getEventByID(eventoStore.getEventId);
         console.log("Se ha creado un grupo llamado: "+this.Nombre+"\nCon el usuario: "+ res.data.name+"\nRegistrado con el mail: " + res.data.mail+"\nEn el evento: "+resEvent.data.name);
+        let data = {
+          name: this.Nombre,
+          visibility: true,
+          leaderID: res.data._id,
+          eventID: resEvent.data._id,
+        };
+        let result = await API.postGroup(data)
         swal({
           title: "Grupo "+this.Nombre+" creado",
           text: "El lider es: " + res.data.name,
