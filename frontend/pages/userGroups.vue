@@ -58,7 +58,7 @@
                         Group name: {{n.name}}
                       </v-card-title>
                       <v-card-text class="text--primary">
-                        Event: {{n.eventID}}
+                        Event: {{n.eventID.name}}
                       </v-card-text>
                       <v-card-text class="text--primary">
                         Leader: {{n.userID[0].name}}
@@ -177,6 +177,16 @@
           async getGroupsUser(id){
             try {
               const res = await API.getGroupsUser(id)
+              this.groups = res.data
+              
+            } catch (error) {
+              console.log(error)
+            }
+          },
+
+          async kickMember(){
+             try {
+              const res = await API.kickMember()
               this.groups = res.data
               
             } catch (error) {
