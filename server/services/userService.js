@@ -110,7 +110,7 @@ const userService = {
                 if(user.groupsID.length>0){
                     const grupos =[]
                     const gr = await Promise.all(await user.groupsID.map(async (element)=>{
-                        grupos.push(await groupSchema.findOne({_id:element._id}).populate({path:"userID",select:"name"}))    
+                        grupos.push(await groupSchema.findOne({_id:element._id}).populate([{path:"userID",select:"name"},{path:"eventID",select:"name"}]))    
                     }))
                     
                     
