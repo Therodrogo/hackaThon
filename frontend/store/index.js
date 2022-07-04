@@ -3,24 +3,23 @@ import API from "../api";
 import Swal from 'sweetalert2';
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
-        user: null,
-        id: JSON.parse(localStorage.getItem('id')),        
-        estado:null,
+        id: JSON.parse(localStorage.getItem('id')),    
+        status: localStorage.getItem('status'),
+        userData: JSON.parse((localStorage.getItem('userData')))
     }),
     
     actions:{
         async login(email, password){
             const userSignUp = await API.signUpUser({"mail": email,"password":password});
-          
           if (typeof userSignUp === 'undefined') {
             return false;
           }else{
             if (userSignUp.code==200){
-              this.user =  userSignUp.data,
+              localStorage.setItem('status',"active");
               localStorage.setItem('id', JSON.stringify(userSignUp.data._id));
               Swal.fire({
-                    title: "Bienvenido "+userSignUp.data.name,
-                    text: "Tu rol es: "+userSignUp.data.role,
+                    title: "Bienvenido "+ userSignUp.data.name,
+                    text: "Tu rol es: "+ userSignUp.data.role,
                     icon: "success",
                     confirmButtonColor: '#00CCB1'
                    }).then((result) => {  
@@ -33,6 +32,12 @@ export const usuarioStore = defineStore('usuarioStore', {
         },
         getUserId(){
             return this.id;
+        },
+        getStatus(){
+          return this.status;
+        },
+        logout(){
+          localStorage.clear();
         }
     },
     getters:{

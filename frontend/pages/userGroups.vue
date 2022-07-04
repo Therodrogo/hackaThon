@@ -140,7 +140,10 @@
           }
         },
          beforeMount() {
-         
+          const userStore = usuarioStore()
+          if (userStore.getStatus()!=="active"){
+             this.$router.push({ path: '/loginWindow' })
+          }
           
         },
     }

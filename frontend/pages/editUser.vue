@@ -114,14 +114,13 @@ export default {
       const userStore = usuarioStore();
       if (this.$refs.form.validate()) {
         let data = {
-          userID: userStore.user._id,
+          userID: userStore.getUserId(),
           name: this.name,
           mail: this.email,
           career: this.career,
           phone: this.phoneNumber,
         }
         let result = await API.updateUserData(data)
-        console.log(result)
         if (typeof result === 'undefined') {
           Swal.fire({
             title: 'Ha ocurrido un error de conexión',
@@ -155,6 +154,7 @@ export default {
     },
     async getUser() {
       const userStore = usuarioStore();
+      let data = userStore.getUserData();
       await API.getUserByID(userStore.getUserId()).then((response) => {
         let userData = response.data;
         this.name = userData.name;
@@ -169,10 +169,12 @@ export default {
     
   },
   beforeMount() {
-  
-   
+    const userStore = usuarioStore()
+    if (userStore.getStatus()!=="active"){
+      this.$router.push({ path: '/loginWindow' })
+    }else{
       this.getUser();
-  
+    }
   },
 };
 </script>
