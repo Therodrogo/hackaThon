@@ -61,7 +61,7 @@
                         Event: {{n.eventID}}
                       </v-card-text>
                       <v-card-text class="text--primary">
-                        Leader: {{n.leaderID}}
+                        Leader: {{n.userID[0].name}}
                       </v-card-text>
                       <v-card-text class="text--primary">
                         Members:
@@ -73,7 +73,7 @@
                           :key="i" 
                           class="px-12">
                             <v-list-item-title>
-                              {{i}}
+                              {{i.name}}
                             </v-list-item-title>
 
                             <v-list-item-action>
@@ -164,26 +164,6 @@
             }
           },
           
-          async getGroupByID(){
-            try {
-              const res = await API.getGroupByID()
-              this.groups = res.data
-              
-            } catch (error) {
-              console.log(error)
-            }
-          },
-
-          async getAllGroups(){
-            try {
-              const res = await API.getAllGroups()
-              this.groups = res.data
-              
-            } catch (error) {
-              console.log(error)
-            }
-          },
-
           async isLeader(){
             try {
               const res = await API.isLeader()
@@ -194,18 +174,17 @@
             }
           },
 
-          async getUserByID(id){
+          async getGroupsUser(id){
             try {
-              const res = await API.getUserByID(id)
-              this.groups.userID = res.data
+              const res = await API.getGroupsUser(id)
+              this.groups = res.data
               
             } catch (error) {
               console.log(error)
             }
           },
         }, beforeMount() {
-            this.getAllGroups()
-            this.getUserByID()
+            this.getGroupsUser(user.user._id)
         }     
     }
 
