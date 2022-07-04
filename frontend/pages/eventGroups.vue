@@ -157,26 +157,12 @@ const activeStore = usuarioActivo()
         
         
 
-        
-        //res.data.groupsID.push({ref:"asadadsd",type:true});
-        //const test = res.data.groupsID; 
-        //test.push({name: "GRUPO 1", eventID:"",num:1,userID:[{name:"a"},{name:"c"}]});
-        //test.push({name: "GRUPO 2", eventID:"",num:2,userID:[{name:"a"},{name:"b"}]});
-        //test.push({name: "GRUPO 3", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
-        //test.push({name: "GRUPO 34", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
-        //test.push({name: "GRUPO 4", eventID:"",num:3,userID:[{name:"b"},{name:"c"}]});
-        //test.push({name: "GRUPO 5", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"},{name:"d"},{name:"e"}]});
-        //test.push({name: "GRUPO 6", eventID:"",num:4,userID:[{name:"a"}]});
-        //test.push({name: "GRUPO 7", eventID:"",num:1,userID:[{name:"a"},{name:"b"}]},);
         this.grouplimit = res.data.groupLimit;
-        // simula por ahora los grupos que estan en un evento
-        
+
+        //const cosa = await API.getAllGroups();
         const cosa = await API.getGroupsFromEvent(eventoStore.getEventId); // ACTUALMENTE  USADA
         console.log(cosa.data); 
         cosa.data.forEach  (async n => {
-          //res.data.groupsID.forEach(n => {
-
-            //const gro = await API.getGroupByID(n.type);
             console.log(n._id+" si");
             const gro = await API.getGroupByID(n._id);
             console.log(gro);
@@ -201,42 +187,7 @@ const activeStore = usuarioActivo()
     }
 
   }
-        /** 
-        async mounted(){// se consultara a la BD
-        const dat = {
-            name:"Grupo2",
-            userID:"sjdldsfdsfkadkk",
-            visibility:true,
-            code:"sgdsadja",
-            leaderID:"adsfsia",
-            eventID:"adfdsfssadas"
-        }
-            const id = "texto";
-            //InsertData( id);
-            const dataevent = await API.getEventByID(evento.getEventId);
-            //const datagroups = await API.getGroupsFromEvent(id)
-            console.log( dataevent);
 
-
-            this.groups.push({name: "GRUPO 1", userID: "yik1", eventID:""});
-            this.groups.push({name: "GRUPO 2", userID: "yik1", eventID:""});
-            this.groups.push({name: "GRUPO 3", userID: "yik1", eventID:""},);
-            this.groups.push({name: "GRUPO 4", userID: "yik1", eventID:""});
-            this.groups.push({name: "GRUPO 5", userID: "yik1", eventID:""},);
-            this.groups.push({name: "GRUPO 6", userID: "yik1", eventID:""});
-            this.groups.push({name: "GRUPO 7", userID: "yik1", eventID:""},);
-  
-        },
-        methods:{
-            MoreInfo(){
-
-            },
-            async InsertData( id){
-
- 
-            }
-
-        }     */
     
     
 </script>
