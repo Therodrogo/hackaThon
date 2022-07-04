@@ -103,17 +103,39 @@ const activeStore = usuarioActivo()
       }
     },
     methods: {
-      SendRequest(n){
+      async SendRequest(n){
           //console.log(n);
           //console.log(this.findgroup);
-          swal({
-            title: "Solicitud enviada",
-            text: "a "+n.name,
-            icon: "success",
-          })
+
           //n.userID.push({name:userStore.user.name})
-          console.log(userStore.user.name);
-        
+          //console.log(userStore.user.name);
+          const local = await API.getUserByID(userStore.user); 
+          console.log(local.data); 
+          let data = {
+            postulant:local.data._id,
+            description: "el usuario "+local.data.name+ " quiere unirse ",
+            groupID:n.id,
+          }
+          console.log(n.id);
+          let result = await API.postRequest(data);   
+ 
+          if (typeof result === 'undefined') {
+            Swal.fire({
+              title: 'Ha ocurrido un error de conexión',
+              icon: 'error',
+              confirmButtonColor: '#00CCB1',
+            });
+        }else {
+          if (result.code == 200) {
+            swal({
+              title: "Solicitud enviada",
+              text: "a "+n.name,
+              icon: "success",
+            })
+          }
+        }
+        let tema = await API.getRequests()
+        console.log(tema);
 
       },
 

@@ -5,8 +5,9 @@ var Schema = mongoose.Schema;
 const groupSchema = new Schema({
     name: {
         type: String,
+        unique: true,
         required: true,
-        unique: true
+       
     },
     userID:
     [   
@@ -25,23 +26,24 @@ const groupSchema = new Schema({
         unique: true,
         required: true,   
     },
-    leaderID:{
-        
+    leaderID:{      
         type: mongoose.Types.ObjectId,
         ref: "User",
-        required: true,
-        
-        
-        
-    },eventID:{
+        required: true,     
+    },
+    eventID:{
         
         type: mongoose.Types.ObjectId,
         ref: "Event",
-        required: true,
-        
-        
-        
-    }
+        required: true,  
+    },
+
+    requestID:[
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Request"
+        }
+    ]
 },{
     versionKey:false
 });
