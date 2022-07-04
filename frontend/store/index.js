@@ -12,6 +12,10 @@ export const usuarioActivo = defineStore('usuario', {
             usuarioActivo.layout = layout;
             usuarioActivo.noLogueado = false;
         },
+        CHANGE_NAV_LAYOUT_LOGOUT(usuarioActivo) {
+            usuarioActivo.layout = '';
+            usuarioActivo.noLogueado = true;
+        }
     },
   })
 

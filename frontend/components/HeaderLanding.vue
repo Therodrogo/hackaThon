@@ -68,44 +68,35 @@
           </nuxt-link>
 
 
-          <!-- Header --> 
-          <!-- UsuarioActivo -->  
+          <!-- Header -->
+          <!-- UsuarioActivo -->
           <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
-          <div >
-            
-            <v-menu offset-y  >
-               <template v-slot:activator="{ on, attrs }" >
-               
-                <v-btn class="miNombre" 
-                 
-                  color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-                  height="43"
-                  width="130"
-                  
-              >        
-              
-               
-                 <p class="JetBrains Mono" >
-                  
-                  
-                  <br>
-                  {{ usuarioActivoComputed }} 
-                   
-                  </p>
-                </v-btn >
-                </template>
-              <v-list shaped>
-                <v-list-item
-                  v-for="(item, index) in items2"
-                  :key="index"
-                >
+          <div>
 
-                 <v-list-item-icon>
-                      <v-icon v-text="item.icon"></v-icon>
-                      </v-list-item-icon>
-                  <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
+            <v-menu offset-y v-if="!quitarBotones">
+              <template v-slot:activator="{ on, attrs }">
+
+                <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="43" width="130">
+
+
+                  <p class="JetBrains Mono">
+
+
+                    <br>
+                    {{ usuarioActivoComputed }}
+
+                  </p>
+                </v-btn>
+              </template>
+              <v-list shaped>
+                <v-list-item v-for="(item, index) in items2" :key="index">
+
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <nuxt-link :to="item.to">
+                    <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                  </nuxt-link>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -157,10 +148,10 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item v-if="quitarBotones">
 
-            <v-list-item-title>
-              <nuxt-link  v-if="quitarBotones" to="/loginWindow">
+            <v-list-item-title v-if="quitarBotones">
+              <nuxt-link v-if="quitarBotones" to="/loginWindow">
 
 
                 <div class="loginText">
@@ -170,8 +161,8 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
+          <v-list-item v-if="quitarBotones">
+            <v-list-item-title v-if="quitarBotones">
               <nuxt-link v-if="quitarBotones" to="/createUser">
 
                 <!-- RegisterUser -->
@@ -183,52 +174,44 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-            <v-list-item>
-            <v-list-item-title>
-               <!-- UsuarioActivo, movil -->
-                <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
-                <div >
-                  <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn class="miNombre"
-                       color="primary"
-                      v-bind="attrs"
-                      v-on="on"
-                      height="40"
-                      width="130"
-                      >
-                        <p class="JetBrains Mono">
-                          <br>
-                          {{ usuarioActivoComputed }}
-                        </p>
-                      </v-btn>
-                      </template>
+          <v-list-item v-if="!quitarBotones">
+            <v-list-item-title v-if="!quitarBotones">
+              <!-- UsuarioActivo, movil -->
+              <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
+              <div>
+                <v-menu offset-y v-if="!quitarBotones">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="40" width="130">
+                      <p class="JetBrains Mono">
+                        <br>
+                        {{ usuarioActivoComputed }}
+                      </p>
+                    </v-btn>
+                  </template>
 
-               
-                    <v-list shaped >
 
-                      <v-list-item 
-                        v-for="(item, index) in items"
-                        :key="index"
-                        
-                      >
-                      
-                        <nuxt-link :to="item.to"><v-list-item-title>{{ item.title  }}</v-list-item-title></nuxt-link>
-                      </v-list-item>
-                    
-                 
-                    </v-list>
-                  
-                  </v-menu>
-                </div>
-                
+                  <v-list shaped>
+
+                    <v-list-item v-for="(item, index) in items" :key="index">
+
+                      <nuxt-link :to="item.to">
+                        <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                      </nuxt-link>
+                    </v-list-item>
+
+
+                  </v-list>
+
+                </v-menu>
+              </div>
+
             </v-list-item-title>
           </v-list-item>
 
         </v-list-item-group>
-    
+
       </v-list>
-    
+
     </v-navigation-drawer>
   </div>
 </template>
@@ -252,15 +235,15 @@ export default {
 
 
       items: [
-        { title: 'Editar perfil',to: "/editUser" },
-        { title: 'Mis grupos',to: "/userGroups"},
-        { title: 'Cerrar sesión',to: "/"},
+        { title: 'Editar perfil', to: "/editUser"},
+        { title: 'Mis grupos', to: "/userGroups"},
+        { title: 'Cerrar sesión', to: "/"},
       ],
 
-    items2: [
-        { title: 'Editar perfil',to: "/editUser", icon: 'mdi-grease-pencil' },
-        { title: 'Mis grupos',to: "/userGroups", icon: 'mdi-account-group' },
-        { title: 'Cerrar sesión',to: "/", icon: 'mdi-close-circle' },
+      items2: [
+        { title: 'Editar perfil', to: "/editUser", icon: 'mdi-grease-pencil'},
+        { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
+        { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
       ],
 
 
@@ -270,15 +253,16 @@ export default {
 
   computed: {
     //Actualiza el nombre del usuario
-      usuarioActivoComputed() {
-        const user = usuarioActivo()
-        return user.$state.layout;
-      },
+    usuarioActivoComputed() {
+      const user = usuarioActivo()
+      return user.$state.layout;
+    },
     //Actualiza los botones al loguearse
-      quitarBotones(){
-        const user = usuarioActivo()
-        return user.$state.noLogueado;
-      }
+    quitarBotones() {
+      const user = usuarioActivo()
+      return user.$state.noLogueado;
+    },
+
 
   },
   props: {
@@ -290,7 +274,17 @@ export default {
     loginAppear: function () {
       console.log("aa")
     },
-    
+    //Actualiza los botones al deslogearse
+    logout: (index) => {
+      //Si presiona el boton 2, cerrar sesión, cerramos la sesión :s
+      if (index == 2) {
+        console.log("logout")
+        const user = usuarioActivo()
+        user.CHANGE_NAV_LAYOUT_LOGOUT(user)
+      }
+
+
+    }
 
 
   }
@@ -329,7 +323,7 @@ export default {
 }
 
 
-.miNombre{
+.miNombre {
   position: relative;
   margin-inline: 10px;
   margin-top: 20px;
@@ -343,7 +337,7 @@ export default {
   background-size: 0% 2px;
   transition: background-size .3s;
   background-color: #00CCB1;
-  
+
 }
 
 .miNombre:hover {
@@ -415,6 +409,6 @@ export default {
 }
 
 .v-text-field input {
-    font-size: 1.2em;
-  }
+  font-size: 1.2em;
+}
 </style>

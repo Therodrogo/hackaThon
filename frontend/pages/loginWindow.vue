@@ -25,11 +25,11 @@
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="primary" to="/createUser">
+                      <v-btn color="#cc7c0a" to="/createUser">
                         <v-text class="textBtn">Crear Usuario</v-text>
                       </v-btn>
                       <v-btn color="primary" v-on:click="submit()">
-                        <v-text class="textBtn">Login</v-text>
+                        <v-text class="textBtn">Iniciar Sesión</v-text>
                       </v-btn>
                     </v-card-actions>
                   </v-card-text>
@@ -101,36 +101,6 @@ export default {
             icon: "error",
           });
         }
-
-
-
-
-
-        /* 
-                  var userFound = false;
-                  allUsersData.forEach((user) => {
-                    if(user.mail==this.email){
-                      if(user.password==this.password){
-                        //usuario validado!!
-                        console.log("INGRESO USUARIO "+user.name +" CON PRIVILEGIOS DE "+user.role);
-                        userFound=true;
-                        
-        
-                        swal({
-                          title: "Bienvenido "+user.name,
-                          text: "Tu rol es: "+user.role,
-                          icon: "success",
-                        })
-                        this.$router.push('events');
-                      }
-                    }
-                  });
-                  if(userFound==false){
-                    swal({
-                        title: "Credenciales incorrectas",
-                        icon: "error",
-                    });
-                  } */
       } else {
         swal({
           title: "Ha ocurrido un error",
