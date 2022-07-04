@@ -159,19 +159,19 @@ const activeStore = usuarioActivo()
 
         
         //res.data.groupsID.push({ref:"asadadsd",type:true});
-        const test = res.data.groupsID; 
-        test.push({name: "GRUPO 1", eventID:"",num:1,userID:[{name:"a"},{name:"c"}]});
-        test.push({name: "GRUPO 2", eventID:"",num:2,userID:[{name:"a"},{name:"b"}]});
-        test.push({name: "GRUPO 3", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
-        test.push({name: "GRUPO 34", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
-        test.push({name: "GRUPO 4", eventID:"",num:3,userID:[{name:"b"},{name:"c"}]});
-        test.push({name: "GRUPO 5", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"},{name:"d"},{name:"e"}]});
-        test.push({name: "GRUPO 6", eventID:"",num:4,userID:[{name:"a"}]});
-        test.push({name: "GRUPO 7", eventID:"",num:1,userID:[{name:"a"},{name:"b"}]},);
+        //const test = res.data.groupsID; 
+        //test.push({name: "GRUPO 1", eventID:"",num:1,userID:[{name:"a"},{name:"c"}]});
+        //test.push({name: "GRUPO 2", eventID:"",num:2,userID:[{name:"a"},{name:"b"}]});
+        //test.push({name: "GRUPO 3", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
+        //test.push({name: "GRUPO 34", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"}]},);
+        //test.push({name: "GRUPO 4", eventID:"",num:3,userID:[{name:"b"},{name:"c"}]});
+        //test.push({name: "GRUPO 5", eventID:"",num:0,userID:[{name:"a"},{name:"b"},{name:"c"},{name:"d"},{name:"e"}]});
+        //test.push({name: "GRUPO 6", eventID:"",num:4,userID:[{name:"a"}]});
+        //test.push({name: "GRUPO 7", eventID:"",num:1,userID:[{name:"a"},{name:"b"}]},);
         this.grouplimit = res.data.groupLimit;
         // simula por ahora los grupos que estan en un evento
         
-        const cosa = await API.getAllGroups(); // ACTUALMENTE  USADA
+        const cosa = await API.getGroupsFromEvent(eventoStore.getEventId); // ACTUALMENTE  USADA
         console.log(cosa.data); 
         cosa.data.forEach  (async n => {
           //res.data.groupsID.forEach(n => {
