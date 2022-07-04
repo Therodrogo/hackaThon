@@ -10,7 +10,7 @@
          Eventos próximos:
         </h2>
 
-        <v-row>
+        <v-row >
 
           <v-col
             v-for="n in events" :key="n"
