@@ -80,8 +80,8 @@ export default {
         const user = await API.signUpUser({ "mail": this.email, "password": this.password });
         console.log(user)
         if (user.code == 200) {
-          const userData = user.data
-          Swal({
+          let userData = user.data
+          Swal.fire({
             title: "Bienvenido " + userData.name,
             text: "Tu rol es: " + userData.role,
             icon: "success",
