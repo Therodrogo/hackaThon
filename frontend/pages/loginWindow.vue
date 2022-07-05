@@ -49,7 +49,6 @@ import Swal from 'sweetalert2';
 import API from "../api";
 import { usuarioStore } from "../store/index.js"
 import { usuarioActivo } from "../store/index.js"
-const usuario = usuarioStore()
 
 export default {
   name: 'Login',
@@ -81,18 +80,18 @@ export default {
         const user = await API.signUpUser({ "mail": this.email, "password": this.password });
         console.log(user)
         if (user.code == 200) {
-          usuario.user = user.data
+          const userData = user.data
           Swal({
-            title: "Bienvenido " + usuario.user.name,
-            text: "Tu rol es: " + usuario.user.role,
+            title: "Bienvenido " + userData.name,
+            text: "Tu rol es: " + userData.role,
             icon: "success",
           })
-          console.log("Se logueo " +  usuario.user.name)
+          console.log("Se logueo " +  userData.name)
           const usuarioLogeado = usuarioActivo()
-          usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, usuario.user.name )
+          usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, userData.name )
 
           const userLogged = usuarioStore()
-          userLogged.setUser(usuario.user._id)
+          userLogged.setUser(userData._id)
 
           this.$router.push({ path: '/userGroups' })
 
