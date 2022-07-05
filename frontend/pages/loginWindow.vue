@@ -78,41 +78,11 @@ export default {
           }
           else{
              Swal.fire({
-              title: 'Ha ocurrido un error',
+              title: 'Credenciales incorrectas',
               icon: 'error',
               confirmButtonColor: '#00CCB1',
               })
           }
-
-
-
-
-
-/* 
-          var userFound = false;
-          allUsersData.forEach((user) => {
-            if(user.mail==this.email){
-              if(user.password==this.password){
-                //usuario validado!!
-                console.log("INGRESO USUARIO "+user.name +" CON PRIVILEGIOS DE "+user.role);
-                userFound=true;
-                
-
-                swal({
-                  title: "Bienvenido "+user.name,
-                  text: "Tu rol es: "+user.role,
-                  icon: "success",
-                })
-                this.$router.push('events');
-              }
-            }
-          });
-          if(userFound==false){
-            swal({
-                title: "Credenciales incorrectas",
-                icon: "error",
-            });
-          } */
         }else{
           Swal.fire({
             title: 'Credenciales incorrectas',
