@@ -154,7 +154,6 @@ export default {
     },
     async getUser() {
       const userStore = usuarioStore();
-      let data = userStore.getUserData();
       await API.getUserByID(userStore.getUserId()).then((response) => {
         let userData = response.data;
         this.name = userData.name;
