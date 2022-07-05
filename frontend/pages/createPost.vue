@@ -71,14 +71,24 @@ import swal from 'sweetalert'
         ],
         ImageURL:"",
         ImageURLRules:[
-          v => v.text.substr(-4) == ".jpg" ||  v.text.substr(-4) == ".png" || 'La URL debe finalizar en "jpg" o "png"',
-        ]
+           v => !!v || 'Una imagen es requerida',
+           v => /.png/.test(v) || /.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
+        ],
+        
              
       }
     },methods: {
       async createPost(){
-        console.log(this.Tittle.length)
-        if((this.Tittle.length>=10 && this.Tittle.length <= 20) && (this.Description.length>=50 && this.Description.length <= 300)){
+        var formatvalid=false
+        
+        try{
+          if(this.ImageURL.length>0){
+            formatvalid =  /.png/.test(this.ImageURL) || /.jpg/.test(this.ImageURL) 
+          }
+          console.log(formatvalid)
+      
+        
+        if((this.Tittle.length>=10 && this.Tittle.length <= 20) && (this.Description.length>=50 && this.Description.length <= 300) && formatvalid){
             const res = await API.postPost(
               {
                 "title":this.Tittle ,
@@ -97,6 +107,9 @@ import swal from 'sweetalert'
                 title: "Los datos no han sido ingresados correctamente",
                 icon: "error",
           });
+        }  
+        }catch(error){
+          console.log(error)  
         }
       }
     },
