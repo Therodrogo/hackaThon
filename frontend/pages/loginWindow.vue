@@ -82,7 +82,7 @@ export default {
         console.log(user)
         if (user.code == 200) {
           usuario.user = user.data
-          swal({
+          Swal({
             title: "Bienvenido " + usuario.user.name,
             text: "Tu rol es: " + usuario.user.role,
             icon: "success",
@@ -99,13 +99,13 @@ export default {
         }
         else {
            this.$emit("logeado");
-          swal({
+          Swal({
             title: "Credenciales incorrectas",
             icon: "error",
           });
         }
       } else {
-        swal({
+        Swal({
           title: "Ha ocurrido un error",
           text: "Debes ingresar las credenciales",
           icon: "error",

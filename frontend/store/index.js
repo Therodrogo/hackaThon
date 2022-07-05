@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import Swal from 'sweetalert2';
 
 //Store para el usuario Activo en el navbar
 export const usuarioActivo = defineStore('usuario', {
