@@ -43,14 +43,13 @@
 
 
 <script>
-import swal from 'sweetalert'
+import Swal from 'sweetalert2';
 import API from "../api";
 import {usuarioStore} from "../store/index.js"
-
-const usuario = usuarioStore()
-
 export default {
     name: 'Login',
+    email: '',
+    password: '',
     props: {
         source: String,
     },
@@ -72,26 +71,17 @@ export default {
     methods: {
 
       async submit () {
-
         if(!this.email == '' && !this.password == ''){
-
-          const user = await API.signUpUser({"mail": this.email,"password":this.password});
-          console.log(user)
-          if (user.code==200){
-            usuario.user = user.data
-            swal({
-                  title: "Bienvenido "+usuario.user.name,
-                  text: "Tu rol es: "+usuario.user.role,
-                  icon: "success",
-                })
-                this.$router.push('userGroups');
-
-            }
+          const usuario = usuarioStore();
+          if(usuario.login(this.email,this.password)){
+            this.$router.push({ path: '/userGroups' })
+          }
           else{
-            swal({
-                title: "Credenciales incorrectas",
-                icon: "error",
-            });
+             Swal.fire({
+              title: 'Ha ocurrido un error',
+              icon: 'error',
+              confirmButtonColor: '#00CCB1',
+              })
           }
 
 
@@ -124,11 +114,11 @@ export default {
             });
           } */
         }else{
-            swal({
-                title: "Ha ocurrido un error",
-                text: "Debes ingresar las credenciales",
-                icon: "error",
-            });
+          Swal.fire({
+            title: 'Credenciales incorrectas',
+            icon: 'error',
+            confirmButtonColor: '#00CCB1',
+          });
         }
       },
     },
