@@ -8,7 +8,6 @@
           </v-btn>
         </nuxt-link>
         
-        
         <v-row>
           <v-col 
             lg="4"
@@ -20,7 +19,7 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>
-                      Groups
+                      Grupos
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -34,7 +33,7 @@
                     <v-list-item 
                     v-for="n in groups" 
                     :key="n">
-                      <v-btn @click="selectedGroup = n.name" text left min-width="100%">
+                      <v-btn @click="selectedGroup = n.name" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
                     </v-list-item>
@@ -53,18 +52,20 @@
                 v-for="n in groups" 
                 :key="n">
                   <p v-if="n.name == selectedGroup">
-                    <v-card>
+                    <v-card
+                      class="mx-auto"
+                      max-width="700">
                       <v-card-title>
-                        Group name: {{n.name}}
+                        Nombre del grupo: {{n.name}}
                       </v-card-title>
                       <v-card-text class="text--primary">
-                        Event: {{n.eventID.name}}
+                        Evento: {{n.eventID.name}}
                       </v-card-text>
                       <v-card-text class="text--primary">
-                        Leader: {{n.userID[0].name}}
+                        Lider: {{n.userID[0].name}}
                       </v-card-text>
-                      <v-card-text class="text--primary">
-                        Members:
+                      <v-card-text class="text--priary">
+                        Miembros:
                       </v-card-text>
                       <v-card>
                         <v-list>
@@ -77,7 +78,7 @@
                             </v-list-item-title>
 
                             <v-list-item-action>
-                              <v-btn @click="" fab x-small dark color="red">
+                              <v-btn @click="kickMember(i._id, n.leaderID, n.code)" fab x-small dark color="red">
                                 <v-icon dark>
                                   mdi-minus
                                 </v-icon>
@@ -87,7 +88,7 @@
                         </v-list>
                       </v-card>
                       <v-card-actions>
-                        {{n.code}}
+                        Código del grupo: {{n.code}}
                       </v-card-actions>
                     </v-card>
                   </p>  
@@ -164,9 +165,9 @@
             }
           },
           
-          async isLeader(){
+          async isLeader(id){
             try {
-              const res = await API.isLeader()
+              const res = await API.isLeader(id)
               this.groups = res.data
               
             } catch (error) {
@@ -184,11 +185,18 @@
             }
           },
 
-          async kickMember(){
-             try {
-              const res = await API.kickMember()
-              this.groups = res.data
-              
+          async kickMember(id, leaderid, code){
+            
+            const req = {
+              userID: id,
+              leaderID: leaderid,
+              code: code,
+            }
+            console.log(req);
+            try {
+              const res = await API.kickMember(req)
+              this.group = res.data
+              console.log()
             } catch (error) {
               console.log(error)
             }
@@ -196,6 +204,5 @@
         }, beforeMount() {
             this.getGroupsUser(user.user._id)
         }     
-    }
-
+  }
 </script>
