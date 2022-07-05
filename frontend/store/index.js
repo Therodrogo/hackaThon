@@ -2,32 +2,13 @@ import { defineStore } from "pinia";
 import API from "../api";
 import Swal from 'sweetalert2';
 
-//Store para el usuario Activo en el navbar
-export const usuarioActivo = defineStore('usuario', {
-    state: () => ({layout: '' , noLogueado: true}),
-    getters: {
-      
-    },
-    actions: {
-        //Cambiar el nav cuando se loguea alguien
-        CHANGE_NAV_LAYOUT(usuarioActivo, layout) {
-            usuarioActivo.layout = layout;
-            usuarioActivo.noLogueado = false;
-        },
-        CHANGE_NAV_LAYOUT_LOGOUT(usuarioActivo) {
-            usuarioActivo.layout = '';
-            usuarioActivo.noLogueado = true;
-        }
-    },
-  })
-
-
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
-        id: JSON.parse(localStorage.getItem('id')),    
+        id: JSON.parse(localStorage.getItem('id')),
         status: localStorage.getItem('status'),
+        layout: localStorage.getItem('layout'),
     }),
-    
+
     actions:{
         async login(email, password){
             const userSignUp = await API.signUpUser({"mail": email,"password":password});
@@ -37,18 +18,19 @@ export const usuarioStore = defineStore('usuarioStore', {
             if (userSignUp.code==200){
               localStorage.setItem('status',"active");
               localStorage.setItem('id', JSON.stringify(userSignUp.data._id));
+              localStorage.setItem('layout', userSignUp.data.name);
               Swal.fire({
                     title: "Bienvenido "+ userSignUp.data.name,
                     text: "Tu rol es: "+ userSignUp.data.role,
                     icon: "success",
                     confirmButtonColor: '#00CCB1'
-                   }).then((result) => {  
-                      if (result.isConfirmed) {    
+                   }).then((result) => {
+                      if (result.isConfirmed) {
                         return true;
                       }
                   });
             }
-          } 
+          }
         },
         getUserId(){
             return this.id;
@@ -58,10 +40,10 @@ export const usuarioStore = defineStore('usuarioStore', {
         },
         logout(){
           localStorage.clear();
-        }
+        },
     },
     getters:{
-        
+
     },
   })
 
@@ -79,7 +61,7 @@ export const eventStore = defineStore('eventStore', {
         getEventId(state){
             return state.selectEvent
         }
-        
+
     }
 })
 
