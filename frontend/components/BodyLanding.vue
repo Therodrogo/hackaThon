@@ -65,10 +65,9 @@ export default {
   height: max-content;
 }
 
-.container {
-  margin: 100px;
+.container{
   text-align: center;
-  font-size: 80px;
+  padding: 3% 1% 1% 1%;
 }
 .carrouselContainer {
   height: 500px;

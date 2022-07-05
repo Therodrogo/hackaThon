@@ -3,9 +3,10 @@
     background: #ffffff;">
     <v-main>
 
-      <v-container>
+      <div class="container">
 
-        <h2 class="text-sm-h4">
+        <h2 class="text-h4 text-sm-h4 font-weight-black mb-4">
+        <br>
          Eventos próximos:
         </h2>
 
@@ -43,7 +44,7 @@
             </v-card>
           </v-col>
         </v-row>
-      </v-container>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -86,8 +87,12 @@
   }
 </script>
 
-<style>
+<style scoped>
 
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
+}
   .textBorder{
     text-shadow: 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0);
     color: #fff

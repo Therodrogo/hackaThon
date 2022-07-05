@@ -1,7 +1,7 @@
 <template>
-   <div class="py-16 grey lighten-4" xs6> 
+   <div class="container" xs8> 
     <v-row class="text-center">
-      <v-col><h2 class="text-h4 text-sm-h3 font-weight-black mb-4"> 
+      <v-col><h2 class="text-h4 text-sm-h4 font-weight-black mb-4"> 
         <br> <br> Conoce al equipo
         </h2>
       </v-col>
@@ -18,7 +18,7 @@
             </v-avatar>
           </div>
           <v-card-text class="card">
-          <p class="text-h5 text-uppercase font-weight-black mt-6 mb-2" >
+          <p class="text-h6 text-uppercase font-weight-black mt-6 mb-2" >
             Daniel Moreno
           </p>
           <p class="text--disabled text-uppercase">Profesor</p>
@@ -36,7 +36,7 @@
             </v-avatar>
           </div>
           <v-card-text class="card">
-           <p class="text-h5 text-uppercase font-weight-black mt-6 mb-2" >
+           <p class="text-h6 text-uppercase font-weight-black mt-6 mb-2" >
             Ruth Garrido
           </p>
           <p class="text--disabled text-uppercase">Jefa de carrera</p>
@@ -57,7 +57,7 @@
             >
       </v-col>
       <v-col class="pa-lg-16 pa-md-10 px-4 py-16">
-          <p class="text-h3 text-center font-weight-black" >
+          <p class="text-h4 text-center font-weight-black" >
             ¿Qué es una hackathon? 
           </p>
           <p>
@@ -74,7 +74,7 @@
     <v-layout>
     <v-row class="text-center">
       <v-col class="pa-lg-16 pa-md-10 px-4 py-16">
-          <p class="text-h3 text-center font-weight-black" >
+          <p class="text-h4 text-center font-weight-black" >
           ¿Cómo se desarrolla una hackathon?
           </p>
           <p>
@@ -98,7 +98,7 @@
     <v-row class="py-16">
     </v-row>
     <v-row class="text-center">
-      <v-col><h2 class="text-h4 text-sm-h3 text-capitalize font-weight-black mb-4"> Trayectoria </h2>
+      <v-col><h2 class="text-h4 text-sm-h4 text-capitalize font-weight-black mb-4"> Trayectoria </h2>
       </v-col>
     </v-row>
 
@@ -164,8 +164,9 @@
 
 <style scoped>
 
-.v-container{
-  width: 100%;
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
 }
 img{
     width:100%;
