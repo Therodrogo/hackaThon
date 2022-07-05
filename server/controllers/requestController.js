@@ -1,13 +1,13 @@
-const { postService, updateUserData } = require('../services/userService');
-const userService = require('../services/userService');
+const { getRequestGroup, acceptRequest } = require('../services/requestService');
+const requestService = require('../services/requestService');
 
 
 // Create the controller to handle all the services
-const userController = {
+const requestController = {
     // Here you add all the controllers of the service
-    async getUsers(req, res) {
-        await userService
-            .getUsers()
+    async getRequests(req, res) {
+        await requestService
+            .getRequests()
             .then((result) => {
                 res.status(result.code).json(result);
             })
@@ -16,10 +16,10 @@ const userController = {
             });
     },
 
-    async postUser(req,res){
+    async postRequest(req,res){
         
-        await userService
-        .postUser(req)
+        await requestService
+        .postRequest(req)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -27,10 +27,10 @@ const userController = {
             res.status(err.code).json(err);
         });
         
-    },async getUserById(req, res) {
+    },async getRequestById(req, res) {
         const id = req.params.id;
-        await userService
-            .getUserById(id)
+        await requestService
+            .getRequestById(id)
             .then((result) => {
                 res.status(result.code).json(result);
             })
@@ -38,10 +38,10 @@ const userController = {
                 res.status(err.code).json(err);
             });
     },
-    async deleteUser(req,res){
+    async deleteRequest(req,res){
         
         const id = req.params.id;
-        await userService.deleteUser(id)
+        await requestService.deleteRequest(id)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -50,22 +50,10 @@ const userController = {
         });
 
     },
-    async signInUser(req, res){
-        console.log(req.body)
-        const mail = req.body.mail;
-        const password = req.body.password;
-        await userService.signInUser(mail, password)
-            .then((result) => {
-                res.status(result.code).json(result);
-            })
-            .catch((err) => {
-                res.status(err.code).json(err);
-            });
-    },
-
-    async updateUserData(req,res){
-        await userService
-        .updateUserData(req)
+    async getRequestGroup(req,res){
+        
+        await requestService
+        .getRequestGroup(req)
         .then((result) => {
             res.status(result.code).json(result);
         })
@@ -73,20 +61,35 @@ const userController = {
             res.status(err.code).json(err);
         });
         
-    },async getGroupsUser(req,res){
+    },
+
+    async acceptRequest(req,res){
         
-        const userID = req.params.id
-        await userService
-        .getGroupsUser(userID)
+        await requestService
+        .acceptRequest(req)
         .then((result) => {
             res.status(result.code).json(result);
         })
         .catch((err) => {
             res.status(err.code).json(err);
-        });   
+        });
+        
+    },
+
+    async declineRequest(req,res){
+        
+        await requestService
+        .declineRequest(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+        
     }
 
 
 };
 
-module.exports = userController;
+module.exports = requestController;

@@ -2,9 +2,12 @@
   <v-app id="inspire">
     <v-main class="white">
       <v-container>
-        <v-btn>
-          editar perfil
-        </v-btn>
+        <nuxt-link to="editUser">
+          <v-btn>
+            editar perfil
+          </v-btn>
+        </nuxt-link>
+        
         
         <v-row>
           <v-col 

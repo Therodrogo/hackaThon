@@ -13,8 +13,10 @@ userRouter.get('/get/:id', userController.getUserById);
 
 userRouter.delete('/delete/:id', userController.deleteUser);
 
-userRouter.post('/signUp', userController.signUpUser);
+userRouter.post('/signIn', userController.signInUser);
 
 userRouter.post('/updateUserData', userController.updateUserData);
+
+userRouter.get('/getGroupsUser/:id', userController.getGroupsUser);
 
 module.exports = userRouter;

@@ -122,10 +122,9 @@
             <v-list-item-title>
               <nuxt-link to="/loginWindow">
 
-                <!-- LOGO -->
 
                 <div class="loginText">
-                  Iniciar Sesión
+                  {{user}}
                 </div>
 
               </nuxt-link>
@@ -158,6 +157,8 @@ export default {
   data() {
     return {
       drawer: false,
+      user:"Iniciar Sesion",
+      user2:"Crear Usuario"
 
     }
   },
