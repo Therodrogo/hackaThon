@@ -1,7 +1,7 @@
 <template>
-   <div class="py-16 grey lighten-4" xs6> 
-    <v-row class="text-center">
-      <v-col><h2 class="text-h4 text-sm-h3 font-weight-black mb-4"> 
+   <div class="container" xs6> 
+    <v-row class="text-center" >
+      <v-col><h2 class="text-h4 text-sm-h4 font-weight-black mb-4"> 
         <br> <br> Para participar debes estar registrado en el sistema
         </h2>
       </v-col>
@@ -31,8 +31,8 @@
             </zoom-on-hover>
           </div>
           <v-card-text class="card">
-          <p class="text-h5 text-uppercase font-weight-black mt-6 mb-2" >
-            Contactarse directamente con el profesor a cargo
+          <p class="text-h6 text-uppercase font-weight-black mt-6 mb-2" >
+            Contactarse con el profesor a cargo
           </p>
           <p class="text--disabled text-uppercase"></p>
         </v-card-text>
@@ -57,7 +57,7 @@
             </v-avatar>
           </div>
           <v-card-text class="card">
-           <p class="text-h5 text-uppercase font-weight-black mt-6 mb-2" >
+           <p class="text-h6 text-uppercase font-weight-black mt-6 mb-2" >
               Ser estudiante de la Universidad de Talca
           </p>
           <p class="text--disabled text-uppercase"></p>
@@ -86,8 +86,9 @@
             </v-avatar>
           </div>
           <v-card-text class="card">
-           <p class="text-h5 text-uppercase font-weight-black mt-6 mb-2" >
+           <p class="text-h6 text-uppercase font-weight-black mt-6 mb-2"  >
             Participar e inscribirse en las encuestas
+            
           </p>
           <p class="text--disabled text-uppercase"></p>
         </v-card-text>
@@ -101,10 +102,39 @@
 </template>
 
 
+
+<script>
+  export default {
+    data: () => ({
+      model: null,
+      classes: [
+        ['h1', 'Heading 1', '6rem', '300', '-.015625em', -1],
+        ['h2', 'Heading 2', '3.75rem', '300', '-.0083333333em', 0],
+        ['h3', 'Heading 3', '3rem', '400', 'normal', 1],
+        ['h4', 'Heading 4', '2.125rem', '400', '.0073529412em', 2],
+        ['h5', 'Heading 5', '1.5rem', '400', 'normal', 2],
+        ['h6', 'Heading 6', '1.25rem', '500', '.0125em', 3],
+        ['subtitle-1', 'Subtitle 1', '1rem', '400', '.009375em', 4],
+        ['subtitle-2', 'Subtitle 2', '0.875rem', '500', '.0071428571em', 4],
+        ['body-1', 'Body 1', '1rem', '400', '.03125em', 4],
+        ['body-2', 'Body 2', '0.875rem', '400', '.0178571429em', 4],
+        ['button', 'Button', '0.875rem', '500', '.0892857143em', 4],
+        ['caption', 'Caption', '0.75rem', '400', '.0333333333em', 4],
+        ['overline', 'Overline', '0.75rem', '500', '.1666666667em', 4],
+      ],
+    }),
+  }
+</script>
+
+
+
+
+
 <style scoped>
 
-.v-container{
-  width: 150%;
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
 }
 img{
     width:500%;

@@ -2,7 +2,7 @@
 
 
 
-  <v-container >
+  <div class="container">
 
 
    <v-row >
@@ -115,6 +115,7 @@
               rounded
               elevation="2"
               color = "#00CCB1"
+              to="/createGroup"
               >
               Crear Grupo
               </v-btn>
@@ -126,6 +127,7 @@
               rounded
               elevation="3"
               color = "#00CCB1"
+              to="/eventGroups"
               >
               Lista de Grupos
               
@@ -133,9 +135,13 @@
             </v-col>
     </v-row>
 
-  </v-container>
+  </div>
 </template>
 <style scoped>
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
+}
 .v-card {
   padding: 10px;
   text-align: center;

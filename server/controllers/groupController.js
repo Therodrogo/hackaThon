@@ -56,7 +56,7 @@ const GroupController = {
     async joinGroup(req,res){
         
         
-        await GroupService.joinGroup(req.body)
+        await GroupService.joinGroupCode(req.body)
         .then((result) => {
             res.status(result.code).json(result);
         })
