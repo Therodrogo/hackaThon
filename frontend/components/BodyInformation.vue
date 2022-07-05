@@ -57,6 +57,9 @@
 
 <!-- Script del ciclo temporal para cada -->
 <script>
+
+import { onBeforeMount } from 'vue-demi';
+import API from '~/api';
  export default {
     data: () => ({
       attrs: {
@@ -65,7 +68,16 @@
         elevation: 2,
       },
     }),
-  }
+  
+   methods: {
+    async getAllPosts(){
+      const post = await API.getAllPosts()
+      console.log(post.data);
+    },
+    }, beforeMount() {this.getAllPosts()}
+    }
+    
+    
 </script>
 
 <style>
