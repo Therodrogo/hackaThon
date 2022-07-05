@@ -58,6 +58,9 @@ export const usuarioStore = defineStore('usuarioStore', {
         setUser(userID){
           this.id = userID;
         },
+        setStatus(status){
+          this.status = status;
+        },
         logout(){
           localStorage.clear();
         }
