@@ -92,6 +92,7 @@ export default {
 
           const userLogged = usuarioStore()
           userLogged.setUser(usuario._id)
+          userLogged.setStatus('active')
 
           this.$router.push({ path: '/userGroups' })
 
