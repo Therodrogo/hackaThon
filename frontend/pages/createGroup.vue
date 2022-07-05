@@ -7,7 +7,7 @@
             <v-card class="elevation-12">
                 <v-row class="fill-height">
                     <v-col  cols="12" md="6" class="primary">
-                     <img class="logo-utalca"  height="250px" alt="logo-grupo" src="/group.png" />     
+                     <img class="logo-utalca"  height="250px" alt="logo-grupo" src="/group.png" />
                 </v-col>
                 <v-col cols="12" md="6">
                   <p class="text-center">Crear grupo</p>
@@ -17,14 +17,14 @@
                         v-model="valid"
                         lazy-validation>
 
-                        <v-text-field name="name" 
-                        label="Nombre" 
-                        v-model="Nombre" 
+                        <v-text-field name="name"
+                        label="Nombre"
+                        v-model="Nombre"
                         type="text"
                         :rules="required"
                         color="#3d4545" >
                         </v-text-field>
-                          
+
                             <v-btn color="primary" v-on:click="crearGrupo()">
                             <v-text class="textBtn" >Crear grupo</v-text>
                             </v-btn>
@@ -45,8 +45,6 @@
 import API from "../api";
 import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
-const userStore = usuarioStore()
-const eventoStore = eventStore()
 
   export default {
     data () {
@@ -59,8 +57,12 @@ const eventoStore = eventStore()
     methods: {
 
       async crearGrupo(){
-        const res = await API.getUserByID(userStore.getUserId);
+        const userStore = usuarioStore()
+        const eventoStore = eventStore()
+        const res = await API.getUserByID(userStore.getUserId());
+        console.log(res)
         const resEvent = await API.getEventByID(eventoStore.getEventId);
+        console.log(resEvent)
         console.log("Se ha creado un grupo llamado: "+this.Nombre+"\nCon el usuario: "+ res.data.name+"\nRegistrado con el mail: " + res.data.mail+"\nEn el evento: "+resEvent.data.name);
         let data = {
           name: this.Nombre,
@@ -68,13 +70,15 @@ const eventoStore = eventStore()
           leaderID: res.data._id,
           eventID: resEvent.data._id,
         };
+        console.log(data)
         let result = await API.postGroup(data)
+        console.log(result)
         swal({
           title: "Grupo "+this.Nombre+" creado",
           text: "El lider es: " + res.data.name,
           icon: "success",
         })
-        this.$router.push('events');
+        this.$router.push({ path: '/events' })
       },
   },
 }

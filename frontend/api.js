@@ -1,26 +1,26 @@
 import axios from 'axios'
 
-const url="http://localhost:9000/"
+const url="https://server-dot-hackathon-construccionu3.rj.r.appspot.com/"
 export default class API{
     //UserMethods
-    static async postUser(data){  
+    static async postUser(data){
         try {
             const res = await axios.post(url+"user/post",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
     static async getAllUsers(){
 
         try {
             const res = await axios.get(url+"user/get-all")
-            
+
             return res.data
         } catch (error) {
             return error.response.data
         }
-    
+
 
     }
     static async getUserByID(id){
@@ -37,7 +37,7 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
     static async signUpUser(data){
         try {
@@ -45,7 +45,7 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
 
     static async updateUserData(data){
@@ -54,7 +54,7 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
     static async getGroupsUser(id){
         try {
@@ -62,31 +62,31 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }     
+        }
 
     }
 
 
 
     //EventMethods
-    static async postEvent(data){  
+    static async postEvent(data){
         try {
             const res = await axios.post(url+"event/post",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
     static async getAllEvents(){
 
         try {
             const res = await axios.get(url+"event/get-all")
-            
+
             return res.data
         } catch (error) {
             return error.response.data
         }
-    
+
 
     }
     static async getEventByID(id){
@@ -103,7 +103,7 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
     static async getGroupsFromEvent(id){
         try {
@@ -111,30 +111,30 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
 
     }
 
 
     //GroupMethods
-    static async postGroup(data){  
+    static async postGroup(data){
         try {
             const res = await axios.post(url+"group/post",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
     static async getAllGroups(){
 
         try {
             const res = await axios.get(url+"group/get-all")
-            
+
             return res.data
         } catch (error) {
             return error.response.data
         }
-    
+
 
     }
     static async getGroupByID(id){
@@ -160,7 +160,7 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
     static async joinGroup(data){
         try {
@@ -168,7 +168,7 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-            
+
         }
 
     }
@@ -178,7 +178,7 @@ export default class API{
             const res = await axios.post(url+"group/isLeader",data)
             return res.data
         } catch (error) {
-            return error.response.data       
+            return error.response.data
         }
 
     }
@@ -187,7 +187,7 @@ export default class API{
             const res = await axios.post(url+"group/leaveGroup",data)
             return res.data
         } catch (error) {
-            return error.response.data        
+            return error.response.data
         }
 
     }
@@ -197,7 +197,7 @@ export default class API{
             const res = await axios.post(url+"group/kickMember",data)
             return res.data
         } catch (error) {
-            return error.response.data       
+            return error.response.data
         }
 
     }
@@ -205,24 +205,24 @@ export default class API{
 
 
     //PostMethods
-    static async postPost(data){  
+    static async postPost(data){
         try {
             const res = await axios.post(url+"post/post",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
     static async getAllPosts(){
 
         try {
             const res = await axios.get(url+"post/get-all")
-            
+
             return res.data
         } catch (error) {
             return error.response.data
         }
-    
+
 
     }
     static async getPostByID(id){
@@ -239,30 +239,30 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
 
 
 
     //ProjectMethods
-    static async postProject(data){  
+    static async postProject(data){
         try {
             const res = await axios.post(url+"project/post",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
     static async getAllProjects(){
 
         try {
             const res = await axios.get(url+"project/get-all")
-            
+
             return res.data
         } catch (error) {
             return error.response.data
         }
-    
+
 
     }
     static async getProjectByID(id){
@@ -279,65 +279,65 @@ export default class API{
             return res.data
         } catch (error) {
             return error.response.data
-        }    
+        }
     }
 
     //Request Methods
-    static async getRequests(data){  
+    static async getRequests(data){
         try {
             const res = await axios.get(url+"request/get-all",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
-    static async postRequest(data){  
+    static async postRequest(data){
         try {
             const res = await axios.post(url+"request/post",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
-    static async getRequestById(id){  
+    static async getRequestById(id){
         try {
             const res = await axios.get(url+"request/get/"+id)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
-    static async deleteRequestById(id){  
+    static async deleteRequestById(id){
         try {
             const res = await axios.delete(url+"request/delete/"+id)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
-    static async getRequestGroup(data){  
+    static async getRequestGroup(data){
         try {
             const res = await axios.post(url+"request/get-request-group",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
-    static async acceptRequest(data){  
+    static async acceptRequest(data){
         try {
             const res = await axios.post(url+"request/accept-request",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
-    static async declineRequest(data){  
+    static async declineRequest(data){
         try {
             const res = await axios.post(url+"request/decline-request",data)
             return res.data
         } catch (error) {
             return error.response.data
-        }   
+        }
     }
 
 

@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const usuarioActivo = defineStore('usuario', {
     state: () => ({layout: '' , noLogueado: true}),
     getters: {
-      
+
     },
     actions: {
         //Cambiar el nav cuando se loguea alguien
@@ -22,10 +22,10 @@ export const usuarioActivo = defineStore('usuario', {
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
-        id: JSON.parse(localStorage.getItem('id')),    
+        id: JSON.parse(localStorage.getItem('id')),
         status: localStorage.getItem('status'),
     }),
-    
+
     actions:{
         async login(email, password){
             const userSignUp = await API.signUpUser({"mail": email,"password":password});
@@ -40,13 +40,13 @@ export const usuarioStore = defineStore('usuarioStore', {
                     text: "Tu rol es: "+ userSignUp.data.role,
                     icon: "success",
                     confirmButtonColor: '#00CCB1'
-                   }).then((result) => {  
-                      if (result.isConfirmed) {    
+                   }).then((result) => {
+                      if (result.isConfirmed) {
                         return true;
                       }
                   });
             }
-          } 
+          }
         },
         getUserId(){
             return this.id;
@@ -54,12 +54,15 @@ export const usuarioStore = defineStore('usuarioStore', {
         getStatus(){
           return this.status;
         },
+        setUser(userID){
+          this.id = userID;
+        },
         logout(){
           localStorage.clear();
         }
     },
     getters:{
-        
+
     },
   })
 
@@ -77,7 +80,7 @@ export const eventStore = defineStore('eventStore', {
         getEventId(state){
             return state.selectEvent
         }
-        
+
     }
 })
 
