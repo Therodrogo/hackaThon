@@ -228,7 +228,8 @@ export default {
       drawer: false,
       user: 'Iniciar Sesion',
       user2: 'Crear Usuario',
-
+      quitarBotones: true,
+      usuarioActivoComputed: '',
 
       items: [
         { title: 'Editar perfil', to: '/editUser' },
@@ -244,22 +245,6 @@ export default {
 
 
     };
-  },
-
-
-  computed: {
-    //Actualiza el nombre del usuario
-    usuarioActivoComputed() {
-      const userStore = usuarioStore();
-      return userStore.getLayout();
-    },
-    //Actualiza los botones al loguearse
-    quitarBotones() {
-      const userStore = usuarioStore()
-      return userStore.getStatus() === "active";
-    },
-
-
   },
   props: {
     menuEstudiante: Boolean,
@@ -278,11 +263,20 @@ export default {
         const user = usuarioStore();
         user.logout();
       }
-
-
     },
-
-
+    //Actualiza el nombre del usuario
+    usuarioActivoComputed() {
+      const userStore = usuarioStore();
+      this.usuarioActivoComputed = userStore.getLayout();
+    },
+    //Actualiza los botones al loguearse
+    quitarBotones() {
+      const userStore = usuarioStore()
+      this.quitarBotones = userStore.getStatus()!=="active";
+    },
+  },
+  mounted() {
+    this.quitarBotones();
   },
 };
 </script>
