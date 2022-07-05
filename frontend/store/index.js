@@ -22,8 +22,8 @@ export const usuarioActivo = defineStore('usuario', {
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
-        id: JSON.parse(localStorage.getItem('id')),
-        status: localStorage.getItem('status'),
+        id: null,
+        status: null,
     }),
 
     actions:{
@@ -33,8 +33,8 @@ export const usuarioStore = defineStore('usuarioStore', {
             return false;
           }else{
             if (userSignUp.code==200){
-              localStorage.setItem('status',"active");
-              localStorage.setItem('id', JSON.stringify(userSignUp.data._id));
+              this.status = 'active';
+              this.id = JSON.stringify(userSignUp.data._id);
               Swal.fire({
                     title: "Bienvenido "+ userSignUp.data.name,
                     text: "Tu rol es: "+ userSignUp.data.role,
@@ -56,6 +56,9 @@ export const usuarioStore = defineStore('usuarioStore', {
         },
         setUser(userID){
           this.id = userID;
+        },
+        setStatus(status){
+        this.status = status;
         },
         logout(){
           localStorage.clear();
