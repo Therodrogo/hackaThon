@@ -250,18 +250,13 @@ export default {
   computed: {
     //Actualiza el nombre del usuario
     usuarioActivoComputed() {
-      const user = usuarioStore();
-      return user.getLayout();
+      const userStore = usuarioStore();
+      return userStore.getLayout();
     },
     //Actualiza los botones al loguearse
     quitarBotones() {
-      const user = usuarioStore();
-      if(user.getStatus() == 'active'){
-        return true;
-      }
-      else{
-        return false;
-      }
+      const userStore = usuarioStore()
+      return userStore.getStatus() === "active";
     },
 
 
