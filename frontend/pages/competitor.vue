@@ -1,5 +1,5 @@
 <template>
- <v-container>
+ <div class="container">
     <v-row >
         <v-simple-table
             fixed-header
@@ -35,5 +35,13 @@
         </v-col>
         </v-simple-table>
     </v-row>
- </v-container>
+ </div>
 </template>
+
+
+<style scoped>
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
+}
+</style>

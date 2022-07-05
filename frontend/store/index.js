@@ -1,6 +1,25 @@
 import { defineStore } from "pinia";
-import API from "../api";
-import Swal from 'sweetalert2';
+
+//Store para el usuario Activo en el navbar
+export const usuarioActivo = defineStore('usuario', {
+    state: () => ({layout: '' , noLogueado: true}),
+    getters: {
+      
+    },
+    actions: {
+        //Cambiar el nav cuando se loguea alguien
+        CHANGE_NAV_LAYOUT(usuarioActivo, layout) {
+            usuarioActivo.layout = layout;
+            usuarioActivo.noLogueado = false;
+        },
+        CHANGE_NAV_LAYOUT_LOGOUT(usuarioActivo) {
+            usuarioActivo.layout = '';
+            usuarioActivo.noLogueado = true;
+        }
+    },
+  })
+
+
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
         id: JSON.parse(localStorage.getItem('id')),    

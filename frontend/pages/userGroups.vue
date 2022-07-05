@@ -2,12 +2,7 @@
   <v-app id="inspire">
     <v-main class="white">
       <v-container>
-        <nuxt-link to="editUser">
-          <v-btn>
-            editar perfil
-          </v-btn>
-        </nuxt-link>
-        
+       <br>
         
         <v-row>
           <v-col 
@@ -20,7 +15,7 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>
-                      Groups
+                      Grupos
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -43,7 +38,7 @@
                 <v-list-item link>
                   <v-list-item-content>
                     <v-list-item-title>
-                      New group
+                      Nuevo Grupo
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -60,10 +55,10 @@
                   <p v-if="n.name == selectedGroup">
                     <v-card>
                       <v-card-title>
-                        Group name: {{n.name}}
+                        Nombre Grupo: {{n.name}}
                       </v-card-title>
                       <v-card-text class="text--primary">
-                        Leader: {{n.userID}}
+                        Líder: {{n.userID}}
                     </v-card-text>
                   </v-card>
                   </p>  
@@ -78,8 +73,8 @@
               <v-row :align="align" no-gutters>
                 <v-text-field
                   v-model="code"
-                  label="Codigo de invitacion"
-                  placeholder="Ingresar codigo"
+                  label="Código de invitación"
+                  placeholder="Ingresar código"
                 >
                 
                 </v-text-field>

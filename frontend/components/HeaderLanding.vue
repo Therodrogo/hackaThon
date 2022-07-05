@@ -47,17 +47,17 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link to="/loginWindow">
+          <nuxt-link v-if="quitarBotones" to="/loginWindow">
 
             <!-- Login -->
 
-            <div class="loginText">
+            <div @click="loginEvent()" class="loginText">
               Iniciar Sesión
             </div>
 
           </nuxt-link>
 
-          <nuxt-link to="/createUser">
+          <nuxt-link v-if="quitarBotones" to="/createUser">
 
             <!-- RegisterUser -->
 
@@ -67,9 +67,40 @@
 
           </nuxt-link>
 
-        </v-col>
-        <v-col>
-          <!-- BlankSpace -->
+
+          <!-- Header -->
+          <!-- UsuarioActivo -->
+          <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
+          <div>
+
+            <v-menu offset-y v-if="!quitarBotones">
+              <template v-slot:activator="{ on, attrs }">
+
+                <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="43" width="130">
+
+
+                  <p class="JetBrains Mono">
+
+
+                    <br>
+                    {{ usuarioActivoComputed }}
+
+                  </p>
+                </v-btn>
+              </template>
+              <v-list shaped>
+                <v-list-item v-for="(item, index) in items2" :key="index">
+
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <nuxt-link :to="item.to">
+                    <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                  </nuxt-link>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </v-col>
       </v-row>
 
@@ -117,22 +148,22 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item v-if="quitarBotones">
 
-            <v-list-item-title>
-              <nuxt-link to="/loginWindow">
+            <v-list-item-title v-if="quitarBotones">
+              <nuxt-link v-if="quitarBotones" to="/loginWindow">
 
 
                 <div class="loginText">
-                  {{user}}
+                  {{ user }}
                 </div>
 
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <nuxt-link to="/createUser">
+          <v-list-item v-if="quitarBotones">
+            <v-list-item-title v-if="quitarBotones">
+              <nuxt-link v-if="quitarBotones" to="/createUser">
 
                 <!-- RegisterUser -->
 
@@ -143,8 +174,44 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
+          <v-list-item v-if="!quitarBotones">
+            <v-list-item-title v-if="!quitarBotones">
+              <!-- UsuarioActivo, movil -->
+              <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
+              <div>
+                <v-menu offset-y v-if="!quitarBotones">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="40" width="130">
+                      <p class="JetBrains Mono">
+                        <br>
+                        {{ usuarioActivoComputed }}
+                      </p>
+                    </v-btn>
+                  </template>
+
+
+                  <v-list shaped>
+
+                    <v-list-item v-for="(item, index) in items" :key="index">
+
+                      <nuxt-link :to="item.to">
+                        <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                      </nuxt-link>
+                    </v-list-item>
+
+
+                  </v-list>
+
+                </v-menu>
+              </div>
+
+            </v-list-item-title>
+          </v-list-item>
+
         </v-list-item-group>
+
       </v-list>
+
     </v-navigation-drawer>
   </div>
 </template>
@@ -153,14 +220,50 @@
 
 
 <script>
+
+import { usuarioActivo } from "../store/index.js"
+
 export default {
+
   data() {
     return {
       drawer: false,
-      user:"Iniciar Sesion",
-      user2:"Crear Usuario"
+      user: "Iniciar Sesion",
+      user2: "Crear Usuario",
+
+
+
+
+      items: [
+        { title: 'Editar perfil', to: "/editUser"},
+        { title: 'Mis grupos', to: "/userGroups"},
+        { title: 'Cerrar sesión', to: "/"},
+      ],
+
+      items2: [
+        { title: 'Editar perfil', to: "/editUser", icon: 'mdi-grease-pencil'},
+        { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
+        { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
+      ],
+
 
     }
+  },
+
+
+  computed: {
+    //Actualiza el nombre del usuario
+    usuarioActivoComputed() {
+      const user = usuarioActivo()
+      return user.$state.layout;
+    },
+    //Actualiza los botones al loguearse
+    quitarBotones() {
+      const user = usuarioActivo()
+      return user.$state.noLogueado;
+    },
+
+
   },
   props: {
     menuEstudiante: Boolean,
@@ -170,8 +273,21 @@ export default {
   methods: {
     loginAppear: function () {
       console.log("aa")
+    },
+    //Actualiza los botones al deslogearse
+    logout: (index) => {
+      //Si presiona el boton 2, cerrar sesión, cerramos la sesión :s
+      if (index == 2) {
+        console.log("logout")
+        const user = usuarioActivo()
+        user.CHANGE_NAV_LAYOUT_LOGOUT(user)
+      }
+
+
     }
-  },
+
+
+  }
 }
 </script>
 
@@ -205,6 +321,30 @@ export default {
   background-size: 0% 2px;
   transition: background-size .3s;
 }
+
+
+.miNombre {
+  position: relative;
+  margin-inline: 10px;
+  margin-top: 20px;
+  display: inline-flex;
+  color: white;
+  text-shadow: white;
+  padding: 10px;
+  text-decoration: none;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+  background-color: #00CCB1;
+
+}
+
+.miNombre:hover {
+  background-color: #04e4c6;
+}
+
+
 
 .loginText {
   position: relative;
@@ -266,5 +406,9 @@ export default {
   height: 100px;
   align-content: center;
   justify-content: center;
+}
+
+.v-text-field input {
+  font-size: 1.2em;
 }
 </style>
