@@ -115,6 +115,7 @@
               rounded
               elevation="2"
               color = "#00CCB1"
+              to="/createGroup"
               >
               Crear Grupo
               </v-btn>
@@ -126,6 +127,7 @@
               rounded
               elevation="3"
               color = "#00CCB1"
+              to="/eventGroups"
               >
               Lista de Grupos
               
