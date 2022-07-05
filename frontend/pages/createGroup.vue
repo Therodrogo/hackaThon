@@ -43,6 +43,7 @@
 
 <script>
 import API from "../api";
+import Swal from 'sweetalert2';
 import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
 
@@ -73,7 +74,7 @@ import {usuarioStore} from "../store/index.js"
         console.log(data)
         let result = await API.postGroup(data)
         console.log(result)
-        swal({
+        Swal.fire({
           title: "Grupo "+this.Nombre+" creado",
           text: "El lider es: " + res.data.name,
           icon: "success",
