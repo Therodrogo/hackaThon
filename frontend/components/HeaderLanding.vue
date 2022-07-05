@@ -1,67 +1,67 @@
 <template>
 
   <div>
-    <v-app-bar dense fixed app height="80">
+    <v-app-bar dense fixed app height='80'>
       <!-- Add this class to show menu icon only on small screen -->
-      <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-md-none"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click='drawer = true' class='d-flex d-md-none'></v-app-bar-nav-icon>
       <v-row>
-        <v-col md="1">
-          <nuxt-link to="/">
+        <v-col md='1'>
+          <nuxt-link to='/'>
 
-            <img class="logoUtal" src="https://i.ibb.co/3hgwd3t/u-logo.png">
+            <img class='logoUtal' src='https://i.ibb.co/3hgwd3t/u-logo.png'>
 
           </nuxt-link>
         </v-col>
 
         <!-- Add this class to show tabs only on medium screen and above -->
-        <v-col md="10" class="d-none d-md-flex columnNavBar">
+        <v-col md='10' class='d-none d-md-flex columnNavBar'>
 
-          <div class="algo"></div>
-          <nuxt-link to="/">
-            <div class="bar">
+          <div class='algo'></div>
+          <nuxt-link to='/'>
+            <div class='bar'>
               Inicio
             </div>
 
           </nuxt-link>
 
 
-          <nuxt-link to="/aboutUs">
-            <div class="bar">
+          <nuxt-link to='/aboutUs'>
+            <div class='bar'>
               Nosotros
             </div>
 
           </nuxt-link>
 
 
-          <nuxt-link to="/ComoParticipar">
-            <div class="bar">
+          <nuxt-link to='/ComoParticipar'>
+            <div class='bar'>
               ¿Cómo participar?
             </div>
 
           </nuxt-link>
 
 
-          <nuxt-link to="/events">
-            <div class="bar">
+          <nuxt-link to='/events'>
+            <div class='bar'>
               Eventos
             </div>
           </nuxt-link>
 
-          <nuxt-link v-if="quitarBotones" to="/loginWindow">
+          <nuxt-link v-if='quitarBotones' to='/loginWindow'>
 
             <!-- Login -->
 
-            <div @click="loginEvent()" class="loginText">
+            <div @click='loginEvent()' class='loginText'>
               Iniciar Sesión
             </div>
 
           </nuxt-link>
 
-          <nuxt-link v-if="quitarBotones" to="/createUser">
+          <nuxt-link v-if='quitarBotones' to='/createUser'>
 
             <!-- RegisterUser -->
 
-            <div class="registerText">
+            <div class='registerText'>
               Crear Usuario
             </div>
 
@@ -73,13 +73,13 @@
           <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
           <div>
 
-            <v-menu offset-y v-if="!quitarBotones">
-              <template v-slot:activator="{ on, attrs }">
+            <v-menu offset-y v-if='!quitarBotones'>
+              <template v-slot:activator='{ on, attrs }'>
 
-                <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="43" width="130">
+                <v-btn class='miNombre' color='primary' v-bind='attrs' v-on='on' height='43' width='130'>
 
 
-                  <p class="JetBrains Mono">
+                  <p class='JetBrains Mono'>
 
 
                     <br>
@@ -89,13 +89,13 @@
                 </v-btn>
               </template>
               <v-list shaped>
-                <v-list-item v-for="(item, index) in items2" :key="index">
+                <v-list-item v-for='(item, index) in items2' :key='index'>
 
                   <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-icon v-text='item.icon'></v-icon>
                   </v-list-item-icon>
-                  <nuxt-link :to="item.to">
-                    <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                  <nuxt-link :to='item.to'>
+                    <v-list-item-title v-on:click='logout(index)'>{{ item.title }}</v-list-item-title>
                   </nuxt-link>
                 </v-list-item>
               </v-list>
@@ -105,13 +105,13 @@
       </v-row>
 
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model='drawer' absolute temporary>
       <v-list nav dense>
         <v-list-item-group>
           <v-list-item>
             <v-list-item-title>
-              <nuxt-link to="/">
-                <div class="drawerBar">
+              <nuxt-link to='/'>
+                <div class='drawerBar'>
                   Inicio
                 </div>
               </nuxt-link>
@@ -119,8 +119,8 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <nuxt-link to="/aboutUs">
-                <div class="drawerBar">
+              <nuxt-link to='/aboutUs'>
+                <div class='drawerBar'>
                   Nosotros
                 </div>
 
@@ -130,8 +130,8 @@
           <v-list-item>
 
             <v-list-item-title>
-              <nuxt-link to="/ComoParticipar">
-                <div class="drawerBar">
+              <nuxt-link to='/ComoParticipar'>
+                <div class='drawerBar'>
                   ¿Cómo participar?
                 </div>
 
@@ -141,48 +141,48 @@
           <v-list-item>
 
             <v-list-item-title>
-              <nuxt-link to="/events">
-                <div class="drawerBar">
+              <nuxt-link to='/events'>
+                <div class='drawerBar'>
                   Eventos
                 </div>
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="quitarBotones">
+          <v-list-item v-if='quitarBotones'>
 
-            <v-list-item-title v-if="quitarBotones">
-              <nuxt-link v-if="quitarBotones" to="/loginWindow">
+            <v-list-item-title v-if='quitarBotones'>
+              <nuxt-link v-if='quitarBotones' to='/loginWindow'>
 
 
-                <div class="loginText">
+                <div class='loginText'>
                   {{ user }}
                 </div>
 
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="quitarBotones">
-            <v-list-item-title v-if="quitarBotones">
-              <nuxt-link v-if="quitarBotones" to="/createUser">
+          <v-list-item v-if='quitarBotones'>
+            <v-list-item-title v-if='quitarBotones'>
+              <nuxt-link v-if='quitarBotones' to='/createUser'>
 
                 <!-- RegisterUser -->
 
-                <div class="registerText">
+                <div class='registerText'>
                   Crear Usuario
                 </div>
 
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!quitarBotones">
-            <v-list-item-title v-if="!quitarBotones">
+          <v-list-item v-if='!quitarBotones'>
+            <v-list-item-title v-if='!quitarBotones'>
               <!-- UsuarioActivo, movil -->
               <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
               <div>
-                <v-menu offset-y v-if="!quitarBotones">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="40" width="130">
-                      <p class="JetBrains Mono">
+                <v-menu offset-y v-if='!quitarBotones'>
+                  <template v-slot:activator='{ on, attrs }'>
+                    <v-btn class='miNombre' color='primary' v-bind='attrs' v-on='on' height='40' width='130'>
+                      <p class='JetBrains Mono'>
                         <br>
                         {{ usuarioActivoComputed }}
                       </p>
@@ -192,10 +192,10 @@
 
                   <v-list shaped>
 
-                    <v-list-item v-for="(item, index) in items" :key="index">
+                    <v-list-item v-for='(item, index) in items' :key='index'>
 
-                      <nuxt-link :to="item.to">
-                        <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                      <nuxt-link :to='item.to'>
+                        <v-list-item-title v-on:click='logout(index)'>{{ item.title }}</v-list-item-title>
                       </nuxt-link>
                     </v-list-item>
 
@@ -217,50 +217,51 @@
 </template>
 
 
-
-
 <script>
 
-import { usuarioActivo } from "../store/index.js"
+import { usuarioStore } from '../store/index.js';
 
 export default {
 
   data() {
     return {
       drawer: false,
-      user: "Iniciar Sesion",
-      user2: "Crear Usuario",
-
-
+      user: 'Iniciar Sesion',
+      user2: 'Crear Usuario',
 
 
       items: [
-        { title: 'Editar perfil', to: "/editUser"},
-        { title: 'Mis grupos', to: "/userGroups"},
-        { title: 'Cerrar sesión', to: "/"},
+        { title: 'Editar perfil', to: '/editUser' },
+        { title: 'Mis grupos', to: '/userGroups' },
+        { title: 'Cerrar sesión', to: '/' },
       ],
 
       items2: [
-        { title: 'Editar perfil', to: "/editUser", icon: 'mdi-grease-pencil'},
-        { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
-        { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
+        { title: 'Editar perfil', to: '/editUser', icon: 'mdi-grease-pencil' },
+        { title: 'Mis grupos', to: '/userGroups', icon: 'mdi-account-group' },
+        { title: 'Cerrar sesión', to: '/', icon: 'mdi-close-circle' },
       ],
 
 
-    }
+    };
   },
 
 
   computed: {
     //Actualiza el nombre del usuario
     usuarioActivoComputed() {
-      const user = usuarioActivo()
-      return user.$state.layout;
+      const user = usuarioStore();
+      return user.getLayout();
     },
     //Actualiza los botones al loguearse
     quitarBotones() {
-      const user = usuarioActivo()
-      return user.$state.noLogueado;
+      const user = usuarioStore();
+      if(user.getStatus() == 'active'){
+        return true;
+      }
+      else{
+        return false;
+      }
     },
 
 
@@ -271,24 +272,24 @@ export default {
     posicionMono: String,
   },
   methods: {
-    loginAppear: function () {
-      console.log("aa")
+    loginAppear: function() {
+      console.log('aa');
     },
     //Actualiza los botones al deslogearse
     logout: (index) => {
       //Si presiona el boton 2, cerrar sesión, cerramos la sesión :s
       if (index == 2) {
-        console.log("logout")
-        const user = usuarioActivo()
-        user.CHANGE_NAV_LAYOUT_LOGOUT(user)
+        console.log('logout');
+        const user = usuarioStore();
+        user.logout();
       }
 
 
-    }
+    },
 
 
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -345,7 +346,6 @@ export default {
 }
 
 
-
 .loginText {
   position: relative;
   margin-inline: 10px;
@@ -392,7 +392,6 @@ export default {
 .bar:focus {
   background-size: 100% 3px;
 }
-
 
 
 .logoUtal {
