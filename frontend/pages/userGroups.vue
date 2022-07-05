@@ -198,7 +198,7 @@
             }
           },
         }, beforeMount() {
-            this.getGroupsUser(user.getUserId)
+            this.getGroupsUser(user.getUserId())
         }
   }
 </script>
