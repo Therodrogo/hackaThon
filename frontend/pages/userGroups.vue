@@ -3,9 +3,9 @@
     <v-main class="white">
       <v-container>
        <br>
-        
+
         <v-row>
-          <v-col 
+          <v-col
             lg="4"
             md="4"
             sm="6"
@@ -26,8 +26,8 @@
                 v-model="model"
                 mandatory
                 color="#00CCB1">
-                    <v-list-item 
-                    v-for="n in groups" 
+                    <v-list-item
+                    v-for="n in groups"
                     :key="n">
                       <v-btn @click="selectedGroup = n.name" text min-width="100%" mx-auto>
                         {{n.name}}
@@ -44,8 +44,8 @@
               rounded="lg"
               color="#00CCB1">
               <template v-slot>
-                <span 
-                v-for="n in groups" 
+                <span
+                v-for="n in groups"
                 :key="n">
                   <p v-if="n.name == selectedGroup">
                     <v-card
@@ -65,9 +65,9 @@
                       </v-card-text>
                       <v-card>
                         <v-list>
-                          <v-list-item 
-                          v-for="i in n.userID" 
-                          :key="i" 
+                          <v-list-item
+                          v-for="i in n.userID"
+                          :key="i"
                           class="px-12">
                             <v-list-item-title>
                               {{i.name}}
@@ -87,7 +87,7 @@
                         Código del grupo: {{n.code}}
                       </v-card-actions>
                     </v-card>
-                  </p>  
+                  </p>
                 </span>
               </template>
             </v-sheet>
@@ -102,7 +102,7 @@
                   label="Código de invitación"
                   placeholder="Ingresar código"
                 >
-                
+
                 </v-text-field>
                 <v-btn color = "#00CCB1" type="submit" large outlined>
                   <v-icon>mdi-send</v-icon>
@@ -110,7 +110,7 @@
               </v-row>
             </v-form>
           </v-col>
-        
+
         </v-container>
         <v-snackbar
           v-model="snackbar"
@@ -133,23 +133,23 @@
   </v-app>
 </template>
 
-<script> 
+<script>
     import API from '~/api';
     import {usuarioStore} from "../store/index.js"
 
     const user = usuarioStore()
-    
+
     export default {
-        data (){ 
-            return { 
+        data (){
+            return {
               selectedGroup: "",
-                groups:[ 
-                    
+                groups:[
+
                 ],
                 code: '',
                 snackbar:false,
                 text:''
-            } 
+            }
         },
         methods:{
           takeCode(){
@@ -160,12 +160,12 @@
               this.text = 'Escriba un código válido'
             }
           },
-          
+
           async isLeader(id){
             try {
               const res = await API.isLeader(id)
               this.groups = res.data
-              
+
             } catch (error) {
               console.log(error)
             }
@@ -175,14 +175,14 @@
             try {
               const res = await API.getGroupsUser(id)
               this.groups = res.data
-              
+
             } catch (error) {
               console.log(error)
             }
           },
 
           async kickMember(id, leaderid, code){
-            
+
             const req = {
               userID: id,
               leaderID: leaderid,
@@ -198,7 +198,7 @@
             }
           },
         }, beforeMount() {
-            this.getGroupsUser(user.user._id)
-        }     
+            this.getGroupsUser(user.getUserId())
+        }
   }
 </script>

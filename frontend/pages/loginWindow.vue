@@ -86,12 +86,13 @@ export default {
             text: "Tu rol es: " + userData.role,
             icon: "success",
           })
-          console.log("Se logueo " +  userData.name)
+          console.log("Ha ingresado " +  userData.name)
           const usuarioLogeado = usuarioActivo()
           usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, userData.name )
 
           const userLogged = usuarioStore()
           userLogged.setUser(userData._id)
+          userLogged.setStatus('active')
 
           this.$router.push({ path: '/userGroups' })
 
