@@ -13,6 +13,15 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>
+                      <v-btn
+                      to='/infoEvent'
+                      color='primary'
+                      fab small
+                      >
+                        <v-icon dark>
+                          mdi-arrow-left-bold
+                        </v-icon>
+                      </v-btn>
                       Groups
                     </v-list-item-title>
                   </v-list-item-content>
@@ -38,7 +47,7 @@
                           {{n.name}}
                         </v-btn>
                         <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
-                        <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n)>+</v-btn>
+                        <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
 
 
                     </v-list-item>
@@ -61,6 +70,8 @@
             >
               Cerrar
             </v-btn>
+
+
           </template>
         </v-snackbar>
       </v-container>
@@ -110,7 +121,7 @@ const activeStore = usuarioActivo()
 
           //n.userID.push({name:userStore.user.name})
           //console.log(userStore.user.name);
-          const local = await API.getUserByID(userStore.user);
+          const local = await API.getUserByID(userStore.id);
           console.log(local.data);
           let data = {
             postulant:local.data._id,
@@ -118,25 +129,40 @@ const activeStore = usuarioActivo()
             groupID:n.id,
           }
           console.log(n.id);
-          let result = await API.postRequest(data);
+          Swal.fire({
+            title: 'Ingrese un comentario',
+            input: 'text',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Enviar',
+            showLoaderOnConfirm: true,
+            preConfirm: async (input) => {
+              data.description = input ;
+              let result = await API.postRequest(data);
+              if (typeof result === 'undefined') {
+                Swal.fire({
+                  title: 'Ha ocurrido un error de conexión',
+                  icon: 'error',
+                  confirmButtonColor: '#00CCB1',
+                });
+              }else {
+                if (result.code == 200) {
+                  Swal.fire({
+                    title: "Solicitud enviada",
+                    text: "a "+n.name,
+                    icon: "success",
+                  })
+                }
+              }
+              let tema = await API.getRequests()
+              console.log(tema);
+              
+            } 
+          })
+          
 
-          if (typeof result === 'undefined') {
-            Swal.fire({
-              title: 'Ha ocurrido un error de conexión',
-              icon: 'error',
-              confirmButtonColor: '#00CCB1',
-            });
-        }else {
-          if (result.code == 200) {
-            Swal.fire({
-              title: "Solicitud enviada",
-              text: "a "+n.name,
-              icon: "success",
-            })
-          }
-        }
-        let tema = await API.getRequests()
-        console.log(tema);
 
       },
 
@@ -149,7 +175,7 @@ const activeStore = usuarioActivo()
         const res = await API.getEventByID(eventoStore.getEventId);
         console.log(eventoStore.getEventId+ " aqui");
         //const userdata = await API.getUserByID(userStore.getUserId);
-        console.log(userStore.user);
+        console.log(userStore.id);
 
         console.log("sadhsjkdjkahdkhaskdhajhdashdkhsakdhkj")
         this.noLogueado = activeStore.noLogueado; // aca se comprueba si esta el usuario logeado
