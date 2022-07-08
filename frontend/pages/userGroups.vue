@@ -53,6 +53,11 @@
                       max-width="700">
                       <v-card-title>
                         Nombre del grupo: {{n.name}}
+                        <v-btn @click="" fab small dark color="#00CCB1">
+                          <v-icon >
+                            mdi-pencil
+                          </v-icon>
+                        </v-btn>
                       </v-card-title>
                       <v-card-text class="text--primary">
                         Evento: {{n.eventID.name}}
@@ -74,10 +79,8 @@
                             </v-list-item-title>
 
                             <v-list-item-action>
-                              <v-btn @click="kickMember(i._id, n.leaderID, n.code)" fab x-small dark color="red">
-                                <v-icon dark>
-                                  mdi-minus
-                                </v-icon>
+                              <v-btn @click="kickMember(i._id, n.code)" small dark color="red">
+                                Expulsar
                               </v-btn>
                             </v-list-item-action>
                           </v-list-item>
@@ -105,7 +108,7 @@
 
                 </v-text-field>
                 <v-btn color = "#00CCB1" type="submit" large outlined>
-                  <v-icon>mdi-send</v-icon>
+                  Expulsar
                 </v-btn>
               </v-row>
             </v-form>
@@ -181,18 +184,17 @@
             }
           },
 
-          async kickMember(id, leaderid, code){
+          async kickMember(id, code){
 
             const req = {
               userID: id,
-              leaderID: leaderid,
+              leaderID: user.getUserId(),
               code: code,
             }
             console.log(req);
             try {
               const res = await API.kickMember(req)
               this.group = res.data
-              console.log()
             } catch (error) {
               console.log(error)
             }
