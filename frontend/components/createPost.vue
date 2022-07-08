@@ -17,7 +17,6 @@
         ></v-text-field>
     </v-row>
     <v-row>
-        <v-container fluid>
           <v-textarea
             autocomplete="Descripción"
             label="Descripción"
@@ -26,7 +25,6 @@
             :counter="300"
             required
           ></v-textarea>
-        </v-container>
     </v-row>    
     <v-row>
             <v-text-field
