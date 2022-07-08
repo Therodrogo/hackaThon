@@ -108,7 +108,9 @@
 
                 </v-text-field>
                 <v-btn color = "#00CCB1" type="submit" large outlined>
-                  Expulsar
+                  <v-icon >
+                    mdi-send
+                  </v-icon>
                 </v-btn>
               </v-row>
             </v-form>
