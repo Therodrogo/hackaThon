@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
 import Swal from 'sweetalert2';
-
+import { useLocalStorage } from "@vueuse/core";
 //Store para el usuario Activo en el navbar
 export const usuarioActivo = defineStore('usuario', {
-    state: () => ({layout: '' , noLogueado: true}),
+    state: () => ({
+      layout: useLocalStorage('layout', true) , 
+      noLogueado: useLocalStorage('noLogueado', null)}),
     getters: {
 
     },
@@ -13,9 +15,9 @@ export const usuarioActivo = defineStore('usuario', {
             usuarioActivo.layout = layout;
             usuarioActivo.noLogueado = false;
         },
-        CHANGE_NAV_LAYOUT_LOGOUT(usuarioActivo) {
-            usuarioActivo.layout = '';
-            usuarioActivo.noLogueado = true;
+        CHANGE_NAV_LAYOUT_LOGOUT() {
+            this.layout = true;
+            this.noLogueado = true;
         }
     },
   })
@@ -23,8 +25,8 @@ export const usuarioActivo = defineStore('usuario', {
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
-        id: null,
-        status: null,
+        id: useLocalStorage('id', ''),
+        status: useLocalStorage('status', ''),
     }),
 
     actions:{
@@ -50,6 +52,7 @@ export const usuarioStore = defineStore('usuarioStore', {
           }
         },
         getUserId(){
+            console.log(this.id);
             return this.id;
         },
         getStatus(){

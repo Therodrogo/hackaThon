@@ -230,10 +230,6 @@ export default {
       drawer: false,
       user: "Iniciar Sesion",
       user2: "Crear Usuario",
-
-
-
-
       items: [
         { title: 'Editar perfil', to: "/editUser"},
         { title: 'Mis grupos', to: "/userGroups"},
@@ -251,7 +247,7 @@ export default {
   },
 
 
-  computed: {
+  setup: {
     //Actualiza el nombre del usuario
     usuarioActivoComputed() {
       const user = usuarioActivo()
@@ -280,7 +276,7 @@ export default {
       if (index == 2) {
         console.log("logout")
         const user = usuarioActivo()
-        user.CHANGE_NAV_LAYOUT_LOGOUT(user)
+        user.CHANGE_NAV_LAYOUT_LOGOUT()
       }
 
 
