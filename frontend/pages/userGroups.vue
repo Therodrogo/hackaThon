@@ -85,7 +85,9 @@
                       </v-card>
                       <v-card-actions>
                         Código del grupo: {{n.code}}
+                        <v-btn color="#00CCB1" class="white--text mx-auto" to='/requestGroup'>Ver Peticiones</v-btn>
                       </v-card-actions>
+                      
                     </v-card>
                   </p>
                 </span>
