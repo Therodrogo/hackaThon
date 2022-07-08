@@ -3,7 +3,7 @@
     background: #ffffff;">
         <v-main>
             <v-container>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12" sm="4" md="4" >
                     <v-text-field label="ID" prepend-icon="mdi-key"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4" md="4">
