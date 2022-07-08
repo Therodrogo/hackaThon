@@ -29,7 +29,7 @@
                     <v-list-item
                     v-for="n in groups"
                     :key="n">
-                      <v-btn @click="selectedGroup = n.name" text min-width="100%" mx-auto>
+                      <v-btn @click="selectedGroup = n.name ; isLeader(n.code)" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
                     </v-list-item>
@@ -53,7 +53,7 @@
                       max-width="700">
                       <v-card-title>
                         Nombre del grupo: {{n.name}}
-                        <v-btn @click="" fab small dark color="#00CCB1">
+                        <v-btn @click="" fab small dark color="#00CCB1" v-if="save">
                           <v-icon >
                             mdi-pencil
                           </v-icon>
@@ -78,16 +78,18 @@
                               {{i.name}}
                             </v-list-item-title>
 
-                            <v-list-item-action>
-                              <v-btn @click="kickMember(i._id, n.code)" small dark color="red">
+                            <v-list-item-action >
+                              <v-btn @click="kickMember(i._id, n.code)" small dark color="red" v-if="save" >
                                 Expulsar
                               </v-btn>
                             </v-list-item-action>
                           </v-list-item>
                         </v-list>
                       </v-card>
-                      <v-card-actions>
-                        Código del grupo: {{n.code}}
+                      <v-card-actions >
+                      <p v-if="save">
+                         Código del grupo: {{n.code}}
+                      </p>
                       </v-card-actions>
                     </v-card>
                   </p>
@@ -108,7 +110,9 @@
 
                 </v-text-field>
                 <v-btn color = "#00CCB1" type="submit" large outlined>
-                  Expulsar
+                  <v-icon>
+                    mdi-send
+                  </v-icon>
                 </v-btn>
               </v-row>
             </v-form>
@@ -151,7 +155,8 @@
                 ],
                 code: '',
                 snackbar:false,
-                text:''
+                text:'',
+                save: false
             }
         },
         methods:{
@@ -164,14 +169,19 @@
             }
           },
 
-          async isLeader(id){
-            try {
-              const res = await API.isLeader(id)
-              this.groups = res.data
-
-            } catch (error) {
-              console.log(error)
+          async isLeader(groupCode){
+            const req ={
+              userID: user.getUserId(),
+              code: groupCode
             }
+            try {
+              const res = await API.isLeader(req)
+              this.save = res.data
+              return res.data
+            } catch (error) {
+            console.log(error)
+            }
+            return res.data
           },
 
           async getGroupsUser(id){
