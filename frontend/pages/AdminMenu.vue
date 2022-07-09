@@ -118,7 +118,7 @@
                                                 ></v-text-field>
                                             </v-col>
                                             <v-btn rounded elevation="2" color="#00CCB1">
-                                                Confirmar evento
+                                                Publicar Evento
                                             </v-btn>
                                         </v-container>
                                     </v-col>
@@ -159,7 +159,7 @@
                                                 </v-text-field>
                                             </v-col>
                                             <v-btn rounded elevation="2" color="#00CCB1">
-                                                Confirmar evento
+                                                Publicar Anuncio
                                             </v-btn>
                                         </v-container>
                                     </v-col>
