@@ -30,14 +30,15 @@
               
             ></v-text-field>
             <v-btn
+            
             class="mx-2"
             fab
             dark
-            color="indigo"
+            color="#00CCB1"
             @click="createPost"
             >
-            <v-icon color = "#00CCB1">
-                mdi-arrow-left-drop-circle
+            <v-icon color = "white">
+                mdi-folder-image
             </v-icon>
             </v-btn>
         </v-row>
