@@ -102,40 +102,24 @@
                                     <v-col v-if="createAdmin">
                                         <v-container>
                                             <v-col sm="20">
-                                                <v-text-field label="Adminnuevo" prepend-icon="mdi-key"></v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Nombre" prepend-icon="mdi-account-circle">
+                                                <v-text-field label="Nombre Admin" prepend-icon="mdi-account-circle">
                                                 </v-text-field>
                                             </v-col>
+
                                             <v-col sm="20">
-                                                <v-textarea label="Descripcion" value=""
-                                                    prepend-icon="mdi-comment-text-outline">
-                                                </v-textarea>
+                                                <v-text-field v-model='email' :rules='emailRules' label='E-mail'
+                                                    prepend-icon='mdi-email' required></v-text-field>
+
                                             </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Lugar" prepend-icon="mdi-map-marker-radius">
-                                                </v-text-field>
+
+                                            <v-col>
+                                                <v-text-field v-model='phoneNumber' :rules='phoneRules' label='Teléfono'
+                                                    prepend-icon='mdi-cellphone' required></v-text-field>
                                             </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Fecha de inicio" prepend-icon="mdi-calendar">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Fecha de termino"
-                                                    prepend-icon="mdi-calendar-check"></v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Limite de integrantes"
-                                                    prepend-icon="mdi-account-multiple">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="URL banner" prepend-icon="mdi-file-image">
-                                                </v-text-field>
-                                            </v-col>
+
+                                            
                                             <v-btn rounded elevation="2" color="#00CCB1">
-                                                Publicar Anuncio
+                                                Guardar Admin
                                             </v-btn>
                                         </v-container>
                                     </v-col>
@@ -176,6 +160,18 @@ export default {
             createEvent: false,
             anuncio: false,
             createAdmin: false,
+            email: '',
+            emailRules: [
+                v => !!v || 'E-mail es requerido',
+                v => /.+@.+\..+/.test(v) || 'E-mail debe ser válido',
+            ],
+            phoneNumber: '',
+            phoneRules: [
+                v => !!v || 'Teléfono es requerido',
+                v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v)
+                    || 'Teléfono debe ser válido, se permite formato +569XXXXXXXX, 569XXXXXXXX, 9XXXXXXXX',
+            ],
+
 
         }
     },
@@ -223,3 +219,4 @@ export default {
     }
 }
 </script>
+
