@@ -23,9 +23,9 @@
                           <p>Lider del grupo: {{obtenerLider(n.id)}}</p>
                         </v-card-text>
                      
-                          <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
+                          <h3 class='text-center ml-5 mr-5'> {{n.Users.length}}/5 </h3>
                           <v-card-actions>
-                            <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
+                            <v-btn   :disabled="VerifySend(n)" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
                           </v-card-actions>
                       </v-card>
                       </v-col>
@@ -92,6 +92,21 @@ const activeStore = usuarioActivo()
       }
     },
     methods: {
+
+      VerifySend(n){
+
+        //const gro = await API.getGroupByID(n.id);
+        
+        var inp = n.Users.find(obj => {return obj._id === userStore.id})
+        if(n.Users.length < this.grouplimit && !this.noLogueado && n.leader != userStore.id && typeof inp === "undefined"){
+          return false
+        }
+
+        return true
+
+      },
+
+
       async SendRequest(n){
           //console.log(n);
           //console.log(this.findgroup);
@@ -197,14 +212,14 @@ const activeStore = usuarioActivo()
             const gro = await API.getGroupByID(n._id);
             console.log(gro);
             console.log(gro.data.name+" | "+gro.data.userID.length);
-            this.groups.push({id: n._id,name: gro.data.name,count:gro.data.userID.length});
+            this.groups.push({id: n._id,name: n.name,leader: n.leaderID,Users:n.userID});
 
         });
 
 
-
-        console.log(res.data);
-
+        console.log("++++++++++++++++++++++")
+        console.log(this.groups);
+        console.log("++++++++++++++++++++++")
 
       } catch (error) {
 
