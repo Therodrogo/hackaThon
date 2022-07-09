@@ -46,14 +46,16 @@
                                     </v-sheet>
                                 </v-col>
                                 <v-col>
-                                    <v-col v-if="createEvent" >
+                                    <v-col v-if="createEvent">
                                         <v-container>
-                                            
+
                                             <v-col sm="20">
-                                                <v-text-field name="id" label="ID" prepend-icon="mdi-key"></v-text-field>
+                                                <v-text-field name="id" label="ID" prepend-icon="mdi-key">
+                                                </v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field name="nombre" label="Nombre" prepend-icon="mdi-account-circle">
+                                                <v-text-field name="nombre" label="Nombre"
+                                                    prepend-icon="mdi-account-circle">
                                                 </v-text-field>
                                             </v-col>
                                             <v-col sm="20">
@@ -62,11 +64,13 @@
                                                 </v-textarea>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field name="lugar" label="Lugar" prepend-icon="mdi-map-marker-radius">
+                                                <v-text-field name="lugar" label="Lugar"
+                                                    prepend-icon="mdi-map-marker-radius">
                                                 </v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field name="fechainicio"  label="Fecha de inicio" prepend-icon="mdi-calendar">
+                                                <v-text-field name="fechainicio" label="Fecha de inicio"
+                                                    prepend-icon="mdi-calendar">
                                                 </v-text-field>
                                             </v-col>
                                             <v-col sm="20">
@@ -79,52 +83,12 @@
                                                 </v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field name="urlbanner" label="URL banner" prepend-icon="mdi-file-image">
+                                                <v-text-field name="urlbanner" label="URL banner"
+                                                    prepend-icon="mdi-file-image">
                                                 </v-text-field>
                                             </v-col>
                                             <v-btn rounded elevation="2" color="#00CCB1">
                                                 Publicar Evento
-                                            </v-btn>
-                                        </v-container>
-                                    </v-col>
-
-                                    <v-col v-if="createAdminMethod">
-                                        <v-container>
-                                            <v-col sm="20">
-                                                <v-text-field label="Admin" prepend-icon="mdi-key"></v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Nombre" prepend-icon="mdi-account-circle">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-textarea name="descripcion" label="Descripcion" value=""
-                                                    prepend-icon="mdi-comment-text-outline">
-                                                </v-textarea>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field name="lugar" label="Lugar" prepend-icon="mdi-map-marker-radius">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field name="fechainicio"  label="Fecha de inicio" prepend-icon="mdi-calendar">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field name="fechatermino" label="Fecha de termino"
-                                                    prepend-icon="mdi-calendar-check"></v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field name="limitedeintegrantes" label="Limite de integrantes"
-                                                    prepend-icon="mdi-account-multiple">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field name="urlbanner" label="URL banner" prepend-icon="mdi-file-image">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-btn rounded elevation="2" color="#00CCB1">
-                                                Publicar Anuncio
                                             </v-btn>
                                         </v-container>
                                     </v-col>
@@ -208,12 +172,11 @@ import createPost from '../components/createPost'
 export default {
     data() {
         return {
-            
+
             createEvent: false,
-            adminholder: false,
             anuncio: false,
             createAdmin: false,
-            
+
         }
     },
     methods: {
@@ -221,28 +184,12 @@ export default {
             console.log(this.createEvent)
             if (this.createEvent == false) {
                 this.createEvent = true,
-                    this.adminholder = false,
-                    this.anuncio = false
+                    this.anuncio = false,
                     this.createAdmin = false
             }
             else if (this.createEvent == true) {
                 this.createEvent = false,
-                    this.adminholder = false,
-                    this.anuncio = false
-                    this.createAdmin = false
-            }
-        },
-        createAdminHMethod() {
-            if (this.adminholder == false) {
-                this.adminholder = true,
-                    this.createEvent = false,
-                    this.anuncio = false
-                    this.createAdmin = false
-            }
-            else if (this.adminholder == true) {
-                this.adminholder = false,
-                    this.createEvent = false,
-                    this.anuncio = false
+                    this.anuncio = false,
                     this.createAdmin = false
             }
         },
@@ -250,29 +197,24 @@ export default {
             if (this.anuncio == false) {
                 this.anuncio = true,
                     this.createEvent = false,
-                    this.adminholder = false,
                     this.createAdmin = false
             }
             else if (this.anuncio == true) {
                 this.anuncio = false,
                     this.createEvent = false,
-                    this.adminholder = false,
                     this.createAdmin = false
             }
         },
         createAdminMethod() {
-            console.log(this.createAdmin)
             if (this.createAdmin == false) {
                 this.createAdmin = true,
-                    this.adminholder = false,
                     this.anuncio = false,
-                    this.createAdmin = false
+                    this.createEvent = false
             }
             else if (this.createAdmin == true) {
                 this.createAdmin = false,
-                    this.adminholder = false,
                     this.anuncio = false,
-                    this.createAdmin = false
+                    this.createEvent = false
             }
         }
     },
