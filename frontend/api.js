@@ -202,7 +202,7 @@ export default class API{
 
     }
 
-    static async updateName(data){
+    static async updateNameGroup(data){
         try {
             const res = await axios.post(url+"group/updateName",data)
             return res.data
