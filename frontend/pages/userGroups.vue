@@ -40,7 +40,7 @@
           </v-col>
           <v-col>
             <v-sheet
-              height="500"
+              height="550"
               rounded="lg"
               color="#00CCB1">
               <template v-slot>
@@ -79,7 +79,7 @@
                             </v-list-item-title>
 
                             <v-list-item-action >
-                              <v-btn @click="kickMember(i._id, n.code)" small dark color="red" v-if="save" >
+                              <v-btn @click="kickMember(i._id, n.code) ; " small dark color="red" v-if="save" >
                                 Expulsar
                               </v-btn>
                             </v-list-item-action>
@@ -109,7 +109,7 @@
                 >
 
                 </v-text-field>
-                <v-btn color = "#00CCB1" type="submit" large outlined>
+                <v-btn @click="joinGroupCode(code)" color = "#00CCB1" type="submit" large outlined>
                   <v-icon>
                     mdi-send
                   </v-icon>
@@ -204,6 +204,20 @@
             console.log(req);
             try {
               const res = await API.kickMember(req)
+              this.group = res.data
+            } catch (error) {
+              console.log(error)
+            }
+          },
+
+          async joinGroupCode(code){
+
+            const req = {
+              code: code,
+              userID: user.getUserId(),
+            }
+            try {
+              const res = await API.joinGroup(req)
               this.group = res.data
             } catch (error) {
               console.log(error)
