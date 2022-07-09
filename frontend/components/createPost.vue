@@ -31,11 +31,15 @@
               
             ></v-text-field>
             
-            
-            
-              <v-icon  @click="createPost" color = "#00CCB1" size="50px" >
-                  mdi-arrow-left-drop-circle
-              </v-icon>
+              <v-col>
+                <v-btn
+              
+               color = "#00CCB1"
+               @click="createPost"
+              >CREAR ANUNCIO</v-btn>
+              </v-col>
+
+              
             
         </v-row>
           

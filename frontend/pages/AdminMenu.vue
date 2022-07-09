@@ -43,38 +43,79 @@
                                 <v-col>
                                     <v-col v-if="createEvent" >
                                         <v-container>
+                                            
                                             <v-col sm="20">
-                                                <v-text-field label="ID" prepend-icon="mdi-key"></v-text-field>
+                                                <v-text-field 
+                                                    label="Nombre" 
+                                                    v-model="name" 
+                                                    prepend-icon="mdi-account-circle"
+                                                    :rules="nameRules"
+                                                    required
+                                                ></v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field label="Nombre" prepend-icon="mdi-account-circle">
-                                                </v-text-field>
+                                                <v-textarea 
+                                                label="Descripcion" 
+                                                v-model="description"  
+                                                prepend-icon="mdi-comment-text-outline"
+                                                :rules="descriptionRules"
+                                                :counter="500"
+                                                required
+                                                ></v-textarea>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-textarea label="Descripcion" value=""
-                                                    prepend-icon="mdi-comment-text-outline">
-                                                </v-textarea>
+                                                <v-text-field 
+                                                label="Lugar" 
+                                                v-model="location" 
+                                                prepend-icon="mdi-map-marker-radius"
+                                                :rules="locationRules"
+                                                required
+                                                ></v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field label="Lugar" prepend-icon="mdi-map-marker-radius">
-                                                </v-text-field>
+                                                <v-text-field 
+                                                label="Fecha de inicio" 
+                                                v-model="dateStart" 
+                                                prepend-icon="mdi-calendar"
+                                                :rules="dateStartRules"
+                                                required
+                                                ></v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field label="Fecha de inicio" prepend-icon="mdi-calendar">
-                                                </v-text-field>
+                                                <v-text-field 
+                                                label="Fecha de termino" 
+                                                v-model="dateFinish" 
+                                                prepend-icon="mdi-calendar-check"
+                                                :rules="dateFinishRules"
+                                                required
+                                                ></v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field label="Fecha de termino"
-                                                    prepend-icon="mdi-calendar-check"></v-text-field>
+                                                <v-text-field 
+                                                label="Limite de integrantes" 
+                                                v-model="groupLimit" 
+                                                prepend-icon="mdi-account-multiple"
+                                                :rules="groupLimitRules"
+                                                required
+                                                ></v-text-field>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field label="Limite de integrantes"
-                                                    prepend-icon="mdi-account-multiple">
-                                                </v-text-field>
+                                                <v-text-field 
+                                                label="URL banner" 
+                                                v-model="coverUrl" 
+                                                prepend-icon="mdi-file-image"
+                                                :rules="coverUrlRules"
+                                                required
+                                                ></v-text-field>
                                             </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="URL banner" prepend-icon="mdi-file-image">
-                                                </v-text-field>
+                                            <v-col sm="20" >
+                                                <v-text-field 
+                                                label="GoogleMapsUrl" 
+                                                v-model="mapUrl" 
+                                                prepend-icon="mdi-file-image"
+                                                :rules="mapUrlRules"
+                                                required
+                                                ></v-text-field>
                                             </v-col>
                                             <v-btn rounded elevation="2" color="#00CCB1">
                                                 Confirmar evento
@@ -162,7 +203,41 @@ export default {
         return {
             createEvent: false,
             adminholder: false,
-            anuncio: false
+            anuncio: false,
+            name:"",
+            dateStart:"",
+            dateFinish:"",
+            location:"",
+            description:"",
+            groupLimit:"",
+            coverUrl:"",
+            mapUrl:"",
+            nameRules:[
+                v => !!v || 'Un nombre de evento es requerido',
+            ],
+            dateStartRules:[
+            
+            ],
+            dateFinishRules:[],
+            locationRules:[
+                v => !!v || 'Es necesario ingresar unas ubicación ',
+            ],
+            descriptionRules:[
+                v => !!v || 'Una descripcion es requerida',
+                v => v.length>=50 && v.length <= 500 || 'La descripción debe tener como minimo 50 caracteres',
+            ],
+            groupLimitRules:[
+                v => !!v || 'Es necesario ingresar un limite personas por grupo',
+            ],
+            coverUrlRules:[
+                v => !!v || 'Es necesario tener una imagen para el baner del evento',
+            ],
+            mapUrlRules:[
+                 v => !!v || 'Este campo es necesario para incorporar un mapa de la ubicación del evento',
+            ],
+
+
+
         }
     },
     methods: {
