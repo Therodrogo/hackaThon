@@ -24,6 +24,10 @@ groupRouter.post('/isLeader', groupController.isLeader)
 
 groupRouter.post('/kickMember', groupController.kickMember)
 
+groupRouter.post('/updateName', groupController.updateName)
+
+groupRouter.post('/updateVisibility', groupController.updateVisibility)
+
 
 
 module.exports = groupRouter;
