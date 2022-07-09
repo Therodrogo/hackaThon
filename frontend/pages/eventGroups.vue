@@ -13,7 +13,7 @@
                     ></v-text-field>
               </v-col>
           </v-col>
-                    <v-col v-for= "n in FilterGroups" :key="n" lg="4" md="4" sm="6" xs="12" >
+                    <v-col v-for= "(n,i) in FilterGroups" :key="i" lg="4" md="4" sm="6" xs="12" >
                       <v-card>
                         <v-card-title><p class="textBorder">{{n.name}}</p></v-card-title>
                         <v-img class="logo-utalca"  src="/group.png" height="200px ">
@@ -25,7 +25,7 @@
                      
                           <h3 class='text-center ml-5 mr-5'> {{n.Users.length}}/5 </h3>
                           <v-card-actions>
-                            <v-btn   :disabled="VerifySend(n)" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
+                            <v-btn   :disabled="VerifySend(n)" @click = SendRequest(n) color="#00CCB1" class="white--text">{{n.texto}}</v-btn>
                           </v-card-actions>
                       </v-card>
                       </v-col>
@@ -97,12 +97,25 @@ const activeStore = usuarioActivo()
 
         //const gro = await API.getGroupByID(n.id);
         
-        var inp = n.Users.find(obj => {return obj._id === userStore.id})
-        if(n.Users.length < this.grouplimit && !this.noLogueado && n.leader != userStore.id && typeof inp === "undefined"){
-          return false
+        var verLeader = n.Users.find(obj => {return obj._id === userStore.id})
+        var verRequest = n.RequestID.find(obj => {return obj.postulant === userStore.id})
+        if(n.Users.length >= this.grouplimit) {
+          n.texto = "grupo lleno"
+          return true
+        }else if (this.noLogueado ) {
+          return true
+        }else if (n.leader == userStore.id ){
+          n.texto = "Eres lider"
+          return true
+        }else if (!(typeof verLeader === "undefined" )){
+          return true
+    
+        }else if (!(typeof verRequest === "undefined")){
+          n.texto = "Solicitud enviada"
+          return true
         }
 
-        return true
+        return false
 
       },
 
@@ -132,6 +145,7 @@ const activeStore = usuarioActivo()
             showLoaderOnConfirm: true,
             preConfirm: async (input) => {
               data.description = input ;
+              n.RequestID.push(data)
               let result = await API.postRequest(data);
               if (typeof result === 'undefined') {
                 Swal.fire({
@@ -148,9 +162,7 @@ const activeStore = usuarioActivo()
                   })
                 }
               }
-              let tema = await API.getRequests()
-              console.log(tema);
-              
+
             } 
           })
           
@@ -210,19 +222,29 @@ const activeStore = usuarioActivo()
         cosa.data.forEach  (async n => {
             console.log(n._id+" si");
             const gro = await API.getGroupByID(n._id);
-            console.log(gro);
-            console.log(gro.data.name+" | "+gro.data.userID.length);
-            this.groups.push({id: n._id,name: n.name,leader: n.leaderID,Users:n.userID});
 
+            console.log(gro.data.name+" | "+gro.data.userID.length);
+            
+
+
+    
+            
+            let tema = await API.getRequests()
+            //console.log(tema.data)
+            var inr = tema.data.find(obj => {return obj.groupID === n._id})
+            console.log("|+++++++++++++++++|")
+            //console.log(inr);
+            let conj = await API.getRequestGroup(inr)
+            console.log(conj);
+            console.log("|+++++++++++++++++|")
+            this.groups.push({id: n._id,name: n.name,leader: n.leaderID,Users:n.userID,RequestID: conj.data,texto:"Solicitar Ingreso"});
         });
 
 
-        console.log("++++++++++++++++++++++")
-        console.log(this.groups);
-        console.log("++++++++++++++++++++++")
+        
 
       } catch (error) {
-
+        console.log(error)
       }
       }
     }, beforeMount() {
