@@ -1,12 +1,7 @@
 <template>
    
   <v-container class="fill-height">
-    
-    <v-row>
-        <v-text-field
-            label="Regular"
-        ></v-text-field>
-    </v-row>
+
     <v-row>
         <v-text-field
             v-model="Tittle"
