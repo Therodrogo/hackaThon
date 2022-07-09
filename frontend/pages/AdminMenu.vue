@@ -34,6 +34,11 @@
                                                         Crear Anuncio
                                                     </v-btn>
                                                 </v-list-item>
+                                                <v-list-item>
+                                                    <v-btn @click="createAdminMethod" text min-width="100%" mx-auto>
+                                                        Crear Administrador
+                                                    </v-btn>
+                                                </v-list-item>
 
                                             </v-list-item-group>
                                             <v-divider class="my-2"></v-divider>
@@ -214,49 +219,37 @@
                                         </v-form>
                                     </v-col>
 
-                                    <v-col v-if="adminholder">
-                                        <v-container>
-                                            <v-col sm="20">
-                                                <v-text-field label="Admin" prepend-icon="mdi-key"></v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Nombre" prepend-icon="mdi-account-circle">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-textarea label="Descripcion" value=""
-                                                    prepend-icon="mdi-comment-text-outline">
-                                                </v-textarea>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Lugar" prepend-icon="mdi-map-marker-radius">
-                                                </v-text-field>
-                                            </v-col>
-                                           
-                                            <v-col sm="20">
-                                                <v-text-field label="Fecha de termino"
-                                                    prepend-icon="mdi-calendar-check"></v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Limite de integrantes"
-                                                    prepend-icon="mdi-account-multiple">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="URL banner" prepend-icon="mdi-file-image">
-                                                </v-text-field>
-                                            </v-col>
-                                            <v-btn rounded elevation="2" color="#00CCB1">
-                                                Publicar Anuncio
-                                            </v-btn>
-                                        </v-container>
-                                    </v-col>
-
                                     <v-col v-if="anuncio">
                                         <v-container>
                                             <createPost />
                                         </v-container>
                                     </v-col>
+
+                                    <v-col v-if="createAdmin">
+                                        <v-container>
+                                            <v-col sm="20">
+                                                <v-text-field label="Nombre Admin" prepend-icon="mdi-account-circle">
+                                                </v-text-field>
+                                            </v-col>
+
+                                            <v-col sm="20">
+                                                <v-text-field v-model='email' :rules='emailRules' label='E-mail'
+                                                    prepend-icon='mdi-email' required></v-text-field>
+
+                                            </v-col>
+
+                                            <v-col>
+                                                <v-text-field v-model='phoneNumber' :rules='phoneRules' label='Teléfono'
+                                                    prepend-icon='mdi-cellphone' required></v-text-field>
+                                            </v-col>
+
+                                            
+                                            <v-btn rounded elevation="2" color="#00CCB1">
+                                                Guardar Admin
+                                            </v-btn>
+                                        </v-container>
+                                    </v-col>
+
                                 </v-col>
                             </v-row>
                             <v-snackbar v-model="snackbar">
@@ -290,6 +283,7 @@ import API from '~/api'
 export default {
     data() {
         return {
+
             createEvent: false,
             adminholder: false,
             anuncio: false,
@@ -335,6 +329,21 @@ export default {
             groupLimit:3,
             valid:true
 
+            anuncio: false,
+            createAdmin: false,
+            email: '',
+            emailRules: [
+                v => !!v || 'E-mail es requerido',
+                v => /.+@.+\..+/.test(v) || 'E-mail debe ser válido',
+            ],
+            phoneNumber: '',
+            phoneRules: [
+                v => !!v || 'Teléfono es requerido',
+                v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v)
+                    || 'Teléfono debe ser válido, se permite formato +569XXXXXXXX, 569XXXXXXXX, 9XXXXXXXX',
+            ],
+
+
         }
     },
     methods: {
@@ -342,38 +351,39 @@ export default {
             console.log(this.createEvent)
             if (this.createEvent == false) {
                 this.createEvent = true,
-                    this.adminholder = false,
-                    this.anuncio = false
+                    this.anuncio = false,
+                    this.createAdmin = false
             }
             else if (this.createEvent == true) {
                 this.createEvent = false,
-                    this.adminholder = false,
-                    this.anuncio = false
-            }
-        },
-        createAdminHMethod() {
-            if (this.adminholder == false) {
-                this.adminholder = true,
-                    this.createEvent = false,
-                    this.anuncio = false
-            }
-            else if (this.adminholder == true) {
-                this.adminholder = false,
-                    this.createEvent = false,
-                    this.anuncio = false
+                    this.anuncio = false,
+                    this.createAdmin = false
             }
         },
         createAnuncio() {
             if (this.anuncio == false) {
                 this.anuncio = true,
                     this.createEvent = false,
-                    this.adminholder = false
+                    this.createAdmin = false
             }
             else if (this.anuncio == true) {
                 this.anuncio = false,
                     this.createEvent = false,
-                    this.adminholder = false
+                    this.createAdmin = false
             }
+        },
+        createAdminMethod() {
+            if (this.createAdmin == false) {
+                this.createAdmin = true,
+                    this.anuncio = false,
+                    this.createEvent = false
+            }
+            else if (this.createAdmin == true) {
+                this.createAdmin = false,
+                    this.anuncio = false,
+                    this.createEvent = false
+            }
+        }
         },
         async validate () {
             if(this.$refs.form.validate()){
@@ -414,3 +424,4 @@ export default {
     }
 }
 </script>
+
