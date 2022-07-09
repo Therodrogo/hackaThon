@@ -16,7 +16,7 @@
                                             <v-list-item>
                                                 <v-list-item-content>
                                                     <v-list-item-title>
-                                                        Menu De Admin
+                                                        MENU ADMINISTRADOR
                                                     </v-list-item-title>
                                                 </v-list-item-content>
                                             </v-list-item>
@@ -42,8 +42,11 @@
                                 </v-col>
                                 <v-col>
                                     <v-col v-if="createEvent" >
-                                        <v-container>
-                                            
+                                        <v-form
+                                        ref="form"
+                                        v-model="valid"
+                                        lazy-validation
+                                        >
                                             <v-col sm="20">
                                                 <v-text-field 
                                                     label="Nombre" 
@@ -72,32 +75,101 @@
                                                 required
                                                 ></v-text-field>
                                             </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field 
-                                                label="Fecha de inicio" 
-                                                v-model="dateStart" 
-                                                prepend-icon="mdi-calendar"
-                                                :rules="dateStartRules"
-                                                required
-                                                ></v-text-field>
+                                             <v-col sm="20">
+                                                <v-dialog
+                                                    ref="dialog"
+                                                    v-model="modal"
+                                                    :return-value.sync="startdate"
+                                                    persistent
+                                                    width="290px"
+                                                    
+                                                    
+                                                >
+                                                    <template v-slot:activator="{ on, attrs }">
+                                                        <v-text-field
+                                                            v-model="startdate"
+                                                            label="Fecha de Inicio"
+                                                            prepend-icon="mdi-calendar"
+                                                            readonly
+                                                            v-bind="attrs"
+                                                            v-on="on"
+                                                            
+                                                        ></v-text-field>
+                                                    </template>
+                                                        <v-date-picker
+                                                        v-model="startdate"
+                                                        scrollable
+                                                        :min="startdatemin"
+                                                        
+                                                        >
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn
+                                                                text
+                                                                color="primary"
+                                                                @click="modal = false"
+                                                            >
+                                                                Cancel
+                                                            </v-btn>
+                                                            <v-btn
+                                                                text
+                                                                color="primary"
+                                                                @click="$refs.dialog.save(startdate)"
+                                                            >
+                                                                OK
+                                                            </v-btn>
+                                                        </v-date-picker>
+                                                </v-dialog>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field 
-                                                label="Fecha de termino" 
-                                                v-model="dateFinish" 
-                                                prepend-icon="mdi-calendar-check"
-                                                :rules="dateFinishRules"
-                                                required
-                                                ></v-text-field>
+                                                <v-dialog
+                                                    ref="dialog"
+                                                    v-model="modal"
+                                                    :return-value.sync="finishdate"
+                                                    persistent
+                                                    width="290px"
+                                                >
+                                                    <template v-slot:activator="{ on, attrs }">
+                                                        <v-text-field
+                                                            v-model="finishdate"
+                                                            label="Fecha de Termino"
+                                                            prepend-icon="mdi-calendar"
+                                                            readonly
+                                                            v-bind="attrs"
+                                                            v-on="on"
+                                                            
+                                                        ></v-text-field>
+                                                    </template>
+                                                        <v-date-picker
+                                                        v-model="finishdate"
+                                                        scrollable
+                                                        :min="finishdatemin"
+                                                        >
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn
+                                                                text
+                                                                color="primary"
+                                                                @click="modal = false"
+                                                            >
+                                                                Cancel
+                                                            </v-btn>
+                                                            <v-btn
+                                                                text
+                                                                color="primary"
+                                                                @click="$refs.dialog.save(finishdate)"
+                                                            >
+                                                                OK
+                                                            </v-btn>
+                                                        </v-date-picker>
+                                                </v-dialog>
                                             </v-col>
                                             <v-col sm="20">
-                                                <v-text-field 
-                                                label="Limite de integrantes" 
-                                                v-model="groupLimit" 
-                                                prepend-icon="mdi-account-multiple"
-                                                :rules="groupLimitRules"
-                                                required
-                                                ></v-text-field>
+                                               
+                                                <v-select
+                                                    :items="items"
+                                                    v-model="groupLimit"
+                                                    label="Máximo de participantes por grupo"
+                                                     required
+                                                ></v-select>   
                                             </v-col>
                                             <v-col sm="20">
                                                 <v-text-field 
@@ -106,6 +178,7 @@
                                                 prepend-icon="mdi-file-image"
                                                 :rules="coverUrlRules"
                                                 required
+                                                type="text"
                                                 ></v-text-field>
                                             </v-col>
                                             <v-col sm="20" >
@@ -117,10 +190,28 @@
                                                 required
                                                 ></v-text-field>
                                             </v-col>
-                                            <v-btn rounded elevation="2" color="#00CCB1">
+                                            <v-btn 
+                                                @click="validate"
+                                                rounded elevation="2" color="#00CCB1"
+                                                :disabled="!valid"
+                                            >
                                                 Publicar Evento
                                             </v-btn>
-                                        </v-container>
+                                            <v-btn
+                                                color="error"
+                                                class="mr-4"
+                                                @click="reset"
+                                                >
+                                                Reiniciar formulario
+                                            </v-btn>
+                                            <v-btn
+                                                
+                                                color="warning"
+                                                @click="resetValidation"
+                                            >
+                                                Continuar formulario
+                                            </v-btn>
+                                        </v-form>
                                     </v-col>
 
                                     <v-col v-if="adminholder">
@@ -141,10 +232,7 @@
                                                 <v-text-field label="Lugar" prepend-icon="mdi-map-marker-radius">
                                                 </v-text-field>
                                             </v-col>
-                                            <v-col sm="20">
-                                                <v-text-field label="Fecha de inicio" prepend-icon="mdi-calendar">
-                                                </v-text-field>
-                                            </v-col>
+                                           
                                             <v-col sm="20">
                                                 <v-text-field label="Fecha de termino"
                                                     prepend-icon="mdi-calendar-check"></v-text-field>
@@ -195,8 +283,9 @@
 </template>
 
 <script>
-import { placeholder } from '@babel/types'
+import { placeholder, thisExpression } from '@babel/types'
 import createPost from '../components/createPost'
+import API from '~/api'
 
 export default {
     data() {
@@ -205,11 +294,8 @@ export default {
             adminholder: false,
             anuncio: false,
             name:"",
-            dateStart:"",
-            dateFinish:"",
             location:"",
-            description:"",
-            groupLimit:"",
+            description:'',
             coverUrl:"",
             mapUrl:"",
             nameRules:[
@@ -224,19 +310,30 @@ export default {
             ],
             descriptionRules:[
                 v => !!v || 'Una descripcion es requerida',
-                v => v.length>=50 && v.length <= 500 || 'La descripción debe tener como minimo 50 caracteres',
+                v => ( v && v.length>=50 && v.length <= 500) || 'La descripción debe tener como minimo 50 caracteres',
             ],
             groupLimitRules:[
                 v => !!v || 'Es necesario ingresar un limite personas por grupo',
             ],
             coverUrlRules:[
                 v => !!v || 'Es necesario tener una imagen para el baner del evento',
+                v => /.+.png/.test(v) || /.+.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
             ],
             mapUrlRules:[
                  v => !!v || 'Este campo es necesario para incorporar un mapa de la ubicación del evento',
+                  v => /<iframe+.+.iframe>/.test(v) || 'Formato invalido:Ir a google Maps->Buscar lugar->Opcion compartir->Incorporar un mapa->COPIAR HTML->Pegar en este componente',
+
             ],
-
-
+            startdate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            finishdate: (new Date(new Date().getTime() + 24 * 60 * 60 * 1000)).toISOString().substr(0, 10),
+            startdatemin:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            finishdatemin:(new Date(new Date().getTime() + 24 * 60 * 60 * 1000)).toISOString().substr(0, 10),
+            menu: false,
+            modal: false,
+            menu2: false,
+            items: [3,4,5,6],
+            groupLimit:3,
+            valid:true
 
         }
     },
@@ -277,7 +374,40 @@ export default {
                     this.createEvent = false,
                     this.adminholder = false
             }
-        }
+        },
+        async validate () {
+            if(this.$refs.form.validate()){
+                const string = this.mapUrl.split('"')
+                try {
+                    const res = await API.postEvent(
+                        {
+ 
+                            "name": this.name,
+                            "dateStart": this.startdate,
+                            "dateFinish": this.finishdate,
+                            "location": this.location,
+                            "description": this.description,
+                            "groupLimit": this.groupLimit,
+                            "coverUrl": this.coverUrl,
+                            "groupsID": [],
+                            "mapUrl":string[1]
+                        }
+                    )
+                    console.log(res)    
+                } catch (error) {
+                    console.log(error)
+                }
+        
+            }
+        },reset () {
+        this.$refs.form.reset()
+      },
+      resetValidation () {
+        this.$refs.form.resetValidation()
+        
+       
+
+      },
     },
     components: {
         createPost

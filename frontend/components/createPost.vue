@@ -66,7 +66,7 @@ import swal from 'sweetalert'
         ImageURL:"",
         ImageURLRules:[
            v => !!v || 'Una imagen es requerida',
-           v => /.png/.test(v) || /.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
+           v => /.+.png/.test(v) || /.+.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
         ],
         
              
