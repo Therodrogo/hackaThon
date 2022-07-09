@@ -202,6 +202,26 @@ export default class API{
 
     }
 
+    static async updateName(data){
+        try {
+            const res = await axios.post(url+"group/updateName",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+
+    }
+
+    static async updateVisibility(data){
+        try {
+            const res = await axios.post(url+"group/updateVisibility",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+
+    }
+
 
 
     //PostMethods
