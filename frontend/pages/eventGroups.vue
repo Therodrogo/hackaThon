@@ -3,60 +3,33 @@
     <v-main class="white">
       <v-container>
         <v-row>
-          <v-col
-            lg="9"
-            md="9"
-            sm="9"
-            xs="9">
-            <v-sheet rounded="md">
-              <v-list>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      <v-btn
-                      to='/infoEvent'
-                      color='primary'
-                      fab small
-                      >
-                        <v-icon dark>
-                          mdi-arrow-left-bold
-                        </v-icon>
-                      </v-btn>
-                      Groups
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-divider class="my-2"></v-divider>
-
-                <v-list-item-group
-                mandatory
-                color="#00CCB1">
+          <v-col>
+              <v-col align="center">
                     <v-text-field
                     prepend-icon='mdi-card-search-outline'
                     label='Buscar Grupo'
                     v-model="findgroup"
-
-
-
+                    class="v-text-field"
                     ></v-text-field>
-                    <v-list-item  v-for= "(n,i) in FilterGroups" :key="i"  >
-
-
-                        <v-btn  @click="selectedGroup = n.name"  left min-width="100%">
-                          {{n.name}}
-                        </v-btn>
-                        <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
-                        <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
-
-
-                    </v-list-item>
-                </v-list-item-group>
+              </v-col>
+          </v-col>
+                    <v-col v-for= "n in FilterGroups" :key="n" lg="4" md="4" sm="6" xs="12" >
+                      <v-card>
+                        <v-card-title><p class="textBorder">{{n.name}}</p></v-card-title>
+                        <v-img class="logo-utalca"  src="/group.png" height="200px ">
+                          
+                        </v-img>
+                        <v-card-text class="text--primary">
+                          <p>Lider del grupo: {{obtenerLider(n.id)}}</p>
+                        </v-card-text>
+                     
+                          <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
+                          <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
+                      </v-card>
+                      </v-col>
 
                 <v-divider class="my-2"></v-divider>
-              </v-list>
-            </v-sheet>
-          </v-col>
+          
         </v-row>
         <v-snackbar
           v-model="snackbar"
@@ -103,6 +76,8 @@ const activeStore = usuarioActivo()
         text:'',
         findRules: [
           v => [this.findgroup].test(v),
+        ],
+        groupsLeaders:[
         ],
       }
     },
@@ -165,9 +140,35 @@ const activeStore = usuarioActivo()
 
 
       },
+    
+    obtenerLider(n){
+      var userFound="";
+      this.groupsLeaders.forEach((group) => {
+        if(n==group[0]){
+          userFound=group[1];
+        }
+      });
+      return userFound;
+    },
 
-
-
+    async getLeaders(){
+        let groupsAndLeaders = [];  
+        let [allGroups, AllUsers] = await Promise.all([API.getAllGroups(), API.getAllUsers()]);
+        var allGroupsData = new Array();
+        var allUsersData = new Array();
+        allGroupsData= allGroups.data;
+        allUsersData= AllUsers.data;
+        allGroupsData.forEach((group) => {
+            allUsersData.forEach((usuario) => {
+              if(group.leaderID==usuario._id){
+                if (!groupsAndLeaders.includes([group.id,usuario._id])) {
+                  groupsAndLeaders.push([group._id,usuario.name]);
+                }
+              }
+            });
+        });
+       this.groupsLeaders= groupsAndLeaders;
+    },
 
       async getEventByID(){
       try {
@@ -207,14 +208,32 @@ const activeStore = usuarioActivo()
 
       }
       }
-
     }, beforeMount() {
       this.getEventByID()
-
+      this.getLeaders();
     }
-
   }
 
 
 
 </script>
+
+<style scoped>
+  .textBorder{
+    text-shadow: 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0);
+    color: #fff
+  }
+    .logo-utalca{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 35%;
+
+  }
+  .v-text-field{
+      width: 1400px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+}
+</style>
