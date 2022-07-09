@@ -170,6 +170,7 @@
                                             <v-col sm="20">
                                                
                                                 <v-select
+                                                    prepend-icon="mdi-account-multiple"
                                                     :items="items"
                                                     v-model="groupLimit"
                                                     label="Máximo de participantes por grupo"
@@ -190,7 +191,7 @@
                                                 <v-text-field 
                                                 label="GoogleMapsUrl" 
                                                 v-model="mapUrl" 
-                                                prepend-icon="mdi-file-image"
+                                                prepend-icon="mdi-google-maps"
                                                 :rules="mapUrlRules"
                                                 required
                                                 ></v-text-field>
@@ -209,13 +210,7 @@
                                                 >
                                                 Reiniciar formulario
                                             </v-btn>
-                                            <v-btn
-                                                
-                                                color="warning"
-                                                @click="resetValidation"
-                                            >
-                                                Continuar formulario
-                                            </v-btn>
+                                            
                                         </v-form>
                                     </v-col>
 
@@ -279,12 +274,12 @@
 import { placeholder, thisExpression } from '@babel/types'
 import createPost from '../components/createPost'
 import API from '~/api'
-
+import swal from 'sweetalert'
 export default {
     data() {
         return {
 
-            createEvent: false,
+            createEvent: true,
             adminholder: false,
             anuncio: false,
             name:"",
@@ -327,9 +322,9 @@ export default {
             menu2: false,
             items: [3,4,5,6],
             groupLimit:3,
-            valid:true
+            valid:true,
 
-            anuncio: false,
+            
             createAdmin: false,
             email: '',
             emailRules: [
@@ -383,9 +378,7 @@ export default {
                     this.anuncio = false,
                     this.createEvent = false
             }
-        }
-        },
-        async validate () {
+        },async validate () {
             if(this.$refs.form.validate()){
                 const string = this.mapUrl.split('"')
                 try {
@@ -403,22 +396,34 @@ export default {
                             "mapUrl":string[1]
                         }
                     )
-                    console.log(res)    
+                    
+                    
+                    if(res.code==200){
+                        swal({
+                        title: "El evento se ha creado exitosamente",
+                        icon: "success",
+                        })
+                    }
+                    if(res.code==400){
+                        swal({
+                        title: "Ya existe un evento con este nombre",
+                        icon: "error",
+                        })
+                    }
                 } catch (error) {
                     console.log(error)
                 }
         
+            }else{
+                swal({
+                title: "Es necesario completar todos los campos",
+                icon: "error",
+          });
             }
         },reset () {
         this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-        
-       
-
-      },
-    },
+      }
+        },
     components: {
         createPost
     }
