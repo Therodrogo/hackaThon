@@ -24,7 +24,9 @@
                         </v-card-text>
                      
                           <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
-                          <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
+                          <v-card-actions>
+                            <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n) color="#00CCB1" class="white--text">Solicitar Ingreso</v-btn>
+                          </v-card-actions>
                       </v-card>
                       </v-col>
 
