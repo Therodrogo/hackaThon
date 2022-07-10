@@ -4,8 +4,8 @@
         <v-layout>
             <v-row class="py-16">
              </v-row>
-            <v-row>
-                <v-col
+            
+                <v-col 
 
                 
 
@@ -13,38 +13,82 @@
                     md="4"
                 >  
                            
-                    <nuxt-link to="/Anuncio">
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="card-avatar, article, actions"
-                    ></v-skeleton-loader>
-                    </nuxt-link>
-
-                    <nuxt-link to="/Anuncio">
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="date-picker"
-                    ></v-skeleton-loader>
-                    </nuxt-link>
-                </v-col>
-
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                    <nuxt-link to="/Anuncio">
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="article, actions"
-                    ></v-skeleton-loader>
-                    </nuxt-link>
-
-                   <nuxt-link to="/Anuncio">
-                    <v-skeleton-loader
+              <nuxt-link to="/Anuncio">
+                       <v-hover v-slot="{ hover }" close-delay="100">
+                       <v-card
+              :elevation="hover ? 20 : 10"
+              :class="{ 'on-hover': hover }"
+            > 
+            <v-skeleton-loader 
                     v-bind="attrs"
                     type="table-heading, list-item-two-line, image, table-tfoot"
+                    light="true"
+                    loading="false"
+                    tile="true"
                     ></v-skeleton-loader>
-                     </nuxt-link>
+             </v-card>
+            </v-hover>
+           </nuxt-link>
+
+                    
+
+                    <nuxt-link to="/Anuncio">
+                       <v-hover v-slot="{ hover }" close-delay="100">
+                       <v-card
+              :elevation="hover ? 20 : 10"
+              :class="{ 'on-hover': hover }"
+            > 
+            <v-skeleton-loader 
+                    v-bind="attrs"
+                    type="table-heading, list-item-two-line, image, table-tfoot"
+                    light="true"
+                    loading="false"
+                    tile="true"
+                    ></v-skeleton-loader>
+             </v-card>
+            </v-hover>
+           </nuxt-link>
+
+                    
+                </v-col>
+
+                <v-col
+                    cols="12"
+                    md="4"
+                >
+                    <nuxt-link to="/Anuncio">
+                       <v-hover v-slot="{ hover }" close-delay="100">
+                       <v-card
+              :elevation="hover ? 20 : 10"
+              :class="{ 'on-hover': hover }"
+            > 
+            <v-skeleton-loader 
+                    v-bind="attrs"
+                    type="table-heading, list-item-two-line, image, table-tfoot"
+                    light="true"
+                    loading="false"
+                    tile="true"
+                    ></v-skeleton-loader>
+             </v-card>
+            </v-hover>
+           </nuxt-link>
+
+                   <nuxt-link to="/Anuncio">
+                       <v-hover v-slot="{ hover }" close-delay="100">
+                       <v-card
+              :elevation="hover ? 20 : 10"
+              :class="{ 'on-hover': hover }"
+            > 
+            <v-skeleton-loader 
+                    v-bind="attrs"
+                    type="table-heading, list-item-two-line, image, table-tfoot"
+                    light="true"
+                    loading="false"
+                    tile="true"
+                    ></v-skeleton-loader>
+             </v-card>
+            </v-hover>
+           </nuxt-link>
 
                 </v-col>
 
@@ -53,28 +97,52 @@
                     md="4"
                 >
                 <nuxt-link to="/Anuncio">
-                    <v-skeleton-loader
+                       <v-hover v-slot="{ hover }" close-delay="100">
+                       <v-card
+              :elevation="hover ? 20 : 10"
+              :class="{ 'on-hover': hover }"
+            > 
+            <v-skeleton-loader 
                     v-bind="attrs"
-                    type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
+                    type="table-heading, list-item-two-line, image, table-tfoot"
+                    light="true"
+                    loading="false"
+                    tile="true"
                     ></v-skeleton-loader>
-                </nuxt-link>
+             </v-card>
+            </v-hover>
+           </nuxt-link>
                 
                 <nuxt-link to="/Anuncio">
-                    <v-skeleton-loader
+                       <v-hover v-slot="{ hover }" close-delay="100">
+                       <v-card
+              :elevation="hover ? 20 : 10"
+              :class="{ 'on-hover': hover }"
+            > 
+            <v-skeleton-loader 
                     v-bind="attrs"
-                    type="list-item-avatar-three-line, image, article"
+                    type="table-heading, list-item-two-line, image, table-tfoot"
+                    light="true"
+                    loading="false"
+                    tile="true"
                     ></v-skeleton-loader>
-                  </nuxt-link>
+             </v-card>
+            </v-hover>
+           </nuxt-link>
                   
                 </v-col>
-            </v-row>
-           
+
+
+
         </v-layout>
   </v-container>
   </div>
 </template>
 
 <!-- Script del ciclo temporal para cada -->
+
+
+
 <script>
 
 import { onBeforeMount } from 'vue-demi';
@@ -102,5 +170,23 @@ import API from '~/api';
 <style>
 
 
+
+.py-16 {
+  
+  position: relative;
+  margin-inline: 10px;
+  margin-top: 20px;
+  display: inline-flex;
+  color: white;
+  text-shadow: white;
+  padding: 10px;
+  text-decoration: none;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+  
+  
+}
 
 </style>
