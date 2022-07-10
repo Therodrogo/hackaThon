@@ -224,16 +224,18 @@
                                     </v-col>
 
                                     <v-col v-if="createAdmin">
-                                        <v-container>
+                                        <v-form
+                                        ref="form2"
+                                        >
+
                                             <v-col sm="20">
-                                                <v-text-field label="Nombre Admin" prepend-icon="mdi-account-circle">
-                                                </v-text-field>
+                                                <v-text-field v-model='nameAdmin' :rules='nameAdminRules' label="Nombre Admin" 
+                                                    prepend-icon="mdi-account-circle" required></v-text-field>
                                             </v-col>
 
                                             <v-col sm="20">
                                                 <v-text-field v-model='email' :rules='emailRules' label='E-mail'
                                                     prepend-icon='mdi-email' required></v-text-field>
-
                                             </v-col>
 
                                             <v-col>
@@ -247,12 +249,15 @@
                                             </v-col>
 
                                             <v-col align="center">
-                                                <v-btn rounded elevation="2" color="#00CCB1">
+                                                <v-btn 
+                                                    rounded elevation="2" 
+                                                    color="#00CCB1"
+                                                    @click="submit">
                                                     Guardar Admin
                                                 </v-btn>
                                             </v-col>
                                             
-                                        </v-container>
+                                        </v-form>
                                     </v-col>
 
                                 </v-col>
@@ -333,9 +338,12 @@ export default {
             items: [3,4,5,6],
             groupLimit:3,
             valid:true,
-
             
             createAdmin: false,
+            nameAdmin: '',
+            nameAdminRules: [
+            v => !!v || 'Nombre es requerido',
+            ],
             email: '',
             emailRules: [
                 v => !!v || 'E-mail es requerido',
@@ -391,6 +399,60 @@ export default {
                 this.createAdmin = false,
                 this.anuncio = false,
                 this.createEvent = false
+            }
+        },
+        async submit() {
+            if (this.$refs.form2.validate()) {
+                try {
+                    let result = await API.postUser(
+                    {
+                        "name": this.nameAdmin,
+                        "password" : this.password,
+                        "role" :"Administrador" ,
+                        "career": "",
+                        "mail": this.email,
+                        "phone": this.phoneNumber,
+                        "groupsID": [],
+                        "eventsID": []
+                    }                  
+                    );
+                    console.log(result);
+                    if (typeof result === 'undefined') {
+                        swal({
+                            title: 'Ha ocurrido un error de conexión',
+                            icon: 'error',
+                            confirmButtonColor: '#00CCB1',
+                        });
+                    }
+                    else {
+                        if (result.code == 200) {
+                            swal({
+                            title: '¡Excelente!',
+                            text: 'Tu usuario se ha creado correctamente',
+                            icon: 'success',
+                            confirmButtonColor: '#00CCB1',
+                            }).then(function() {
+                            window.location = '/AdminMenu';
+                            });
+                        }
+                        else {
+                            swal({
+                            title: 'El E-mail o Teléfono ingresado estan duplicados',
+                            icon: 'error',
+                            confirmButtonColor: '#00CCB1',
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.log(error);
+                }               
+            }
+            else{
+                swal({
+                    title: 'Los datos ingresados no son validos',
+                    icon: 'error',
+                    confirmButtonColor: '#00CCB1',
+                });
             }
         },
         async validate () {
