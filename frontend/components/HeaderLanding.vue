@@ -47,17 +47,17 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link v-if="quitarBotones" to="/loginWindow">
+          <nuxt-link v-if="!quitarBotones" to="/loginWindow">
 
             <!-- Login -->
 
-            <div @click="loginEvent()" class="loginText">
+            <div class="loginText">
               Iniciar Sesión
             </div>
 
           </nuxt-link>
 
-          <nuxt-link v-if="quitarBotones" to="/createUser">
+          <nuxt-link v-if="!quitarBotones" to="/createUser">
 
             <!-- RegisterUser -->
 
@@ -73,7 +73,7 @@
           <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
           <div>
 
-            <v-menu offset-y v-if="!quitarBotones">
+            <v-menu offset-y v-if="quitarBotones">
               <template v-slot:activator="{ on, attrs }">
 
                 <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="43" width="130">
@@ -174,12 +174,15 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!quitarBotones">
-            <v-list-item-title v-if="!quitarBotones">
+
+
+
+          <v-list-item v-show="quitarBotones">
+            <v-list-item-title v-show="quitarBotones">
               <!-- UsuarioActivo, movil -->
               <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
               <div>
-                <v-menu offset-y v-if="!quitarBotones">
+                <v-menu offset-y v-if="quitarBotones">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="40" width="130">
                       <p class="JetBrains Mono">
@@ -221,8 +224,7 @@
 
 <script>
 
-import { usuarioActivo } from "../store/index.js"
-
+import { usuarioStore } from "../store/index.js"
 export default {
 
   data() {
@@ -246,44 +248,39 @@ export default {
     }
   },
 
-
-  setup: {
-    //Actualiza el nombre del usuario
+  computed:{
     usuarioActivoComputed() {
-      const user = usuarioActivo()
-      return user.$state.layout;
+      const user = usuarioStore()
+      return user.getName;
     },
-    //Actualiza los botones al loguearse
     quitarBotones() {
-      const user = usuarioActivo()
-      return user.$state.noLogueado;
+      const user = usuarioStore()
+      return user.getStatus;
     },
-
-
   },
+  
   props: {
     menuEstudiante: Boolean,
     menuAdministrador: Boolean,
     posicionMono: String,
   },
-  methods: {
-    loginAppear: function () {
-      console.log("aa")
+
+  watch: {
+    quitarBotones() {
+      return user.getStatus;
     },
+  },
+  methods: {
     //Actualiza los botones al deslogearse
     logout: (index) => {
       //Si presiona el boton 2, cerrar sesión, cerramos la sesión :s
       if (index == 2) {
         console.log("logout")
-        const user = usuarioActivo()
-        user.CHANGE_NAV_LAYOUT_LOGOUT()
+        const user = usuarioStore()
+        user.logout()
       }
-
-
     }
-
-
-  }
+  },
 }
 </script>
 

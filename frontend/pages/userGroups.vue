@@ -136,7 +136,6 @@
 <script>
     import API from '~/api';
     import {usuarioStore} from "../store/index.js"
-
     export default {
         data (){
             return {
@@ -197,10 +196,10 @@
           },
         }, beforeMount() {
             const user = usuarioStore()
-             if (user.getStatus()!=="active"){
+             if (!user.getStatus){
                 this.$router.push({ path: '/loginWindow' })
               }else{
-                this.getGroupsUser(user.getUserId());
+                this.getGroupsUser(user.getUserId);
               }
 
         }
