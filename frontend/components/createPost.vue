@@ -1,54 +1,50 @@
-<template>
-   
-  <v-container class="fill-height">
-    
-    
-    <v-row>
-        <v-text-field
-            v-model="Tittle"
-            label="Título"
-            :rules="TittleRules"
-            :counter="40"
-            required
-            prepend-icon="mdi-pencil"
-            
-        ></v-text-field>
-    </v-row>
-    <v-row>
-          <v-textarea
-            autocomplete="Descripción"
-            label="Descripción"
-            v-model="Description"
-            prepend-icon="mdi-comment-text-outline"
-            :rules="DescriptionRules"
-            :counter="1000"
-            required
-          ></v-textarea>
-    </v-row>    
-    <v-row>
-            <v-text-field
-              label="ImagenURL"           
-              v-model="ImageURL"
-              :rules="ImageURLRules"
-              prepend-icon="mdi-file-image"
-              
-            ></v-text-field>
-            
-              
+<template> 
 
-              
-            
-        </v-row>
-        <v-col>
-                <v-btn
-                rounded elevation="2" 
-               color = "#00CCB1"
-               @click="createPost"
-              >CREAR ANUNCIO</v-btn>
-              </v-col>
-          
-  </v-container>
-  
+  <v-container class="fill-height">
+
+    <v-row>
+      <v-text-field
+        v-model="Tittle"
+        label="Título"
+        :rules="TittleRules"
+        :counter="40"
+        required
+        prepend-icon="mdi-pencil"
+      ></v-text-field>
+    </v-row>
+
+    <v-row>
+      <v-textarea
+        autocomplete="Descripción"
+        label="Descripción"
+        v-model="Description"
+        prepend-icon="mdi-comment-text-outline"
+        :rules="DescriptionRules"
+        :counter="1000"
+        required
+      ></v-textarea>
+    </v-row>   
+
+    <v-row>
+      <v-text-field
+        label="ImagenURL"           
+        v-model="ImageURL"
+        :rules="ImageURLRules"
+        prepend-icon="mdi-file-image"
+      ></v-text-field> 
+    </v-row>
+
+    <v-col align="center">
+      <v-btn
+        rounded elevation="2" 
+        color = "#00CCB1"
+        @click="createPost"
+        >CREAR ANUNCIO
+      </v-btn>
+    </v-col>   
+
+  </v-container> 
+ 
 </template>
 
 <script>
