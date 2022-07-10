@@ -196,21 +196,24 @@
                                                 required
                                                 ></v-text-field>
                                             </v-col>
-                                            <v-btn 
-                                                @click="validate"
-                                                rounded elevation="2" color="#00CCB1"
-                                                :disabled="!valid"
-                                            >
-                                                Publicar Evento
-                                            </v-btn>
-                                            <v-btn
-                                                color="error"
-                                                class="mr-4"
-                                                @click="reset"
-                                                >
-                                                Reiniciar formulario
-                                            </v-btn>
-                                            
+                                            <v-col align="center">
+                                                <v-btn 
+                                                    @click="validate"
+                                                    rounded elevation="2" 
+                                                    color="#00CCB1"
+                                                    :disabled="!valid"
+                                                    >
+                                                    Publicar Evento
+                                                </v-btn>
+                                                <v-btn
+                                                    rounded elevation="2"
+                                                    color="error"
+                                                    class="mr-4"
+                                                    @click="reset"
+                                                    >
+                                                    Reiniciar formulario
+                                                </v-btn> 
+                                            </v-col>                                                                                    
                                         </v-form>
                                     </v-col>
 
@@ -238,10 +241,17 @@
                                                     prepend-icon='mdi-cellphone' required></v-text-field>
                                             </v-col>
 
+                                            <v-col>
+                                                <v-text-field v-model='password' :rules='passwordRules' label='Contraseña'
+                                                    prepend-icon='mdi-lock' required></v-text-field>
+                                            </v-col>
+
+                                            <v-col align="center">
+                                                <v-btn rounded elevation="2" color="#00CCB1">
+                                                    Guardar Admin
+                                                </v-btn>
+                                            </v-col>
                                             
-                                            <v-btn rounded elevation="2" color="#00CCB1">
-                                                Guardar Admin
-                                            </v-btn>
                                         </v-container>
                                     </v-col>
 
@@ -337,8 +347,12 @@ export default {
                 v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v)
                     || 'Teléfono debe ser válido, se permite formato +569XXXXXXXX, 569XXXXXXXX, 9XXXXXXXX',
             ],
-
-
+            password: '',
+            passwordRules: [
+            v => !!v || 'Contraseña es requerida',
+            v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*(\W|_)+)(?=.{5,})/.test(v)
+                || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y un caracter especial',
+            ],
         }
     },
     methods: {
@@ -346,45 +360,45 @@ export default {
             console.log(this.createEvent)
             if (this.createEvent == false) {
                 this.createEvent = true,
-                    this.anuncio = false,
-                    this.createAdmin = false
+                this.anuncio = false,
+                this.createAdmin = false
             }
             else if (this.createEvent == true) {
                 this.createEvent = false,
-                    this.anuncio = false,
-                    this.createAdmin = false
+                this.anuncio = false,
+                this.createAdmin = false
             }
         },
         createAnuncio() {
             if (this.anuncio == false) {
                 this.anuncio = true,
-                    this.createEvent = false,
-                    this.createAdmin = false
+                this.createEvent = false,
+                this.createAdmin = false
             }
             else if (this.anuncio == true) {
                 this.anuncio = false,
-                    this.createEvent = false,
-                    this.createAdmin = false
+                this.createEvent = false,
+                this.createAdmin = false
             }
         },
         createAdminMethod() {
             if (this.createAdmin == false) {
                 this.createAdmin = true,
-                    this.anuncio = false,
-                    this.createEvent = false
+                this.anuncio = false,
+                this.createEvent = false
             }
             else if (this.createAdmin == true) {
                 this.createAdmin = false,
-                    this.anuncio = false,
-                    this.createEvent = false
+                this.anuncio = false,
+                this.createEvent = false
             }
-        },async validate () {
+        },
+        async validate () {
             if(this.$refs.form.validate()){
                 const string = this.mapUrl.split('"')
                 try {
                     const res = await API.postEvent(
                         {
- 
                             "name": this.name,
                             "dateStart": this.startdate,
                             "dateFinish": this.finishdate,
@@ -398,13 +412,13 @@ export default {
                     )
                     
                     
-                    if(res.code==200){
+                    if(res.code == 200){
                         swal({
                         title: "El evento se ha creado exitosamente",
                         icon: "success",
                         })
                     }
-                    if(res.code==400){
+                    if(res.code == 400){
                         swal({
                         title: "Ya existe un evento con este nombre",
                         icon: "error",
@@ -418,7 +432,7 @@ export default {
                 swal({
                 title: "Es necesario completar todos los campos",
                 icon: "error",
-          });
+        });
             }
         },reset () {
         this.$refs.form.reset()
