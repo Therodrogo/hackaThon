@@ -224,19 +224,7 @@ const activeStore = usuarioActivo()
             const gro = await API.getGroupByID(n._id);
 
             console.log(gro.data.name+" | "+gro.data.userID.length);
-            
-
-
-    
-            
-            let tema = await API.getRequests()
-            //console.log(tema.data)
-            var inr = tema.data.find(obj => {return obj.groupID === n._id})
-            console.log("|+++++++++++++++++|")
-            //console.log(inr);
-            let conj = await API.getRequestGroup(inr)
-            console.log(conj);
-            console.log("|+++++++++++++++++|")
+            let conj = await API.getRequestGroup({groupID: n._id})
             this.groups.push({id: n._id,name: n.name,leader: n.leaderID,Users:n.userID,RequestID: conj.data,texto:"Solicitar Ingreso"});
         });
 
