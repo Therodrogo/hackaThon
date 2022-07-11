@@ -139,16 +139,32 @@ const eventoStore = eventStore()
             }
         },
         async AcceptRequest(data){
-            await API.acceptRequest({requestID: data._id,leaderID: data.leader});
-            console.log(data)
-            const cosa = await API.getRequestGroup({groupID: "62c914215384ad085d39f3a5"})
-            //const cosa = await API.getAllGroups();
-            this.Request = []
-            console.log(cosa.data);
-            cosa.data.forEach  (async n => {
-                const local = await API.getUserByID(n.postulant);
-                this.Request.push({_id: n._id,postulant: n.postulant,leader: n.leaderID,name: local.data.name,description: n.description});
-            });
+            const gp = await API.getGroupByID("62c914215384ad085d39f3a5")
+            if(gp.data.userID.length <= 5){
+                
+                await API.acceptRequest({requestID: data._id,leaderID: data.leader});
+                console.log(data)
+            
+                //const cosa = await API.getAllGroups();
+                const cosa = await API.getRequestGroup({groupID: "62c914215384ad085d39f3a5"})
+                this.Request = []
+                console.log(cosa.data);
+                cosa.data.forEach  (async n => {
+                    const local = await API.getUserByID(n.postulant);
+                    this.Request.push({_id: n._id,postulant: n.postulant,leader: n.leaderID,name: local.data.name,description: n.description});
+                });
+            Swal.fire({
+                title: "Postulante ingresado",
+                text: "nombre: "+data.name,
+                icon: "success",
+            })
+            }else{
+                Swal({
+                    title: "Ha ocurrido un error",
+                    text: "Limite de grupos maximo",
+                    icon: "error",
+                });
+            }
         },
 
         async DeclineRequest(data){
