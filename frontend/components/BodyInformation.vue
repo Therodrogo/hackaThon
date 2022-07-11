@@ -2,48 +2,7 @@
   <div>
     <v-container>
         <v-layout>
-            <v-row class="py-16">
-             </v-row>
-            <v-row>
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                  <div v-for="item in posts">
-                  <v-btn>{{item.title}} </v-btn>
-                  </div>
-                </v-col>
-
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="article, actions"
-                    ></v-skeleton-loader>
-
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="table-heading, list-item-two-line, image, table-tfoot"
-                    ></v-skeleton-loader>
-                </v-col>
-
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
-                    ></v-skeleton-loader>
-
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="list-item-avatar-three-line, image, article"
-                    ></v-skeleton-loader>
-                </v-col>
-            </v-row>
+           
         </v-layout>
   </v-container>
   </div>
@@ -73,7 +32,7 @@ import API from '~/api';
       console.log(this.posts)
     },
     }, beforeMount() {this.getAllPosts()}
-    }
+  }
     
     
 </script>
