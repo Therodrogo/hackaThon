@@ -16,7 +16,11 @@
                   <v-list-item-content>
                     <v-list-item-title>
                       Grupos
+                      <v-template >
+                      
+                      </v-template>
                     </v-list-item-title>
+                    
                   </v-list-item-content>
                 </v-list-item>
 
@@ -29,9 +33,11 @@
                     <v-list-item
                     v-for="n in groups"
                     :key="n">
+                    
                       <v-btn @click="selectedGroup = n.name ; isLeader(n.code)" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
+                      
                     </v-list-item>
                 </v-list-item-group>
                 <v-divider class="my-2"></v-divider>
@@ -53,11 +59,19 @@
                       max-width="700">
                       <v-card-title>
                         Nombre del grupo: {{n.name}}
-                        <v-btn @click="" fab small dark color="#00CCB1" v-if="save">
+                        <v-btn @click="" fab small dark color="#00CCB1" style="margin-left: 30px" v-if="save">
                           <v-icon >
                             mdi-pencil
                           </v-icon>
                         </v-btn>
+                        <v-btn color = "white" small style="margin-left: 20px" v-if="save">
+                        solicitudes
+                          <v-badge color = "red" dot>
+                            <v-icon>
+                              mdi-bell-ring-outline
+                            </v-icon>
+                          </v-badge>
+                      </v-btn>
                       </v-card-title>
                       <v-card-text class="text--primary">
                         Evento: {{n.eventID.name}}
@@ -156,7 +170,8 @@
                 code: '',
                 snackbar:false,
                 text:'',
-                save: false
+                save: false,
+              
             }
         },
         methods:{
