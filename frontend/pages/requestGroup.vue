@@ -70,8 +70,9 @@
                                 Nombre: {{n.name}}
                             </v-card-title>
                             <v-card-text class="text--primary">
-                                Evento: {{n.description}}
+                                Descripcion: {{n.description}}
                             </v-card-text>
+                            
                             </v-card>
                         </p>
                         </span>
