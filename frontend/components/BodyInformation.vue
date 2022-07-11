@@ -9,15 +9,9 @@
                     cols="12"
                     md="4"
                 >
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="card-avatar, article, actions"
-                    ></v-skeleton-loader>
-
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="date-picker"
-                    ></v-skeleton-loader>
+                  <div v-for="item in posts">
+                  <v-btn>{{item.title}} </v-btn>
+                  </div>
                 </v-col>
 
                 <v-col
@@ -67,12 +61,16 @@ import API from '~/api';
         boilerplate: true,
         elevation: 2,
       },
+      posts: {
+
+      }
     }),
   
    methods: {
     async getAllPosts(){
       const post = await API.getAllPosts()
-      console.log(post.data);
+      this.posts = post.data
+      console.log(this.posts)
     },
     }, beforeMount() {this.getAllPosts()}
     }
