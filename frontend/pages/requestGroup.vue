@@ -122,35 +122,51 @@ const eventoStore = eventStore()
         SelectedReq(n){
         this.selectedRequest = n.name
         },
-      async getEventByID(){
-      try {
-        const cosa = await API.getRequestGroup({groupID: "62c2640240358d98c83c72e1"})
-        //const cosa = await API.getAllGroups();
 
-        console.log(cosa.data);
-        cosa.data.forEach  (async n => {
-            const local = await API.getUserByID(n.postulant);
-            this.Request.push({_id: n._id,postulant: n.postulant,name: local.data.name,description: n.description});
-        });
+        async getEventByID(){
+            try {
+                const gp = await API.getGroupByID("62c914215384ad085d39f3a5")
+                const cosa = await API.getRequestGroup({groupID: "62c914215384ad085d39f3a5"})
+                //const cosa = await API.getAllGroups();
+                this.Request = []
+                console.log(cosa.data);
+                cosa.data.forEach  (async n => {
+                    const local = await API.getUserByID(n.postulant);
+                    this.Request.push({_id: n._id,postulant: n.postulant,leader: gp.data.leaderID,name: local.data.name,description: n.description});
+                });
+            } catch (error) {
+            console.log(error)
+            }
+        },
+        async AcceptRequest(data){
+            await API.acceptRequest({requestID: data._id,leaderID: data.leader});
+            console.log(data)
+            const cosa = await API.getRequestGroup({groupID: "62c914215384ad085d39f3a5"})
+            //const cosa = await API.getAllGroups();
+            this.Request = []
+            console.log(cosa.data);
+            cosa.data.forEach  (async n => {
+                const local = await API.getUserByID(n.postulant);
+                this.Request.push({_id: n._id,postulant: n.postulant,leader: n.leaderID,name: local.data.name,description: n.description});
+            });
+        },
 
+        async DeclineRequest(data){
+            //await API.deleteRequestById(data._id)
 
-        
+            await API.declineRequest({requestID: data._id,leaderID: data.leader})
+            console.log(data)
+            const cosa = await API.getRequestGroup({groupID: "62c914215384ad085d39f3a5"})
+            //const cosa = await API.getAllGroups();
+            this.Request = []
+            console.log(cosa.data);
+            cosa.data.forEach  (async n => {
+                const local = await API.getUserByID(n.postulant);
+                this.Request.push({_id: n._id,postulant: n.postulant,leader: n.leaderID,name: local.data.name,description: n.description});
+            });
+        }
 
-      } catch (error) {
-        console.log(error)
-      }
-      },
-      async AcceptRequest(data){
-        await API.acceptRequest(data);
-        console.log(data)
-      },
-
-      async DeclineRequest(data){
-        await API.declineRequest(data)
-        console.log(data)
-      }
-
-
+    
 
 
     }, beforeMount() {
