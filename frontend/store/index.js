@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
+import Swal from 'sweetalert2';
 
 //Store para el usuario Activo en el navbar
 export const usuarioActivo = defineStore('usuario', {
     state: () => ({layout: '' , noLogueado: true}),
     getters: {
-      
+
     },
     actions: {
         //Cambiar el nav cuando se loguea alguien
@@ -22,19 +23,51 @@ export const usuarioActivo = defineStore('usuario', {
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
-        user:null,
-        estado:null
+        id: null,
+        status: null,
     }),
+
     actions:{
-        
+        async login(email, password){
+            const userSignUp = await API.signUpUser({"mail": email,"password":password});
+          if (typeof userSignUp === 'undefined') {
+            return false;
+          }else{
+            if (userSignUp.code==200){
+              this.id = JSON.stringify(userSignUp.data._id);
+              this.status = "active";
+              Swal.fire({
+                    title: "Bienvenido "+ userSignUp.data.name,
+                    text: "Tu rol es: "+ userSignUp.data.role,
+                    icon: "success",
+                    confirmButtonColor: '#00CCB1'
+                   }).then((result) => {
+                      if (result.isConfirmed) {
+                        return true;
+                      }
+                  });
+            }
+          }
+        },
+        getUserId(){
+            return this.id;
+        },
+        getStatus(){
+          return this.status;
+        },
+        setUser(userID){
+          this.id = userID;
+        },
+        setStatus(status){
+          this.status = status;
+        },
+        logout(){
+          localStorage.clear();
+        }
     },
     getters:{
-        getUserId(state){
-            return state.user.data._id
-        }
-    }
 
-
+    },
   })
 
 export const eventStore = defineStore('eventStore', {
@@ -46,14 +79,12 @@ export const eventStore = defineStore('eventStore', {
         setEvent(eventId){
             this.selectEvent = eventId
         },
-        
-   
     },
     getters:{
         getEventId(state){
             return state.selectEvent
         }
-        
+
     }
 })
 

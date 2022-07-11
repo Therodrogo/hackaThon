@@ -83,8 +83,6 @@ import Swal from 'sweetalert2';
 import API from '~/api';
 import {usuarioStore} from "../store/index.js"
 
-const userStore = usuarioStore()
-
 export default {
   data: () => ({
 
@@ -110,19 +108,19 @@ export default {
     reset() {
       this.$refs.form.reset();
       //TODO: se debe utizar otra opcion para ir a la ruta (nuxt-link o $route)
-      window.location = '/userGroups'; 
+      this.$router.push({ path: '/userGroups' })
     },
     async submit() {
+      const userStore = usuarioStore();
       if (this.$refs.form.validate()) {
         let data = {
-          userID: userStore.user._id,
+          userID: userStore.getUserId(),
           name: this.name,
           mail: this.email,
           career: this.career,
           phone: this.phoneNumber,
         }
         let result = await API.updateUserData(data)
-        console.log(result)
         if (typeof result === 'undefined') {
           Swal.fire({
             title: 'Ha ocurrido un error de conexión',
@@ -134,13 +132,14 @@ export default {
           if (result.code == 200) {
             Swal.fire({
               title: '¡Excelente!',
-              text: 'Tu usuario se ha creado correctamente',
+              text: 'Tu usuario se ha editado correctamente',
               icon: 'success',
               confirmButtonColor: '#00CCB1',
-            }).then(function() {
-              //TODO: se debe utizar otra opcion para ir a la ruta (nuxt-link o $route)
-              window.location = '/userGroups';
-            });
+            }).then((result) => {  
+                      if (result.isConfirmed) {    
+                        this.$router.push({ path: '/userGroups' })
+                      }
+                });
             
           }
           else {
@@ -154,8 +153,8 @@ export default {
       }
     },
     async getUser() {
-      
-      await API.getUserByID(userStore.user._id).then((response) => {
+      const userStore = usuarioStore();
+      await API.getUserByID(userStore.getUserId()).then((response) => {
         let userData = response.data;
         this.name = userData.name;
         this.email = userData.mail;
@@ -163,13 +162,18 @@ export default {
         this.phoneNumber = userData.phone;
       })
         .catch((error) => {
-          console.log(error);
+          
         });
     },
     
   },
   beforeMount() {
-    this.getUser();
+    const userStore = usuarioStore()
+    if (userStore.getStatus()!=="active"){
+      this.$router.push({ path: '/loginWindow' })
+    }else{
+      this.getUser();
+    }
   },
 };
 </script>

@@ -23,7 +23,7 @@ const userService = {
             const user = userSchema(req.body)
             user.password = await this.encryptPassword(user.password)           
             await user.save()
-            return{   status: 'Success',code: 200,message: 'User is created', data: token    };
+            return{   status: 'Success',code: 200,message: 'User is created', data: user    };
                 
         }catch(e){
            return{status: 'Failed',code: 400,message: e.message,data: {}}

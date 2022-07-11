@@ -218,6 +218,7 @@ const GroupService = {
             const leaderID = req.body.leaderID;
             const groupCode = req.body.code;
             const group = await GroupSchema.findOne({code: groupCode});
+            console.log(group);
             if (group.leaderID == leaderID){
                 await GroupSchema.findOneAndUpdate({code: groupCode},{ "$pull": { "userID": kickID }});
                 await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "groupsID": group._id } });
