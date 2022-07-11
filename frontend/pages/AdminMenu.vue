@@ -310,7 +310,7 @@ export default {
             ],
             dateFinishRules:[],
             locationRules:[
-                v => !!v || 'Es necesario ingresar unas ubicación ',
+                v => !!v || 'Es necesario ingresar una ubicación ',
             ],
             descriptionRules:[
                 v => !!v || 'Una descripcion es requerida',
@@ -320,7 +320,7 @@ export default {
                 v => !!v || 'Es necesario ingresar un limite personas por grupo',
             ],
             coverUrlRules:[
-                v => !!v || 'Es necesario tener una imagen para el baner del evento',
+                v => !!v || 'Es necesario tener una imagen para el banner del evento',
                 v => /.+.png/.test(v) || /.+.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
             ],
             mapUrlRules:[
@@ -342,22 +342,22 @@ export default {
             createAdmin: false,
             nameAdmin: '',
             nameAdminRules: [
-            v => !!v || 'Nombre es requerido',
+            v => !!v || 'Un nombre es requerido',
             ],
             email: '',
             emailRules: [
-                v => !!v || 'E-mail es requerido',
+                v => !!v || 'Un E-mail es requerido',
                 v => /.+@.+\..+/.test(v) || 'E-mail debe ser válido',
             ],
             phoneNumber: '',
             phoneRules: [
-                v => !!v || 'Teléfono es requerido',
+                v => !!v || 'Un teléfono es requerido',
                 v => /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v)
                     || 'Teléfono debe ser válido, se permite formato +569XXXXXXXX, 569XXXXXXXX, 9XXXXXXXX',
             ],
             password: '',
             passwordRules: [
-            v => !!v || 'Contraseña es requerida',
+            v => !!v || 'Una contraseña es requerida',
             v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*(\W|_)+)(?=.{5,})/.test(v)
                 || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y un caracter especial',
             ],
