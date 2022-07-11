@@ -46,7 +46,7 @@
           </v-col>
           <v-col>
             <v-sheet
-              height="500"
+              height="550"
               rounded="lg"
               color="#00CCB1">
               <template v-slot>
@@ -59,6 +59,49 @@
                       max-width="700">
                       <v-card-title>
                         Nombre del grupo: {{n.name}}
+                        <v-dialog
+                          v-model="dialog"
+                          width="500">
+                          <template v-slot:activator="{ on, attrs }">
+                            <span class="px-6">
+                              <v-btn v-bind="attrs" v-on="on" fab small dark color="#00CCB1" v-if="save">
+                                <v-icon >
+                                  mdi-pencil
+                                </v-icon>
+                              </v-btn>
+                            </span>
+                          </template>
+                          <v-card>
+                            <v-card-title>
+                              Cambiar nombre del grupo:
+                            </v-card-title>
+                            <v-card-text>
+                              <v-text-field
+                                v-model="name"
+                                placeholder="Ingresar nuevo nombre"
+                                clereable>
+                              </v-text-field>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-btn
+                                @click="dialog = false"
+                                color="red" 
+                                class="white--text">
+                                Cancelar
+                              </v-btn>
+
+                              <v-btn
+                                @click="updateNameGroup(name, n._id) ; dialog = false ; clearName()"
+                                color=#009a82 
+                                class="white--text">
+                                  Aceptar
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                         <v-btn @click="" fab small dark color="#00CCB1" style="margin-left: 30px" v-if="save">
                           <v-icon >
                             mdi-pencil
@@ -93,7 +136,7 @@
                             </v-list-item-title>
 
                             <v-list-item-action >
-                              <v-btn @click="kickMember(i._id, n.code)" small dark color="red" v-if="save" >
+                              <v-btn @click="kickMember(i._id, n.code) ; " small dark color="red" v-if="save" >
                                 Expulsar
                               </v-btn>
                             </v-list-item-action>
@@ -119,11 +162,9 @@
                 <v-text-field
                   v-model="code"
                   label="Código de invitación"
-                  placeholder="Ingresar código"
-                >
-
+                  placeholder="Ingresar código">
                 </v-text-field>
-                <v-btn color = "#00CCB1" type="submit" large outlined>
+                <v-btn @click="joinGroupCode(code)" color = "#00CCB1" type="submit" large outlined>
                   <v-icon>
                     mdi-send
                   </v-icon>
@@ -163,13 +204,16 @@
     export default {
         data (){
             return {
-              selectedGroup: "",
+                selectedGroup: "",
                 groups:[
 
                 ],
                 code: '',
                 snackbar:false,
                 text:'',
+                save: false,
+                dialog: false,
+                name: '',
                 save: false,
               
             }
@@ -182,6 +226,10 @@
               this.snackbar=true
               this.text = 'Escriba un código válido'
             }
+          },
+
+          clearName(){
+            this.name = ''
           },
 
           async isLeader(groupCode){
@@ -218,14 +266,48 @@
             }
             console.log(req);
             try {
-              const res = await API.kickMember(req)
+              const res = await API.kickMember(req);
+              this.group = res.data;
+            } catch (error) {
+              console.log(error)
+            }
+            this.getGroupsUser(user.getUserId())
+          },
+
+          async joinGroupCode(code){
+            const req = {
+              code: code,
+              userID: user.getUserId(),
+            }
+            try {
+              const res = await API.joinGroup(req)
               this.group = res.data
             } catch (error) {
               console.log(error)
             }
+            this.getGroupsUser(user.getUserId())
+          },
+
+          async updateNameGroup(name, id){
+
+            const req = {
+              nameGroup: name,
+              groupID: id,
+              userID: user.getUserId(),
+            }
+            try {
+              const res = await API.updateNameGroup(req);
+              console.log("here");
+              console.log("res: "+ res);
+              console.log(req)
+            } catch (error) {
+              console.log(error)
+            }
+            this.getGroupsUser(user.getUserId())
           },
         }, beforeMount() {
             this.getGroupsUser(user.getUserId())
+            
         }
   }
 </script>
