@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url="https://server-dot-hackathon-construccionu3.rj.r.appspot.com/"
+const url="http://localhost:9000/"
 export default class API{
     //UserMethods
     static async postUser(data){
@@ -205,12 +205,10 @@ export default class API{
     static async updateNameGroup(data){
         try {
             const res = await axios.post(url+"group/updateName",data)
-            console.log("toyaqui")
             return res.data
         } catch (error) {
             return error.response.data
         }
-
     }
 
     static async updateVisibility(data){
@@ -220,7 +218,6 @@ export default class API{
         } catch (error) {
             return error.response.data
         }
-
     }
 
 

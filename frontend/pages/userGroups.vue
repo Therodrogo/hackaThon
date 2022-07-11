@@ -245,8 +245,8 @@
             }
             console.log(req);
             try {
-              const res = await API.kickMember(req)
-              this.group = res.data
+              const res = await API.kickMember(req);
+              this.group = res.data;
             } catch (error) {
               console.log(error)
             }
@@ -254,7 +254,6 @@
           },
 
           async joinGroupCode(code){
-
             const req = {
               code: code,
               userID: user.getUserId(),
@@ -271,13 +270,15 @@
           async updateNameGroup(name, id){
 
             const req = {
-              groupName: name,
+              nameGroup: name,
               groupID: id,
               userID: user.getUserId(),
             }
             try {
+              const res = await API.updateNameGroup(req);
+              console.log("here");
+              console.log("res: "+ res);
               console.log(req)
-              const res = await API.updateNameGroup(req)
             } catch (error) {
               console.log(error)
             }
