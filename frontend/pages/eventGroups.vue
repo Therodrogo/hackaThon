@@ -99,6 +99,7 @@ const activeStore = usuarioActivo()
         
         var verLeader = n.Users.find(obj => {return obj._id === userStore.id})
         var verRequest = n.RequestID.find(obj => {return obj.postulant === userStore.id})
+        var verjoin = n.Users.find(obj => {return obj === userStore.id})
         if(n.Users.length >= this.grouplimit) {
           n.texto = "grupo lleno"
           return true
@@ -108,6 +109,10 @@ const activeStore = usuarioActivo()
           n.texto = "Eres lider"
           return true
         }else if (!(typeof verLeader === "undefined" )){
+          return true
+
+        }else if (!(typeof verjoin  === "undefined" )){
+          n.texto = "Unido"
           return true
     
         }else if (!(typeof verRequest === "undefined")){
