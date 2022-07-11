@@ -102,13 +102,9 @@
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
-                        <v-btn @click="" fab small dark color="#00CCB1" style="margin-left: 30px" v-if="save">
-                          <v-icon >
-                            mdi-pencil
-                          </v-icon>
-                        </v-btn>
-                        <v-btn color = "white" small style="margin-left: 20px" v-if="save">
-                        solicitudes
+
+                        <v-btn color = "white" small v-if="save">
+                        Solicitudes
                           <v-badge color = "red" dot>
                             <v-icon>
                               mdi-bell-ring-outline
