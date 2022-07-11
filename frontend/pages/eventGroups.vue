@@ -4,6 +4,17 @@
       <v-container>
         <v-row>
           <v-col>
+              <v-btn
+              to='/infoEvent'
+              color='primary'
+              fab small
+              large
+              >
+              <v-icon dark>
+                mdi-arrow-left-bold
+              </v-icon>
+            </v-btn>
+
               <v-col align="center">
                     <v-text-field
                     prepend-icon='mdi-card-search-outline'

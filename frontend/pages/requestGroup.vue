@@ -5,13 +5,23 @@
             <v-container>
                 
         <v-row>
-
+              <v-btn
+              to='/userGroups'
+              color='primary'
+              fab small
+              large
+              >
+              <v-icon dark>
+                mdi-arrow-left-bold
+              </v-icon>
+            </v-btn>
             <v-col
             lg="7"
             md="7"
             sm="7"
             xs="7">
                 <v-col align="center">
+                
                     <v-text-field
                         prepend-icon='mdi-card-search-outline'
                         label='Buscar Solicitudes'
