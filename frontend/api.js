@@ -205,6 +205,7 @@ export default class API{
     static async updateNameGroup(data){
         try {
             const res = await axios.post(url+"group/updateName",data)
+            console.log("toyaqui")
             return res.data
         } catch (error) {
             return error.response.data

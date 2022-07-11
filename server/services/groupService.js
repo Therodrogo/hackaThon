@@ -219,16 +219,12 @@ const GroupService = {
             const groupCode = req.body.code;
             const group = await GroupSchema.findOne({code: groupCode});
             console.log(group);
-            if (group.leaderID == leaderID && kickID != leaderID){
+            if (group.leaderID == leaderID){
                 await GroupSchema.findOneAndUpdate({code: groupCode},{ "$pull": { "userID": kickID }});
                 await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "groupsID": group._id } });
                 await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "eventsID": group.eventID }});
                 return { status: 'Success', code: 200, message: 'User with id '+ kickID +'was kick from the group with id '+group._id , data: group }
-            }else if (kickID == leaderID){
-                return { status: 'Failed', code: 409, message: 'You can\'t kick yourself', data: {} }
-            }
-            
-            else{
+            } else{
                 return { status: 'Failed', code: 400, message: 'the user with id '+leaderID+' does not have the permissions to perform this action', data: {} }
             }
         } catch (error) {
@@ -237,6 +233,7 @@ const GroupService = {
     },
 
     async updateName(req){
+        console.log(req);
         try {
             const newName = req.body.nameGroup;
             const groupID = req.body.groupID;

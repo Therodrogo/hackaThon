@@ -53,11 +53,49 @@
                       max-width="700">
                       <v-card-title>
                         Nombre del grupo: {{n.name}}
-                        <v-btn @click="" fab small dark color="#00CCB1" v-if="save">
-                          <v-icon >
-                            mdi-pencil
-                          </v-icon>
-                        </v-btn>
+                        <v-dialog
+                          v-model="dialog"
+                          width="500">
+                          <template v-slot:activator="{ on, attrs }">
+                            <span class="px-6">
+                              <v-btn v-bind="attrs" v-on="on" fab small dark color="#00CCB1" v-if="save">
+                                <v-icon >
+                                  mdi-pencil
+                                </v-icon>
+                              </v-btn>
+                            </span>
+                          </template>
+                          <v-card>
+                            <v-card-title>
+                              Cambiar nombre del grupo:
+                            </v-card-title>
+                            <v-card-text>
+                              <v-text-field
+                                v-model="name"
+                                placeholder="Ingresar nuevo nombre"
+                                clereable>
+                              </v-text-field>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-btn
+                                @click="dialog = false"
+                                color="red" 
+                                class="white--text">
+                                Cancelar
+                              </v-btn>
+
+                              <v-btn
+                                @click="updateNameGroup(name, n._id) ; dialog = false ; clearName()"
+                                color=#009a82 
+                                class="white--text">
+                                  Aceptar
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                       </v-card-title>
                       <v-card-text class="text--primary">
                         Evento: {{n.eventID.name}}
@@ -105,9 +143,7 @@
                 <v-text-field
                   v-model="code"
                   label="Código de invitación"
-                  placeholder="Ingresar código"
-                >
-
+                  placeholder="Ingresar código">
                 </v-text-field>
                 <v-btn @click="joinGroupCode(code)" color = "#00CCB1" type="submit" large outlined>
                   <v-icon>
@@ -149,14 +185,16 @@
     export default {
         data (){
             return {
-              selectedGroup: "",
+                selectedGroup: "",
                 groups:[
 
                 ],
                 code: '',
                 snackbar:false,
                 text:'',
-                save: false
+                save: false,
+                dialog: false,
+                name: '',
             }
         },
         methods:{
@@ -167,6 +205,10 @@
               this.snackbar=true
               this.text = 'Escriba un código válido'
             }
+          },
+
+          clearName(){
+            this.name = ''
           },
 
           async isLeader(groupCode){
@@ -208,6 +250,7 @@
             } catch (error) {
               console.log(error)
             }
+            this.getGroupsUser(user.getUserId())
           },
 
           async joinGroupCode(code){
@@ -222,9 +265,27 @@
             } catch (error) {
               console.log(error)
             }
+            this.getGroupsUser(user.getUserId())
+          },
+
+          async updateNameGroup(name, id){
+
+            const req = {
+              groupName: name,
+              groupID: id,
+              userID: user.getUserId(),
+            }
+            try {
+              console.log(req)
+              const res = await API.updateNameGroup(req)
+            } catch (error) {
+              console.log(error)
+            }
+            this.getGroupsUser(user.getUserId())
           },
         }, beforeMount() {
             this.getGroupsUser(user.getUserId())
+            
         }
   }
 </script>
