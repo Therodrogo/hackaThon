@@ -71,7 +71,6 @@ import {usuarioStore, groupStore} from "../store/index.js"
           eventID: resEvent.data._id,
         };
         let result = await API.postGroup(data)
-        useGroupStore.setGroupID(result.data._id)
         Swal.fire({
           title: "Grupo "+this.Nombre+" creado",
           text: "El lider es: " + res.data.name,
