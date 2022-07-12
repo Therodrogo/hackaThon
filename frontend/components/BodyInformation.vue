@@ -1,11 +1,79 @@
 <template>
-  <div>
-    <v-container>
-        <v-layout>
-           
-        </v-layout>
-  </v-container>
-  </div>
+<div class="container" >
+  <v-layout row wrap>
+
+    <v-flex xs12 sm6>
+    <v-card
+      v-for="(item, i, index) in posts" v-if="i < total/2"
+      :key="item">
+
+      <v-card-text>
+        <div></div>
+        <p class="text-h4 text--primary">
+          {{item.title}}
+        </p>
+        <p>{{item.date}}</p>
+        <div class="text--primary">
+          {{item.description}}
+        </div>
+      </v-card-text>
+
+        <div>
+         <img
+            :src="item.imageUrl"
+            >
+        </div>
+
+      <v-card-actions>
+        <v-btn
+          text
+          color= #CC7C0A
+          @click="reveal = true"
+        >
+          Leer más
+        </v-btn>
+        </v-card-actions>
+    </v-card>
+    </v-flex>
+
+    <v-flex xs12 sm6>
+    <v-card
+      v-for="(item, i, index) in posts" v-if="i > total/2"
+      :key="item">
+
+      <v-card-text>
+        <div></div>
+        <p class="text-h4 text--primary">
+          {{item.title}}
+        </p>
+        <p>{{item.date}}</p>
+        <div class="text--primary">
+          {{item.description}}
+        </div>
+      </v-card-text>
+
+        <div>
+         <img
+            :src="item.imageUrl"
+            >
+        </div>
+
+      <v-card-actions>
+        <v-btn
+          text
+          color= #CC7C0A
+          @click="reveal = true"
+        >
+          Leer más
+        </v-btn>
+        </v-card-actions>
+
+
+    </v-card>
+    </v-flex>
+
+  </v-layout>
+</div>
 </template>
 
 <!-- Script del ciclo temporal para cada -->
@@ -15,11 +83,7 @@ import { onBeforeMount } from 'vue-demi';
 import API from '~/api';
  export default {
     data: () => ({
-      attrs: {
-        class: 'mb-6',
-        boilerplate: true,
-        elevation: 2,
-      },
+      total: 0,
       posts: {
 
       }
@@ -30,6 +94,8 @@ import API from '~/api';
       const post = await API.getAllPosts()
       this.posts = post.data
       console.log(this.posts)
+      this.total= this.posts.length
+      console.log(this.total)
     },
     }, beforeMount() {this.getAllPosts()}
   }
@@ -37,8 +103,17 @@ import API from '~/api';
     
 </script>
 
-<style>
-
-
+<style  scoped>
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
+}
+img{
+    width:50%;
+    max-width:200px;
+}
+.v-card{
+  margin: 20px;
+}
 
 </style>
