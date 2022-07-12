@@ -3,7 +3,6 @@
     <v-main class="white">
       <v-container>
        <br>
-
         <v-row>
           <v-col
             lg="4"
@@ -33,7 +32,7 @@
                     <v-list-item
                     v-for="n in groups"
                     :key="n">
-                      <v-btn @click="SelectGroup(n)" text min-width="100%" mx-auto>
+                      <v-btn @click="SelectGroup(n); isLeader(n.code)" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
                       
@@ -102,7 +101,7 @@
                           </v-card>
                         </v-dialog>
 
-                        <v-btn color = "white" small v-if="save">
+                        <v-btn to="/requestGroup" color = "white" small v-if="save">
                         Solicitudes
                           <v-badge color = "red" dot>
                             <v-icon>
@@ -196,6 +195,7 @@
     import {usuarioStore} from "../store/index.js"
     import {groupStore} from "../store/index.js"
     const grupoStore = groupStore()
+    const user = usuarioStore()
 
     export default {
         data (){
@@ -218,9 +218,9 @@
           SelectGroup(n){
             this.selectedGroup = n.name
             grupoStore.setGroupID(n._id)
-            console.log("---------")
+            //console.log("---------")
             console.log(grupoStore.getGroupIDId)
-            console.log("---------")
+            //console.log("---------")
           },
 
 
@@ -240,9 +240,10 @@
 
           async isLeader(groupCode){
             const req ={
-              userID: user.getUserId(),
+              userID: user.getUserId,
               code: groupCode
             }
+            console.log(req)
             try {
               const res = await API.isLeader(req)
               this.save = res.data
@@ -267,7 +268,7 @@
 
             const req = {
               userID: id,
-              leaderID: user.getUserId(),
+              leaderID: user.getUserId,
               code: code,
             }
             console.log(req);
@@ -277,21 +278,22 @@
             } catch (error) {
               console.log(error)
             }
-            this.getGroupsUser(user.getUserId())
+            this.getGroupsUser(user.getUserId)
           },
 
           async joinGroupCode(code){
             const req = {
               code: code,
-              userID: user.getUserId(),
+              userID: user.getUserId,
             }
             try {
               const res = await API.joinGroup(req)
               this.group = res.data
+
             } catch (error) {
               console.log(error)
             }
-            this.getGroupsUser(user.getUserId())
+            this.getGroupsUser(user.getUserId)
           },
 
           async updateNameGroup(name, id){
@@ -299,7 +301,7 @@
             const req = {
               nameGroup: name,
               groupID: id,
-              userID: user.getUserId(),
+              userID: user.getUserId,
             }
             try {
               const res = await API.updateNameGroup(req);
@@ -309,7 +311,7 @@
             } catch (error) {
               console.log(error)
             }
-            this.getGroupsUser(user.getUserId())
+            this.getGroupsUser(user.getUserId)
           },
         }, beforeMount() {
             const user = usuarioStore()

@@ -43,8 +43,7 @@
                                     <v-btn @click="SelectedReq(n)"  text min-width="50%" mx-auto>
                                         {{n.name}}
                                     </v-btn>
-                                    <v-btn @click="AcceptRequest(n)" class='white--text ml-5 mr-5' color="#00ff00">aceptar</v-btn>
-                                    <v-btn @click="DeclineRequest(n)" class='white--text ' color="#ff0000">denegar</v-btn>
+                                    
                                 </v-list-item>
 
                                 
@@ -57,7 +56,8 @@
                 <v-sheet
                 height="500"
                 rounded="lg"
-                color="#00CCB1">
+                color="white"
+                >
                     <template v-slot>
                         <span
                         v-for="(n,f) in Request"
@@ -65,14 +65,15 @@
                         <p v-if="n.name == selectedRequest" >
                             <v-card
                             class="mx-auto"
-                            max-width="700">
+                            max-width="700"
+                            >
                             <v-card-title >
                                 Nombre: {{n.name}}
                             </v-card-title>
                             <v-card-text class="text--primary">
                                 Descripcion: {{n.description}}
                             </v-card-text>
-                                <v-btn @click="AcceptRequest(n)" class="white--text mx-auto ml-5 mr-5"  color="#00ff00">aceptar</v-btn>
+                                <v-btn @click="AcceptRequest(n)" class="white--text mx-auto ml-5 mr-5"  color="#00CCB1">aceptar</v-btn>
                                 <v-btn @click="DeclineRequest(n)" class="white--text mx-auto"  color="#ff0000">denegar</v-btn>
                                 <v-divider class="my-2"></v-divider>
                             </v-card>
