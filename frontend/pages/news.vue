@@ -30,7 +30,7 @@
           :key="post.title"
           :flex = "12"
         >
-          <v-card class= "cards" to ="loginWindow" @click="change()">
+          <v-card class= "cards" to ="/news" @click="selectNews(post._id)">
             <v-img
               :src="post.imageUrl"
               class="white--text align-end"
@@ -55,7 +55,11 @@
 </template>
 
 <script>
-import API from '~/api'
+import {newsStore} from "../store/index.js";
+import API from '~/api';
+
+const ns = newsStore();
+
 export default {
   data: () => ({
     post: undefined,
@@ -65,12 +69,14 @@ export default {
     description: undefined,
     imageUrl: '',
     title: undefined,
+    id : ''
 
   }),
   methods: {
     async getData() {
-      const id = '62bd096b61f11be4645b8d5b'
-      let post = await API.getPostByID(id);
+      this.id = ns.getNewId;
+      console.log(this.id);
+      let post = await API.getPostByID(this.id);
       let allPost = await API.getAllPosts();
       this.allPosts = allPost.data;
       this.post = post.data;
@@ -108,7 +114,7 @@ export default {
 
     },
 
-    async getRandomInt(mini, maxi) {
+    getRandomInt(mini, maxi) {
         let min = Math.ceil(mini);
         let max = Math.floor(maxi);
         return Math.floor(Math.random() * (max - min) + min);
@@ -116,7 +122,13 @@ export default {
 
     async change(){
         console.log("change");
-        
+
+    },
+
+    selectNews(newsID){
+        ns.setNews(newsID)
+        console.log(ns.selectNews);
+        this.$forceUpdate();
     }
     
   },

@@ -25,13 +25,15 @@
         </div>
 
       <v-card-actions>
+        <nuxt-link to='/news'>
         <v-btn
           text
           color= #CC7C0A
-          @click="reveal = true"
+          @click="selectPost(item._id) ;reveal = true"
         >
           Leer más
         </v-btn>
+        </nuxt-link>
         </v-card-actions>
     </v-card>
     </v-flex>
@@ -59,14 +61,17 @@
         </div>
 
       <v-card-actions>
+        <nuxt-link to='/news'>
         <v-btn
           text
           color= #CC7C0A
-          @click="reveal = true"
+          @click="selectPost(item._id) ; reveal = true"
         >
           Leer más
         </v-btn>
+        </nuxt-link>
         </v-card-actions>
+        
 
 
     </v-card>
@@ -80,6 +85,7 @@
 <script>
 
 import { onBeforeMount } from 'vue-demi';
+import {newsStore} from "../store/index.js"
 import API from '~/api';
  export default {
     data: () => ({
@@ -97,6 +103,14 @@ import API from '~/api';
       this.total= this.posts.length
       console.log(this.total)
     },
+
+    selectPost(postID){
+      const ns = newsStore()
+      ns.setNews(postID)
+      console.log(ns.selectNews);
+    }
+
+
     }, beforeMount() {this.getAllPosts()}
   }
     
