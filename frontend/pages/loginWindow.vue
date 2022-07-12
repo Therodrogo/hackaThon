@@ -81,12 +81,20 @@ export default {
           userLogged.setUser(userData._id)
           userLogged.setStatus('active')
           userLogged.setName(userData.name)
+          userLogged.setRole(userData.role)
           Swal.fire({
             title: "Bienvenido " + userData.name,
             text: "Tu rol es: " + userData.role,
             icon: "success",
           })
-          this.$router.push({ path: '/userGroups' })
+          
+          if(user.data.role=="Participante"){
+            this.$router.push({ path: '/userGroups' })
+          }
+          else if(user.data.role=="Administrador"){
+             this.$router.push({ path: '/adminMenu' })
+          }
+          
         }
         else {
            this.$emit("logeado");

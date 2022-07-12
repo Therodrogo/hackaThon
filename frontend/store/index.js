@@ -1,11 +1,14 @@
 import { defineStore } from "pinia";
-import { useLocalStorage } from "@vueuse/core";
+import { useLocalStorage} from "@vueuse/core";
+import { mdiFlaskEmptyMinusOutline } from "@mdi/js";
+
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
         id: useLocalStorage('id', ''),
         status: useLocalStorage('status', ''),
         name: useLocalStorage('name', ''),
+        role: useLocalStorage('role','')
     }),
 
     actions:{
@@ -22,6 +25,10 @@ export const usuarioStore = defineStore('usuarioStore', {
           this.id=''
           this.name=''
           this.status=''
+          this.role=''
+        },
+        setRole(UserRole){
+          this.role=UserRole;
         }
     },
 
@@ -35,6 +42,9 @@ export const usuarioStore = defineStore('usuarioStore', {
       getStatus(state){
         return state.status==='active';
       },
+      getUserRole(state){
+        return state.role;
+      }
      
     },
   })

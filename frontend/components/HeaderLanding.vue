@@ -66,6 +66,7 @@
             </div>
 
           </nuxt-link>
+          
 
 
           <!-- Header -->
@@ -88,8 +89,19 @@
                   </p>
                 </v-btn>
               </template>
-              <v-list shaped>
+              <v-list shaped v-if="userType=='Participante'">
                 <v-list-item v-for="(item, index) in items2" :key="index">
+
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <nuxt-link :to="item.to">
+                    <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                  </nuxt-link>
+                </v-list-item>
+              </v-list>
+              <v-list shaped v-if="userType=='Administrador'">
+                <v-list-item v-for="(item, index) in items4" :key="index">
 
                   <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
@@ -193,9 +205,20 @@
                   </template>
 
 
-                  <v-list shaped>
+                  <v-list shaped v-if="userType=='Participante'">
 
                     <v-list-item v-for="(item, index) in items" :key="index">
+
+                      <nuxt-link :to="item.to">
+                        <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                      </nuxt-link>
+                    </v-list-item>
+
+
+                  </v-list>
+                  <v-list shaped v-if="userType=='Administrador'">
+
+                    <v-list-item v-for="(item, index) in items3" :key="index">
 
                       <nuxt-link :to="item.to">
                         <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
@@ -230,6 +253,7 @@ export default {
   data() {
     return {
       drawer: false,
+      
       user: "Iniciar Sesion",
       user2: "Crear Usuario",
       items: [
@@ -241,6 +265,19 @@ export default {
       items2: [
         { title: 'Editar perfil', to: "/editUser", icon: 'mdi-grease-pencil'},
         { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
+        { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
+      ],
+      items3: [
+        { title: 'Editar perfil', to: "/editUser"},
+        { title: 'Mis grupos', to: "/userGroups"},
+        { title: 'Menu Administrador', to: "/AdminMenu"},
+        { title: 'Cerrar sesión', to: "/"},
+      ],
+
+      items4: [
+        { title: 'Editar perfil', to: "/editUser", icon: 'mdi-grease-pencil'},
+        { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
+        { title: 'Menu Administrador', to: "/AdminMenu", icon: 'mdi-account-key' },
         { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
       ],
 
@@ -258,6 +295,12 @@ export default {
       const user = usuarioStore()
       return user.getStatus;
     },
+    userType(){
+      const user = usuarioStore() 
+     
+      console.log("Es Participante "+ user.getUserRole)
+      return user.getUserRole;
+    }
   },
   
   props: {
@@ -265,12 +308,25 @@ export default {
     menuAdministrador: Boolean,
     posicionMono: String,
   },
-  
+
+  watch: {
+    quitarBotones() {
+      return user.getStatus;
+    },
+    
+  },
   methods: {
     //Actualiza los botones al deslogearse
     logout: (index) => {
+      const user = usuarioStore() 
       //Si presiona el boton 2, cerrar sesión, cerramos la sesión :s
-      if (index == 2) {
+      console.log(user.getUserRole)
+      if (index == 2 && user.getUserRole=="Participante") {
+        console.log("logout")
+        const user = usuarioStore()
+        user.logout()
+      }
+      if (index == 3 && user.getUserRole=="Administrador") {
         console.log("logout")
         const user = usuarioStore()
         user.logout()
