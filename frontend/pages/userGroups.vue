@@ -130,7 +130,7 @@
                             </v-list-item-title>
 
                             <v-list-item-action >
-                              <v-btn @click="kickMember(i._id, n.code) ; " small dark color="red" v-if="save" >
+                              <v-btn @click="kickMember(i._id, n._id) ; " small dark color="red" v-if="save" >
                                 Expulsar
                               </v-btn>
                             </v-list-item-action>
@@ -264,16 +264,15 @@
             }
           },
 
-          async kickMember(id, code){
+          async kickMember(id, idG){
 
             const req = {
               userID: id,
-              leaderID: user.getUserId,
-              code: code,
+              groupID: idG,
             }
             console.log(req);
             try {
-              const res = await API.kickMember(req);
+              const res = await API.leaveGroup(req);
               this.group = res.data;
             } catch (error) {
               console.log(error)

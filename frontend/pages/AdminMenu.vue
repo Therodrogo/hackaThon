@@ -205,14 +205,7 @@
                                                     >
                                                     Publicar Evento
                                                 </v-btn>
-                                                <v-btn
-                                                    rounded elevation="2"
-                                                    color="error"
-                                                    class="mr-4"
-                                                    @click="reset"
-                                                    >
-                                                    Reiniciar formulario
-                                                </v-btn> 
+                                                
                                             </v-col>                                                                                    
                                         </v-form>
                                     </v-col>
