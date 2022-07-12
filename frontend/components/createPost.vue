@@ -1,48 +1,50 @@
-<template>
-   
+<template> 
+
   <v-container class="fill-height">
-    
-    
+
     <v-row>
-        <v-text-field
-            v-model="Tittle"
-            label="Título"
-            :rules="TittleRules"
-            :counter="40"
-            required
-        ></v-text-field>
+      <v-text-field
+        v-model="Tittle"
+        label="Título"
+        :rules="TittleRules"
+        :counter="40"
+        required
+        prepend-icon="mdi-pencil"
+      ></v-text-field>
     </v-row>
+
     <v-row>
-        <v-container fluid>
-          <v-textarea
-            autocomplete="Descripción"
-            label="Descripción"
-            v-model="Description"
-            :rules="DescriptionRules"
-            :counter="1000"
-            required
-          ></v-textarea>
-        </v-container>
-    </v-row>    
+      <v-textarea
+        autocomplete="Descripción"
+        label="Descripción"
+        v-model="Description"
+        prepend-icon="mdi-comment-text-outline"
+        :rules="DescriptionRules"
+        :counter="1000"
+        required
+      ></v-textarea>
+    </v-row>   
+
     <v-row>
-            <v-text-field
-              label="ImagenURL"           
-              v-model="ImageURL"
-              :rules="ImageURLRules"
-              
-              
-            ></v-text-field>
-            
-            
-            
-              <v-icon  @click="createPost" color = "#00CCB1" size="50px" >
-                  mdi-arrow-left-drop-circle
-              </v-icon>
-            
-        </v-row>
-          
-  </v-container>
-  
+      <v-text-field
+        label="ImagenURL"           
+        v-model="ImageURL"
+        :rules="ImageURLRules"
+        prepend-icon="mdi-file-image"
+      ></v-text-field> 
+    </v-row>
+
+    <v-col align="center">
+      <v-btn
+        rounded elevation="2" 
+        color = "#00CCB1"
+        @click="createPost"
+        >CREAR ANUNCIO
+      </v-btn>
+    </v-col>   
+
+  </v-container> 
+ 
 </template>
 
 <script>
@@ -64,7 +66,7 @@ import swal from 'sweetalert'
         ImageURL:"",
         ImageURLRules:[
            v => !!v || 'Una imagen es requerida',
-           v => /.png/.test(v) || /.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
+           v => /.+.png/.test(v) || /.+.jpg/.test(v) || 'La URL debe finalizar en "jpg" o "png"',
         ],
         
              

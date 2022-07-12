@@ -135,7 +135,7 @@ export default {
     passwordRules: [
       v => !!v || 'Contraseña es requerida',
       v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*(\W|_)+)(?=.{5,})/.test(v)
-        || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y una caracter especial',
+        || 'Min. 5 caracteres con al menos una mayúscula, una minúscula, un número y un caracter especial',
     ],
   }),
   computed: {
