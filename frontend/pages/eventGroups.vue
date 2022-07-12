@@ -73,7 +73,6 @@ import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
 const eventoStore = eventStore()
 const userStore = usuarioStore()
-const activeStore = usuarioActivo()
   export default {
     data () {
       return {
@@ -218,7 +217,8 @@ const activeStore = usuarioActivo()
       try {
 
         const res = await API.getEventByID(eventoStore.getEventId);
-       
+        //console.log(userStore.getStatus());
+       this.noLogueado = !(userStore.getStatus);
 
 
 

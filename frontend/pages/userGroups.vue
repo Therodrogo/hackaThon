@@ -45,8 +45,8 @@
               color="#00CCB1">
               <template v-slot>
                 <span
-                v-for="n in groups"
-                :key="n">
+                v-for="(n,i) in groups"
+                :key="i">
                   <p v-if="n.name == selectedGroup">
                     <v-card
                       class="mx-auto"
@@ -138,6 +138,9 @@
 <script>
     import API from '~/api';
     import {usuarioStore} from "../store/index.js"
+    import {groupStore} from "../store/index.js"
+    const grupoStore = groupStore()
+
     export default {
         data (){
             return {
@@ -153,7 +156,10 @@
         methods:{
           SelectGroup(n){
             this.selectedGroup = n.name
-            user.setGroupId(n._id)
+            grupoStore.setGroupID(n._id)
+            console.log("---------")
+            console.log(grupoStore.getGroupIDId)
+            console.log("---------")
           },
 
 

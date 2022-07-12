@@ -99,10 +99,10 @@ import Swal from 'sweetalert2';
 import {usuarioStore} from "../store/index.js"
 import {usuarioActivo} from "../store/index.js"
 import {eventStore} from "../store/index.js"
+import {groupStore} from "../store/index.js"
 const userStore = usuarioStore()
-const activeStore = usuarioActivo()
 const eventoStore = eventStore()
-
+const grupoStore = groupStore()
   export default {
     data () {
       return {
@@ -129,8 +129,9 @@ const eventoStore = eventStore()
 
         async getEventByID(){
             try {
-                const gp = await API.getGroupByID(userStore.getGroupId())
-                const cosa = await API.getRequestGroup({groupID: userStore.getGroupId()})
+                console.log(grupoStore.groupID)
+                const gp = await API.getGroupByID(grupoStore.groupID)
+                const cosa = await API.getRequestGroup({groupID: grupoStore.groupID})
                 //const cosa = await API.getRequests();
                 this.Request = []
                 console.log(cosa.data);
@@ -144,7 +145,8 @@ const eventoStore = eventStore()
             }
         },
         async AcceptRequest(data){
-            const gp = await API.getGroupByID(userStore.getGroupId())
+            
+            const gp = await API.getGroupByID(grupoStore.groupID)
             if(gp.data.userID.length <= 5){
                 
                 await API.acceptRequest({requestID: data._id,leaderID: data.leader});
@@ -178,6 +180,7 @@ const eventoStore = eventStore()
 
 
     }, beforeMount() {
+        console.log("hola")
       this.getEventByID()
     }
   }
