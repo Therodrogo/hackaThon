@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url="https://server-dot-hackathon-construccionu3.rj.r.appspot.com/"
+const url="http://localhost:9000/"
 export default class API{
     //UserMethods
     static async postUser(data){
