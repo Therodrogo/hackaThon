@@ -84,4 +84,21 @@ export const groupStore = defineStore('groupStore', {
   }
 })
 
+export const newsStore = defineStore('newsStore', {
+  state: () => ({
+      selectNews: useLocalStorage('selectNews', ''),
+  }),
+  actions:{
+      setNews(newsID){
+          this.selectNews = newsID      
+      },
+  },
+  getters:{
+      getNewId(state){
+          return state.selectNews
+      }
+
+  }
+})
+
 
