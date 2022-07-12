@@ -71,7 +71,6 @@ import Swal from 'sweetalert2';
 
 import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
-import {usuarioActivo} from "../store/index.js"
 const eventoStore = eventStore()
 const userStore = usuarioStore()
 const activeStore = usuarioActivo()
@@ -219,13 +218,7 @@ const activeStore = usuarioActivo()
       try {
 
         const res = await API.getEventByID(eventoStore.getEventId);
-        console.log(eventoStore.getEventId+ " aqui");
-        //const userdata = await API.getUserByID(userStore.getUserId);
-        console.log(userStore.id);
-
-        console.log("sadhsjkdjkahdkhaskdhajhdashdkhsakdhkj")
-        this.noLogueado = activeStore.noLogueado; // aca se comprueba si esta el usuario logeado
-        //console.log(usuarioStore);
+       
 
 
 
