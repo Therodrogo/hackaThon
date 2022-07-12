@@ -248,6 +248,7 @@ export default {
     }
   },
 
+  
   computed:{
     usuarioActivoComputed() {
       const user = usuarioStore()
@@ -264,12 +265,7 @@ export default {
     menuAdministrador: Boolean,
     posicionMono: String,
   },
-
-  watch: {
-    quitarBotones() {
-      return user.getStatus;
-    },
-  },
+  
   methods: {
     //Actualiza los botones al deslogearse
     logout: (index) => {

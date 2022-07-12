@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useLocalStorage} from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core";
 
 export const usuarioStore = defineStore('usuarioStore', {
     state: () => ({
@@ -27,7 +27,6 @@ export const usuarioStore = defineStore('usuarioStore', {
 
     getters:{
       getUserId(state){
-        console.log(this.id);
         return state.id;
       },
       getName(state){
@@ -42,8 +41,8 @@ export const usuarioStore = defineStore('usuarioStore', {
 
 export const eventStore = defineStore('eventStore', {
     state: () => ({
-        selectEvent:null,
-        evento:null
+        selectEvent: useLocalStorage('selectEvent', ''),
+        evento: useLocalStorage('evento', '')
     }),
     actions:{
         setEvent(eventId){
@@ -56,6 +55,23 @@ export const eventStore = defineStore('eventStore', {
         }
 
     }
+})
+
+export const groupStore = defineStore('groupStore', {
+  state: () => ({
+      groupID: useLocalStorage('groupID', ''),
+  }),
+  actions:{
+      setGroupID(id){
+          this.groupID = id
+      },
+  },
+  getters:{
+      getGroupIDId(state){
+          return state.groupID
+      }
+
+  }
 })
 
 
