@@ -29,7 +29,7 @@
                     <v-list-item
                     v-for="n in groups"
                     :key="n">
-                      <v-btn @click="selectedGroup = n.name" text min-width="100%" mx-auto>
+                      <v-btn @click="SelectGroup(n)" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
                     </v-list-item>
@@ -154,6 +154,13 @@
             }
         },
         methods:{
+          SelectGroup(n){
+            this.selectedGroup = n.name
+            user.setGroupId(n._id)
+          },
+
+
+
           takeCode(){
             const codigo = this.code
             console.log(codigo)
