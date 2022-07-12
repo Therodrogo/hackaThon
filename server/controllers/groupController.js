@@ -1,6 +1,6 @@
 
 
-const { kickMember } = require('../services/groupService');
+const { kickMember, updateVisibility } = require('../services/groupService');
 const GroupService = require('../services/groupService');
 
 
@@ -102,6 +102,28 @@ const GroupController = {
     async kickMember(req,res){
         await GroupService
         .kickMember(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+    },
+
+    async updateName(req,res){
+        await GroupService
+        .updateName(req)
+        .then((result) => {
+            res.status(result.code).json(result);
+        })
+        .catch((err) => {
+            res.status(err.code).json(err);
+        });
+    },
+
+    async updateVisibility(req,res){
+        await GroupService
+        .updateVisibility(req)
         .then((result) => {
             res.status(result.code).json(result);
         })

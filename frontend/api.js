@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url='http://localhost:9000/'
+const url="http://localhost:9000/"
 export default class API{
     //UserMethods
     static async postUser(data){
@@ -200,6 +200,24 @@ export default class API{
             return error.response.data
         }
 
+    }
+
+    static async updateNameGroup(data){
+        try {
+            const res = await axios.post(url+"group/updateName",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async updateVisibility(data){
+        try {
+            const res = await axios.post(url+"group/updateVisibility",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
     }
 
 
