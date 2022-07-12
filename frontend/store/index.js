@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import Swal from 'sweetalert2';
 
 //Store para el usuario Activo en el navbar
 export const usuarioActivo = defineStore('usuario', {
@@ -33,8 +34,8 @@ export const usuarioStore = defineStore('usuarioStore', {
             return false;
           }else{
             if (userSignUp.code==200){
-              this.status = 'active';
               this.id = JSON.stringify(userSignUp.data._id);
+              this.status = "active";
               Swal.fire({
                     title: "Bienvenido "+ userSignUp.data.name,
                     text: "Tu rol es: "+ userSignUp.data.role,
@@ -58,7 +59,7 @@ export const usuarioStore = defineStore('usuarioStore', {
           this.id = userID;
         },
         setStatus(status){
-        this.status = status;
+          this.status = status;
         },
         logout(){
           localStorage.clear();

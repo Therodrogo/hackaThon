@@ -80,18 +80,18 @@ export default {
         const user = await API.signUpUser({ "mail": this.email, "password": this.password });
         console.log(user)
         if (user.code == 200) {
-          let usuario = user.data
+          let userData = user.data
           Swal.fire({
-            title: "Bienvenido " + usuario.name,
-            text: "Tu rol es: " + usuario.role,
+            title: "Bienvenido " + userData.name,
+            text: "Tu rol es: " + userData.role,
             icon: "success",
           })
-          console.log("Se logueo " +  usuario.name)
+          console.log("Ha ingresado " +  userData.name)
           const usuarioLogeado = usuarioActivo()
-          usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, usuario.name )
+          usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, userData.name )
 
           const userLogged = usuarioStore()
-          userLogged.setUser(usuario._id)
+          userLogged.setUser(userData._id)
           userLogged.setStatus('active')
 
           this.$router.push({ path: '/userGroups' })
@@ -99,13 +99,13 @@ export default {
         }
         else {
            this.$emit("logeado");
-          swal({
+          Swal({
             title: "Credenciales incorrectas",
             icon: "error",
           });
         }
       } else {
-        swal({
+        Swal({
           title: "Ha ocurrido un error",
           text: "Debes ingresar las credenciales",
           icon: "error",

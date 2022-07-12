@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url="https://server-dot-hackathon-construccionu3.rj.r.appspot.com/"
+const url="http://localhost:9000/"
 export default class API{
     //UserMethods
     static async postUser(data){
@@ -213,6 +213,7 @@ export default class API{
             return error.response.data
         }
     }
+
     static async getAllPosts(){
 
         try {
@@ -222,8 +223,6 @@ export default class API{
         } catch (error) {
             return error.response.data
         }
-
-
     }
     static async getPostByID(id){
         try {

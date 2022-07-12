@@ -2,17 +2,13 @@
    
   <v-container class="fill-height">
     
-    <v-row>
-        <v-text-field
-            label="Regular"
-        ></v-text-field>
-    </v-row>
+    
     <v-row>
         <v-text-field
             v-model="Tittle"
             label="Título"
             :rules="TittleRules"
-            :counter="20"
+            :counter="40"
             required
         ></v-text-field>
     </v-row>
@@ -23,7 +19,7 @@
             label="Descripción"
             v-model="Description"
             :rules="DescriptionRules"
-            :counter="300"
+            :counter="1000"
             required
           ></v-textarea>
         </v-container>
@@ -36,17 +32,13 @@
               
               
             ></v-text-field>
-            <v-btn
-            class="mx-2"
-            fab
-            dark
-            color="indigo"
-            @click="createPost"
-            >
-            <v-icon color = "#00CCB1">
-                mdi-arrow-left-drop-circle
-            </v-icon>
-            </v-btn>
+            
+            
+            
+              <v-icon  @click="createPost" color = "#00CCB1" size="50px" >
+                  mdi-arrow-left-drop-circle
+              </v-icon>
+            
         </v-row>
           
   </v-container>
@@ -62,12 +54,12 @@ import swal from 'sweetalert'
         Tittle:"",
         TittleRules:[
           v => !!v || 'Un titulo es necesario',
-          v => v.length>=10 && v.length <= 20 || 'El titulo debe tener entre 10 y 20 caracteres',
+          v => v.length>=4 && v.length <= 40 || 'El titulo debe tener entre 4 y 40 caracteres',
         ],
         Description:"",
         DescriptionRules:[
            v => !!v || 'Una descripcion es requerida',
-           v => v.length>=50 && v.length <= 300 || 'La descripción debe tener como minimo 50 caracteres',
+           v => v.length>=50 && v.length <= 1000 || 'La descripción debe tener como minimo 50 caracteres',
         ],
         ImageURL:"",
         ImageURLRules:[
@@ -88,7 +80,7 @@ import swal from 'sweetalert'
           console.log(formatvalid)
       
         
-        if((this.Tittle.length>=10 && this.Tittle.length <= 20) && (this.Description.length>=50 && this.Description.length <= 300) && formatvalid){
+        if((this.Tittle.length>=4 && this.Tittle.length <= 40) && (this.Description.length>=50 && this.Description.length <= 1000) && formatvalid){
             const res = await API.postPost(
               {
                 "title":this.Tittle ,

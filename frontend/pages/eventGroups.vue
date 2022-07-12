@@ -3,7 +3,7 @@
     <v-main class="white">
       <v-container>
         <v-row>
-          <v-col 
+          <v-col
             lg="9"
             md="9"
             sm="9"
@@ -27,19 +27,19 @@
                     prepend-icon='mdi-card-search-outline'
                     label='Buscar Grupo'
                     v-model="findgroup"
-                    
-                    
-                    
+
+
+
                     ></v-text-field>
                     <v-list-item  v-for= "(n,i) in FilterGroups" :key="i"  >
-                       
-                      
+
+
                         <v-btn  @click="selectedGroup = n.name"  left min-width="100%">
                           {{n.name}}
                         </v-btn>
                         <h3 class='text-center ml-5 mr-5'> {{n.count}}/5 </h3>
                         <v-btn   v-if="n.count < grouplimit && !noLogueado" @click = SendRequest(n)>+</v-btn>
-                      
+
 
                     </v-list-item>
                 </v-list-item-group>
@@ -68,8 +68,9 @@
   </v-app>
 </template>
 
-<script> 
+<script>
 import API from '~/api'
+import Swal from 'sweetalert2';
 
 import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
@@ -81,9 +82,9 @@ const activeStore = usuarioActivo()
     data () {
       return {
         grouplimit:5,
-        findgroup:"", 
+        findgroup:"",
         selectedGroup: "los vios",
-        groups:[ 
+        groups:[
         ],
         noLogueado : true,
         code: 400,
@@ -93,7 +94,7 @@ const activeStore = usuarioActivo()
           v => [this.findgroup].test(v),
         ],
       }
-    }, 
+    },
     computed:{
       FilterGroups(){
         return this.groups.filter(newgroup =>{
@@ -109,16 +110,16 @@ const activeStore = usuarioActivo()
 
           //n.userID.push({name:userStore.user.name})
           //console.log(userStore.user.name);
-          const local = await API.getUserByID(userStore.user); 
-          console.log(local.data); 
+          const local = await API.getUserByID(userStore.user);
+          console.log(local.data);
           let data = {
             postulant:local.data._id,
             description: "el usuario "+local.data.name+ " quiere unirse ",
             groupID:n.id,
           }
           console.log(n.id);
-          let result = await API.postRequest(data);   
- 
+          let result = await API.postRequest(data);
+
           if (typeof result === 'undefined') {
             Swal.fire({
               title: 'Ha ocurrido un error de conexión',
@@ -127,7 +128,7 @@ const activeStore = usuarioActivo()
             });
         }else {
           if (result.code == 200) {
-            swal({
+            Swal.fire({
               title: "Solicitud enviada",
               text: "a "+n.name,
               icon: "success",
@@ -141,27 +142,27 @@ const activeStore = usuarioActivo()
 
 
 
-      
+
       async getEventByID(){
       try {
-        
+
         const res = await API.getEventByID(eventoStore.getEventId);
         console.log(eventoStore.getEventId+ " aqui");
         //const userdata = await API.getUserByID(userStore.getUserId);
         console.log(userStore.user);
-        
+
         console.log("sadhsjkdjkahdkhaskdhajhdashdkhsakdhkj")
         this.noLogueado = activeStore.noLogueado; // aca se comprueba si esta el usuario logeado
         //console.log(usuarioStore);
-        
-        
-        
+
+
+
 
         this.grouplimit = res.data.groupLimit;
 
         //const cosa = await API.getAllGroups();
         const cosa = await API.getGroupsFromEvent(eventoStore.getEventId); // ACTUALMENTE  USADA
-        console.log(cosa.data); 
+        console.log(cosa.data);
         cosa.data.forEach  (async n => {
             console.log(n._id+" si");
             const gro = await API.getGroupByID(n._id);
@@ -172,13 +173,13 @@ const activeStore = usuarioActivo()
         });
 
 
-       
+
         console.log(res.data);
 
-        
+
       } catch (error) {
-        
-      }  
+
+      }
       }
 
     }, beforeMount() {
@@ -188,6 +189,6 @@ const activeStore = usuarioActivo()
 
   }
 
-    
-    
+
+
 </script>
