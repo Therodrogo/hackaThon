@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url="http://localhost:9000/"
+const url='http://localhost:9000/'
 export default class API{
     //UserMethods
     static async postUser(data){
