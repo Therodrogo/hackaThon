@@ -7,7 +7,7 @@
         v-model="Tittle"
         label="Título"
         :rules="TittleRules"
-        :counter="40"
+        :counter="100"
         required
         prepend-icon="mdi-pencil"
       ></v-text-field>
@@ -56,7 +56,7 @@ import swal from 'sweetalert'
         Tittle:"",
         TittleRules:[
           v => !!v || 'Un titulo es necesario',
-          v => v.length>=4 && v.length <= 40 || 'El titulo debe tener entre 4 y 40 caracteres',
+          v => v.length>=4 && v.length <= 100 || 'El titulo debe tener entre 4 y 100 caracteres',
         ],
         Description:"",
         DescriptionRules:[
@@ -82,7 +82,7 @@ import swal from 'sweetalert'
           console.log(formatvalid)
       
         
-        if((this.Tittle.length>=4 && this.Tittle.length <= 40) && (this.Description.length>=50 && this.Description.length <= 1000) && formatvalid){
+        if((this.Tittle.length>=4 && this.Tittle.length <= 100) && (this.Description.length>=50 && this.Description.length <= 1000) && formatvalid){
             const res = await API.postPost(
               {
                 "title":this.Tittle ,
