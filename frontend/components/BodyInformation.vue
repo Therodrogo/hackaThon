@@ -40,10 +40,11 @@
 
     <v-flex xs12 sm6>
     <v-card
-      v-for="(item, i, index) in posts" v-if="i > total/2"
+      v-if="i >= total/2 " v-for="(item, i, index) in posts" 
+      
       :key="item">
 
-      <v-card-text>
+      <v-card-text >
         <div></div>
         <p class="text-h4 text--primary">
           {{item.title}}
