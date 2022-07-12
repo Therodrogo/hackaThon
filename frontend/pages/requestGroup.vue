@@ -43,8 +43,8 @@
                                     <v-btn @click="SelectedReq(n)"  text min-width="50%" mx-auto>
                                         {{n.name}}
                                     </v-btn>
-                                    <v-btn @click="AcceptRequest(n)" class=' ml-5 mr-5' color="#00ff00">aceptar</v-btn>
-                                    <v-btn @click="DeclineRequest(n)" color="#ff0000">denegar</v-btn>
+                                    <v-btn @click="AcceptRequest(n)" class='white--text ml-5 mr-5' color="#00ff00">aceptar</v-btn>
+                                    <v-btn @click="DeclineRequest(n)" class='white--text ' color="#ff0000">denegar</v-btn>
                                 </v-list-item>
 
                                 
@@ -72,8 +72,11 @@
                             <v-card-text class="text--primary">
                                 Descripcion: {{n.description}}
                             </v-card-text>
-                            
+                                <v-btn @click="AcceptRequest(n)" class="white--text mx-auto ml-5 mr-5"  color="#00ff00">aceptar</v-btn>
+                                <v-btn @click="DeclineRequest(n)" class="white--text mx-auto"  color="#ff0000">denegar</v-btn>
+                                <v-divider class="my-2"></v-divider>
                             </v-card>
+                            
                         </p>
                         </span>
                     </template>
@@ -96,10 +99,10 @@ import Swal from 'sweetalert2';
 import {usuarioStore} from "../store/index.js"
 import {usuarioActivo} from "../store/index.js"
 import {eventStore} from "../store/index.js"
+import {groupStore} from "../store/index.js"
 const userStore = usuarioStore()
-const activeStore = usuarioActivo()
 const eventoStore = eventStore()
-
+const grupoStore = groupStore()
   export default {
     data () {
       return {
@@ -126,12 +129,14 @@ const eventoStore = eventStore()
 
         async getEventByID(){
             try {
-                const gp = await API.getGroupByID("62c914215384ad085d39f3a5")
-                const cosa = await API.getRequestGroup({groupID: "62c914215384ad085d39f3a5"})
-                //const cosa = await API.getAllGroups();
+                console.log(grupoStore.groupID)
+                const gp = await API.getGroupByID(grupoStore.groupID)
+                const cosa = await API.getRequestGroup({groupID: grupoStore.groupID})
+                //const cosa = await API.getRequests();
                 this.Request = []
                 console.log(cosa.data);
                 cosa.data.forEach  (async n => {
+                    //await API.deleteRequestById(n._id)
                     const local = await API.getUserByID(n.postulant);
                     this.Request.push({_id: n._id,postulant: n.postulant,leader: gp.data.leaderID,name: local.data.name,description: n.description});
                 });
@@ -140,7 +145,8 @@ const eventoStore = eventStore()
             }
         },
         async AcceptRequest(data){
-            const gp = await API.getGroupByID("62c914215384ad085d39f3a5")
+            
+            const gp = await API.getGroupByID(grupoStore.groupID)
             if(gp.data.userID.length <= 5){
                 
                 await API.acceptRequest({requestID: data._id,leaderID: data.leader});
@@ -174,6 +180,7 @@ const eventoStore = eventStore()
 
 
     }, beforeMount() {
+        console.log("hola")
       this.getEventByID()
     }
   }

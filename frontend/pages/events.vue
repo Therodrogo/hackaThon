@@ -52,9 +52,6 @@
 <script>
 
   import {eventStore} from "../store/index.js"
-
-  const eventoStore = eventStore()
-
   import API from '~/api';
   export default {
     data (){
@@ -74,7 +71,7 @@
         }
       },
       selectEvent(eventId){
-        
+        const eventoStore = eventStore()
         eventoStore.setEvent(eventId)
         console.log(eventoStore.selectEvent)
 

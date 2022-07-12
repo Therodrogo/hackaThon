@@ -33,8 +33,7 @@
                     <v-list-item
                     v-for="n in groups"
                     :key="n">
-                    
-                      <v-btn @click="selectedGroup = n.name ; isLeader(n.code)" text min-width="100%" mx-auto>
+                      <v-btn @click="SelectGroup(n)" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
                       
@@ -51,8 +50,8 @@
               color="#00CCB1">
               <template v-slot>
                 <span
-                v-for="n in groups"
-                :key="n">
+                v-for="(n,i) in groups"
+                :key="i">
                   <p v-if="n.name == selectedGroup">
                     <v-card
                       class="mx-auto"
@@ -195,8 +194,8 @@
 <script>
     import API from '~/api';
     import {usuarioStore} from "../store/index.js"
-
-    const user = usuarioStore()
+    import {groupStore} from "../store/index.js"
+    const grupoStore = groupStore()
 
     export default {
         data (){
@@ -216,6 +215,16 @@
             }
         },
         methods:{
+          SelectGroup(n){
+            this.selectedGroup = n.name
+            grupoStore.setGroupID(n._id)
+            console.log("---------")
+            console.log(grupoStore.getGroupIDId)
+            console.log("---------")
+          },
+
+
+
           takeCode(){
             const codigo = this.code
             console.log(codigo)
@@ -303,8 +312,13 @@
             this.getGroupsUser(user.getUserId())
           },
         }, beforeMount() {
-            this.getGroupsUser(user.getUserId())
-            
+            const user = usuarioStore()
+             if (!user.getStatus){
+                this.$router.push({ path: '/loginWindow' })
+              }else{
+                this.getGroupsUser(user.getUserId);
+              }
+
         }
   }
 </script>
