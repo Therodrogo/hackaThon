@@ -1,58 +1,79 @@
 <template>
-  <div>
-    <v-container>
-        <v-layout>
-            <v-row class="py-16">
-             </v-row>
-            <v-row>
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="card-avatar, article, actions"
-                    ></v-skeleton-loader>
+<div class="container" >
+  <v-layout row wrap>
 
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="date-picker"
-                    ></v-skeleton-loader>
-                </v-col>
+    <v-flex xs12 sm6>
+    <v-card
+      v-for="(item, i, index) in posts" v-if="i < total/2"
+      :key="item">
 
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="article, actions"
-                    ></v-skeleton-loader>
+      <v-card-text>
+        <div></div>
+        <p class="text-h4 text--primary">
+          {{item.title}}
+        </p>
+        <p>{{item.date}}</p>
+        <div class="text--primary">
+          {{item.description}}
+        </div>
+      </v-card-text>
 
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="table-heading, list-item-two-line, image, table-tfoot"
-                    ></v-skeleton-loader>
-                </v-col>
+        <div>
+         <img
+            :src="item.imageUrl"
+            >
+        </div>
 
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
-                    ></v-skeleton-loader>
+      <v-card-actions>
+        <v-btn
+          text
+          color= #CC7C0A
+          @click="reveal = true"
+        >
+          Leer más
+        </v-btn>
+        </v-card-actions>
+    </v-card>
+    </v-flex>
 
-                    <v-skeleton-loader
-                    v-bind="attrs"
-                    type="list-item-avatar-three-line, image, article"
-                    ></v-skeleton-loader>
-                </v-col>
-            </v-row>
-        </v-layout>
-  </v-container>
-  </div>
+    <v-flex xs12 sm6>
+    <v-card
+      v-for="(item, i, index) in posts" v-if="i > total/2"
+      :key="item">
+
+      <v-card-text>
+        <div></div>
+        <p class="text-h4 text--primary">
+          {{item.title}}
+        </p>
+        <p>{{item.date}}</p>
+        <div class="text--primary">
+          {{item.description}}
+        </div>
+      </v-card-text>
+
+        <div>
+         <img
+            :src="item.imageUrl"
+            >
+        </div>
+
+      <v-card-actions>
+        <v-btn
+          text
+          color= #CC7C0A
+          @click="reveal = true"
+        >
+          Leer más
+        </v-btn>
+        </v-card-actions>
+
+
+    </v-card>
+    </v-flex>
+
+  </v-layout>
+</div>
 </template>
 
 <!-- Script del ciclo temporal para cada -->
@@ -62,26 +83,37 @@ import { onBeforeMount } from 'vue-demi';
 import API from '~/api';
  export default {
     data: () => ({
-      attrs: {
-        class: 'mb-6',
-        boilerplate: true,
-        elevation: 2,
-      },
+      total: 0,
+      posts: {
+
+      }
     }),
   
    methods: {
     async getAllPosts(){
       const post = await API.getAllPosts()
-      console.log(post.data);
+      this.posts = post.data
+      console.log(this.posts)
+      this.total= this.posts.length
+      console.log(this.total)
     },
     }, beforeMount() {this.getAllPosts()}
-    }
+  }
     
     
 </script>
 
-<style>
-
-
+<style  scoped>
+.container{
+  text-align: center;
+  padding: 3% 1% 1% 1%;
+}
+img{
+    width:50%;
+    max-width:200px;
+}
+.v-card{
+  margin: 20px;
+}
 
 </style>

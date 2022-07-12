@@ -114,7 +114,7 @@ export default {
       const userStore = usuarioStore();
       if (this.$refs.form.validate()) {
         let data = {
-          userID: userStore.getUserId(),
+          userID: userStore.getUserId,
           name: this.name,
           mail: this.email,
           career: this.career,
@@ -154,7 +154,7 @@ export default {
     },
     async getUser() {
       const userStore = usuarioStore();
-      await API.getUserByID(userStore.getUserId()).then((response) => {
+      await API.getUserByID(userStore.getUserId).then((response) => {
         let userData = response.data;
         this.name = userData.name;
         this.email = userData.mail;
@@ -169,7 +169,7 @@ export default {
   },
   beforeMount() {
     const userStore = usuarioStore()
-    if (userStore.getStatus()!=="active"){
+    if (!userStore.getStatus){
       this.$router.push({ path: '/loginWindow' })
     }else{
       this.getUser();

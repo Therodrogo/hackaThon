@@ -48,7 +48,6 @@
 import Swal from 'sweetalert2';
 import API from "../api";
 import { usuarioStore } from "../store/index.js"
-import { usuarioActivo } from "../store/index.js"
 
 export default {
   name: 'Login',
@@ -74,38 +73,30 @@ export default {
 
     async submit() {
       this.$emit('submit', 'carrier');
-      //console.log("LOGIN")
       if (!this.email == '' && !this.password == '') {
-
         const user = await API.signUpUser({ "mail": this.email, "password": this.password });
-        console.log(user)
         if (user.code == 200) {
           let userData = user.data
+          const userLogged = usuarioStore()
+          userLogged.setUser(userData._id)
+          userLogged.setStatus('active')
+          userLogged.setName(userData.name)
           Swal.fire({
             title: "Bienvenido " + userData.name,
             text: "Tu rol es: " + userData.role,
             icon: "success",
           })
-          console.log("Ha ingresado " +  userData.name)
-          const usuarioLogeado = usuarioActivo()
-          usuarioLogeado.CHANGE_NAV_LAYOUT(usuarioLogeado, userData.name )
-
-          const userLogged = usuarioStore()
-          userLogged.setUser(userData._id)
-          userLogged.setStatus('active')
-
           this.$router.push({ path: '/userGroups' })
-
         }
         else {
            this.$emit("logeado");
-          Swal({
+          Swal.fire({
             title: "Credenciales incorrectas",
             icon: "error",
           });
         }
       } else {
-        Swal({
+        Swal.fire({
           title: "Ha ocurrido un error",
           text: "Debes ingresar las credenciales",
           icon: "error",

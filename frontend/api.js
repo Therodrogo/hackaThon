@@ -202,6 +202,24 @@ export default class API{
 
     }
 
+    static async updateNameGroup(data){
+        try {
+            const res = await axios.post(url+"group/updateName",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async updateVisibility(data){
+        try {
+            const res = await axios.post(url+"group/updateVisibility",data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
 
 
     //PostMethods
@@ -213,6 +231,7 @@ export default class API{
             return error.response.data
         }
     }
+
     static async getAllPosts(){
 
         try {
@@ -222,8 +241,6 @@ export default class API{
         } catch (error) {
             return error.response.data
         }
-
-
     }
     static async getPostByID(id){
         try {
