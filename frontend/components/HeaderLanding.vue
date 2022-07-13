@@ -47,17 +47,17 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link v-if="quitarBotones" to="/loginWindow">
+          <nuxt-link v-if="!quitarBotones" to="/loginWindow">
 
             <!-- Login -->
 
-            <div @click="loginEvent()" class="loginText">
+            <div class="loginText">
               Iniciar Sesión
             </div>
 
           </nuxt-link>
 
-          <nuxt-link v-if="quitarBotones" to="/createUser">
+          <nuxt-link v-if="!quitarBotones" to="/createUser">
 
             <!-- RegisterUser -->
 
@@ -66,6 +66,7 @@
             </div>
 
           </nuxt-link>
+          
 
 
           <!-- Header -->
@@ -73,7 +74,7 @@
           <!-- Lista desplegable Mi perfil, Cerrar Sesión-->
           <div>
 
-            <v-menu offset-y v-if="!quitarBotones">
+            <v-menu offset-y v-if="quitarBotones">
               <template v-slot:activator="{ on, attrs }">
 
                 <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="43" width="130">
@@ -88,8 +89,19 @@
                   </p>
                 </v-btn>
               </template>
-              <v-list shaped>
+              <v-list shaped v-if="userType=='Participante'">
                 <v-list-item v-for="(item, index) in items2" :key="index">
+
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <nuxt-link :to="item.to">
+                    <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                  </nuxt-link>
+                </v-list-item>
+              </v-list>
+              <v-list shaped v-if="userType=='Administrador'">
+                <v-list-item v-for="(item, index) in items4" :key="index">
 
                   <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
@@ -174,12 +186,15 @@
               </nuxt-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!quitarBotones">
-            <v-list-item-title v-if="!quitarBotones">
+
+
+
+          <v-list-item v-show="quitarBotones">
+            <v-list-item-title v-show="quitarBotones">
               <!-- UsuarioActivo, movil -->
               <!-- Lista desplegable Mi perfil, Cerrar Sesión -->
               <div>
-                <v-menu offset-y v-if="!quitarBotones">
+                <v-menu offset-y v-if="quitarBotones">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn class="miNombre" color="primary" v-bind="attrs" v-on="on" height="40" width="130">
                       <p class="JetBrains Mono">
@@ -190,9 +205,20 @@
                   </template>
 
 
-                  <v-list shaped>
+                  <v-list shaped v-if="userType=='Participante'">
 
                     <v-list-item v-for="(item, index) in items" :key="index">
+
+                      <nuxt-link :to="item.to">
+                        <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
+                      </nuxt-link>
+                    </v-list-item>
+
+
+                  </v-list>
+                  <v-list shaped v-if="userType=='Administrador'">
+
+                    <v-list-item v-for="(item, index) in items3" :key="index">
 
                       <nuxt-link :to="item.to">
                         <v-list-item-title v-on:click="logout(index)">{{ item.title }}</v-list-item-title>
@@ -221,19 +247,15 @@
 
 <script>
 
-import { usuarioActivo } from "../store/index.js"
-
+import { usuarioStore } from "../store/index.js"
 export default {
 
   data() {
     return {
       drawer: false,
+      
       user: "Iniciar Sesion",
       user2: "Crear Usuario",
-
-
-
-
       items: [
         { title: 'Editar perfil', to: "/editUser"},
         { title: 'Mis grupos', to: "/userGroups"},
@@ -245,49 +267,72 @@ export default {
         { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
         { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
       ],
+      items3: [
+        { title: 'Editar perfil', to: "/editUser"},
+        { title: 'Mis grupos', to: "/userGroups"},
+        { title: 'Menu Administrador', to: "/AdminMenu"},
+        { title: 'Cerrar sesión', to: "/"},
+      ],
+
+      items4: [
+        { title: 'Editar perfil', to: "/editUser", icon: 'mdi-grease-pencil'},
+        { title: 'Mis grupos', to: "/userGroups", icon: 'mdi-account-group' },
+        { title: 'Menu Administrador', to: "/AdminMenu", icon: 'mdi-account-key' },
+        { title: 'Cerrar sesión', to: "/", icon: 'mdi-close-circle'},
+      ],
 
 
     }
   },
 
-
-  computed: {
-    //Actualiza el nombre del usuario
+  
+  computed:{
     usuarioActivoComputed() {
-      const user = usuarioActivo()
-      return user.$state.layout;
+      const user = usuarioStore()
+      return user.getName;
     },
-    //Actualiza los botones al loguearse
     quitarBotones() {
-      const user = usuarioActivo()
-      return user.$state.noLogueado;
+      const user = usuarioStore()
+      return user.getStatus;
     },
-
-
+    userType(){
+      const user = usuarioStore() 
+     
+      console.log("Es Participante "+ user.getUserRole)
+      return user.getUserRole;
+    }
   },
+  
   props: {
     menuEstudiante: Boolean,
     menuAdministrador: Boolean,
     posicionMono: String,
   },
-  methods: {
-    loginAppear: function () {
-      console.log("aa")
+
+  watch: {
+    quitarBotones() {
+      return user.getStatus;
     },
+    
+  },
+  methods: {
     //Actualiza los botones al deslogearse
     logout: (index) => {
+      const user = usuarioStore() 
       //Si presiona el boton 2, cerrar sesión, cerramos la sesión :s
-      if (index == 2) {
+      console.log(user.getUserRole)
+      if (index == 2 && user.getUserRole=="Participante") {
         console.log("logout")
-        const user = usuarioActivo()
-        user.CHANGE_NAV_LAYOUT_LOGOUT(user)
+        const user = usuarioStore()
+        user.logout()
       }
-
-
+      if (index == 3 && user.getUserRole=="Administrador") {
+        console.log("logout")
+        const user = usuarioStore()
+        user.logout()
+      }
     }
-
-
-  }
+  },
 }
 </script>
 

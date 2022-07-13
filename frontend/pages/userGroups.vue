@@ -3,7 +3,6 @@
     <v-main class="white">
       <v-container>
        <br>
-
         <v-row>
           <v-col
             lg="4"
@@ -16,7 +15,11 @@
                   <v-list-item-content>
                     <v-list-item-title>
                       Grupos
+                      <v-template >
+                      
+                      </v-template>
                     </v-list-item-title>
+                    
                   </v-list-item-content>
                 </v-list-item>
 
@@ -29,9 +32,10 @@
                     <v-list-item
                     v-for="n in groups"
                     :key="n">
-                      <v-btn @click="selectedGroup = n.name" text min-width="100%" mx-auto>
+                      <v-btn @click="SelectGroup(n); isLeader(n.code)" text min-width="100%" mx-auto>
                         {{n.name}}
                       </v-btn>
+                      
                     </v-list-item>
                 </v-list-item-group>
                 <v-divider class="my-2"></v-divider>
@@ -40,19 +44,71 @@
           </v-col>
           <v-col>
             <v-sheet
-              height="500"
+              height="550"
               rounded="lg"
               color="#00CCB1">
               <template v-slot>
                 <span
-                v-for="n in groups"
-                :key="n">
+                v-for="(n,i) in groups"
+                :key="i">
                   <p v-if="n.name == selectedGroup">
                     <v-card
                       class="mx-auto"
                       max-width="700">
                       <v-card-title>
                         Nombre del grupo: {{n.name}}
+                        <v-dialog
+                          v-model="dialog"
+                          width="500">
+                          <template v-slot:activator="{ on, attrs }">
+                            <span class="px-6">
+                              <v-btn v-bind="attrs" v-on="on" fab small dark color="#00CCB1" v-if="save">
+                                <v-icon >
+                                  mdi-pencil
+                                </v-icon>
+                              </v-btn>
+                            </span>
+                          </template>
+                          <v-card>
+                            <v-card-title>
+                              Cambiar nombre del grupo:
+                            </v-card-title>
+                            <v-card-text>
+                              <v-text-field
+                                v-model="name"
+                                placeholder="Ingresar nuevo nombre"
+                                clereable>
+                              </v-text-field>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-btn
+                                @click="dialog = false"
+                                color="red" 
+                                class="white--text">
+                                Cancelar
+                              </v-btn>
+
+                              <v-btn
+                                @click="updateNameGroup(name, n._id) ; dialog = false ; clearName()"
+                                color=#009a82 
+                                class="white--text">
+                                  Aceptar
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+
+                        <v-btn to="/requestGroup" color = "white" small v-if="save">
+                        Solicitudes
+                          <v-badge color = "red" dot>
+                            <v-icon>
+                              mdi-bell-ring-outline
+                            </v-icon>
+                          </v-badge>
+                      </v-btn>
                       </v-card-title>
                       <v-card-text class="text--primary">
                         Evento: {{n.eventID.name}}
@@ -73,19 +129,20 @@
                               {{i.name}}
                             </v-list-item-title>
 
-                            <v-list-item-action>
-                              <v-btn @click="kickMember(i._id, n.leaderID, n.code)" fab x-small dark color="red">
-                                <v-icon dark>
-                                  mdi-minus
-                                </v-icon>
+                            <v-list-item-action >
+                              <v-btn @click="kickMember(i._id, n._id) ; " small dark color="red" v-if="save" >
+                                Expulsar
                               </v-btn>
                             </v-list-item-action>
                           </v-list-item>
                         </v-list>
                       </v-card>
-                      <v-card-actions>
-                        Código del grupo: {{n.code}}
+                      <v-card-actions >
+                      <p v-if="save">
+                         Código del grupo: {{n.code}}
+                      </p>
                       </v-card-actions>
+                      
                     </v-card>
                   </p>
                 </span>
@@ -100,12 +157,12 @@
                 <v-text-field
                   v-model="code"
                   label="Código de invitación"
-                  placeholder="Ingresar código"
-                >
-
+                  placeholder="Ingresar código">
                 </v-text-field>
-                <v-btn color = "#00CCB1" type="submit" large outlined>
-                  <v-icon>mdi-send</v-icon>
+                <v-btn @click="joinGroupCode(code)" color = "#00CCB1" type="submit" large outlined>
+                  <v-icon>
+                    mdi-send
+                  </v-icon>
                 </v-btn>
               </v-row>
             </v-form>
@@ -136,22 +193,38 @@
 <script>
     import API from '~/api';
     import {usuarioStore} from "../store/index.js"
-
+    import {groupStore} from "../store/index.js"
+    const grupoStore = groupStore()
     const user = usuarioStore()
 
     export default {
         data (){
             return {
-              selectedGroup: "",
+                selectedGroup: "",
                 groups:[
 
                 ],
                 code: '',
                 snackbar:false,
-                text:''
+                text:'',
+                save: false,
+                dialog: false,
+                name: '',
+                save: false,
+              
             }
         },
         methods:{
+          SelectGroup(n){
+            this.selectedGroup = n.name
+            grupoStore.setGroupID(n._id)
+            //console.log("---------")
+            console.log(grupoStore.getGroupIDId)
+            //console.log("---------")
+          },
+
+
+
           takeCode(){
             const codigo = this.code
             console.log(codigo)
@@ -161,14 +234,24 @@
             }
           },
 
-          async isLeader(id){
-            try {
-              const res = await API.isLeader(id)
-              this.groups = res.data
+          clearName(){
+            this.name = ''
+          },
 
-            } catch (error) {
-              console.log(error)
+          async isLeader(groupCode){
+            const req ={
+              userID: user.getUserId,
+              code: groupCode
             }
+            console.log(req)
+            try {
+              const res = await API.isLeader(req)
+              this.save = res.data
+              return res.data
+            } catch (error) {
+            console.log(error)
+            }
+            return res.data
           },
 
           async getGroupsUser(id){
@@ -181,24 +264,62 @@
             }
           },
 
-          async kickMember(id, leaderid, code){
+          async kickMember(id, idG){
 
             const req = {
               userID: id,
-              leaderID: leaderid,
-              code: code,
+              groupID: idG,
             }
             console.log(req);
             try {
-              const res = await API.kickMember(req)
-              this.group = res.data
-              console.log()
+              const res = await API.leaveGroup(req);
+              this.group = res.data;
             } catch (error) {
               console.log(error)
             }
+            this.getGroupsUser(user.getUserId)
+          },
+
+          async joinGroupCode(code){
+            const req = {
+              code: code,
+              userID: user.getUserId,
+            }
+            try {
+              const res = await API.joinGroup(req)
+              this.group = res.data
+
+            } catch (error) {
+              console.log(error)
+            }
+            this.getGroupsUser(user.getUserId)
+          },
+
+          async updateNameGroup(name, id){
+
+            const req = {
+              nameGroup: name,
+              groupID: id,
+              userID: user.getUserId,
+            }
+            try {
+              const res = await API.updateNameGroup(req);
+              console.log("here");
+              console.log("res: "+ res);
+              console.log(req)
+            } catch (error) {
+              console.log(error)
+            }
+            this.getGroupsUser(user.getUserId)
           },
         }, beforeMount() {
-            this.getGroupsUser(user.getUserId())
+            const user = usuarioStore()
+             if (!user.getStatus){
+                this.$router.push({ path: '/loginWindow' })
+              }else{
+                this.getGroupsUser(user.getUserId);
+              }
+
         }
   }
 </script>

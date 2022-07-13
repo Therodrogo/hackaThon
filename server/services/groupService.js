@@ -219,16 +219,56 @@ const GroupService = {
             const groupCode = req.body.code;
             const group = await GroupSchema.findOne({code: groupCode});
             console.log(group);
-            if (group.leaderID == leaderID){
+            if (group.leaderID == leaderID && kickID != leaderID){
                 await GroupSchema.findOneAndUpdate({code: groupCode},{ "$pull": { "userID": kickID }});
                 await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "groupsID": group._id } });
                 await userSchema.findOneAndUpdate({ _id: kickID },{ "$pull": { "eventsID": group.eventID }});
                 return { status: 'Success', code: 200, message: 'User with id '+ kickID +'was kick from the group with id '+group._id , data: group }
-            } else{
+            }else if (kickID == leaderID){
+                return { status: 'Failed', code: 409, message: 'You can\'t kick yourself', data: {} }
+            }
+            else{
                 return { status: 'Failed', code: 400, message: 'the user with id '+leaderID+' does not have the permissions to perform this action', data: {} }
             }
         } catch (error) {
             return { status: 'Failed', code: 400, message: error.message, data: {} }
+        }
+    },
+
+    async updateName(req){
+        console.log(req);
+        try {
+            const newName = req.body.nameGroup;
+            const groupID = req.body.groupID;
+            const userID = req.body.userID;
+            const group = await GroupSchema.findOne({_id:groupID});
+            if  (group.leaderID == userID){
+                await GroupSchema.findOneAndUpdate({_id: groupID},{"name":newName});
+                return { status: 'Success', code: 200, message: 'Name of group with id '+ groupID +' updated' , data: true }
+            }else{
+                return { status: 'Failed', code: 400, message: 'You don\'t have permission for this action' , data:false }
+            }
+            
+        } catch (error) {
+            return { status: 'Failed', code: 400, message: error.message, data: false }
+        }
+    },
+
+    async updateVisibility(req){
+        try {
+            const visibility = req.body.visibility;
+            const groupID = req.body.groupID;
+            const userID = req.body.userID;
+            const group = await GroupSchema.findOne({_id:groupID});
+            if  (group.leaderID == userID){
+                await GroupSchema.findOneAndUpdate({_id: groupID},{"visibility":visibility});
+                return { status: 'Success', code: 200, message: 'Visibility of group with id '+ groupID +' updated' , data: true }
+            }else{
+                return { status: 'Failed', code: 400, message: 'You don\'t have permission for this action' , data:false }
+            }
+            
+        } catch (error) {
+            return { status: 'Failed', code: 400, message: error.message, data: false }
         }
     }
 };

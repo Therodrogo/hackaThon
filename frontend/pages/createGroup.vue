@@ -45,7 +45,7 @@
 import API from "../api";
 import Swal from 'sweetalert2';
 import {eventStore} from "../store/index.js"
-import {usuarioStore} from "../store/index.js"
+import {usuarioStore, groupStore} from "../store/index.js"
 
   export default {
     data () {
@@ -60,10 +60,9 @@ import {usuarioStore} from "../store/index.js"
       async crearGrupo(){
         const userStore = usuarioStore()
         const eventoStore = eventStore()
-        const res = await API.getUserByID(userStore.getUserId());
-        console.log(res)
+        const useGroupStore = groupStore()
+        const res = await API.getUserByID(userStore.getUserId);
         const resEvent = await API.getEventByID(eventoStore.getEventId);
-        console.log(resEvent)
         console.log("Se ha creado un grupo llamado: "+this.Nombre+"\nCon el usuario: "+ res.data.name+"\nRegistrado con el mail: " + res.data.mail+"\nEn el evento: "+resEvent.data.name);
         let data = {
           name: this.Nombre,
@@ -71,9 +70,8 @@ import {usuarioStore} from "../store/index.js"
           leaderID: res.data._id,
           eventID: resEvent.data._id,
         };
-        console.log(data)
         let result = await API.postGroup(data)
-        console.log(result)
+        useGroupStore.setGroupID(result.data._id)
         Swal.fire({
           title: "Grupo "+this.Nombre+" creado",
           text: "El lider es: " + res.data.name,
