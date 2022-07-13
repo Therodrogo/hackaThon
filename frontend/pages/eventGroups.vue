@@ -28,12 +28,12 @@
                       <v-card>
                         <v-card-title><p class="textBorder">{{n.name}}</p></v-card-title>
                         <v-img class="logo-utalca"  src="/group.png" height="200px ">
-                          
+
                         </v-img>
                         <v-card-text class="text--primary">
                           <p>Lider del grupo: {{obtenerLider(n.id)}}</p>
                         </v-card-text>
-                     
+
                           <h3 class='text-center ml-5 mr-5'> {{n.Users.length}}/5 </h3>
                           <v-card-actions>
                             <v-btn   :disabled="VerifySend(n)" @click = SendRequest(n) color="#00CCB1" class="white--text">{{n.texto}}</v-btn>
@@ -42,7 +42,7 @@
                       </v-col>
 
                 <v-divider class="my-2"></v-divider>
-          
+
         </v-row>
         <v-snackbar
           v-model="snackbar"
@@ -71,8 +71,6 @@ import Swal from 'sweetalert2';
 
 import {eventStore} from "../store/index.js"
 import {usuarioStore} from "../store/index.js"
-const eventoStore = eventStore()
-const userStore = usuarioStore()
   export default {
     data () {
       return {
@@ -90,6 +88,9 @@ const userStore = usuarioStore()
         ],
         groupsLeaders:[
         ],
+        eventoStore: null,
+        userStore: null,
+
       }
     },
     computed:{
@@ -105,16 +106,16 @@ const userStore = usuarioStore()
       VerifySend(n){
 
         //const gro = await API.getGroupByID(n.id);
-        
-        var verLeader = n.Users.find(obj => {return obj._id === userStore.id})
-        var verRequest = n.RequestID.find(obj => {return obj.postulant === userStore.id})
-        var verjoin = n.Users.find(obj => {return obj === userStore.id})
+
+        var verLeader = n.Users.find(obj => {return obj._id === this.userStore.id})
+        var verRequest = n.RequestID.find(obj => {return obj.postulant === this.userStore.id})
+        var verjoin = n.Users.find(obj => {return obj === this.userStore.id})
         if(n.Users.length >= this.grouplimit) {
           n.texto = "grupo lleno"
           return true
         }else if (this.noLogueado ) {
           return true
-        }else if (n.leader == userStore.id ){
+        }else if (n.leader == this.userStore.id ){
           n.texto = "Eres lider"
           return true
         }else if (!(typeof verLeader === "undefined" )){
@@ -123,7 +124,7 @@ const userStore = usuarioStore()
         }else if (!(typeof verjoin  === "undefined" )){
           n.texto = "Unido"
           return true
-    
+
         }else if (!(typeof verRequest === "undefined")){
           n.texto = "Solicitud enviada"
           return true
@@ -140,7 +141,7 @@ const userStore = usuarioStore()
 
           //n.userID.push({name:userStore.user.name})
           //console.log(userStore.user.name);
-          const local = await API.getUserByID(userStore.id);
+          const local = await API.getUserByID(this.userStore.id);
           console.log(local.data);
           let data = {
             postulant:local.data._id,
@@ -177,13 +178,13 @@ const userStore = usuarioStore()
                 }
               }
 
-            } 
+            }
           })
-          
+
 
 
       },
-    
+
     obtenerLider(n){
       var userFound="";
       this.groupsLeaders.forEach((group) => {
@@ -195,7 +196,7 @@ const userStore = usuarioStore()
     },
 
     async getLeaders(){
-        let groupsAndLeaders = [];  
+        let groupsAndLeaders = [];
         let [allGroups, AllUsers] = await Promise.all([API.getAllGroups(), API.getAllUsers()]);
         var allGroupsData = new Array();
         var allUsersData = new Array();
@@ -216,9 +217,9 @@ const userStore = usuarioStore()
       async getEventByID(){
       try {
 
-        const res = await API.getEventByID(eventoStore.getEventId);
+        const res = await API.getEventByID(this.eventoStore.getEventId);
         //console.log(userStore.getStatus());
-       this.noLogueado = !(userStore.getStatus);
+       this.noLogueado = !(this.userStore.getStatus);
 
 
 
@@ -226,7 +227,7 @@ const userStore = usuarioStore()
         this.grouplimit = res.data.groupLimit;
 
         //const cosa = await API.getAllGroups();
-        const cosa = await API.getGroupsFromEvent(eventoStore.getEventId); // ACTUALMENTE  USADA
+        const cosa = await API.getGroupsFromEvent(this.eventoStore.getEventId); // ACTUALMENTE  USADA
         console.log(cosa.data);
         cosa.data.forEach  (async n => {
             console.log(n._id+" si");
@@ -238,13 +239,15 @@ const userStore = usuarioStore()
         });
 
 
-        
+
 
       } catch (error) {
         console.log(error)
       }
       }
     }, beforeMount() {
+      this.eventoStore = eventStore()
+      this.userStore = usuarioStore()
       this.getEventByID()
       this.getLeaders();
     }
