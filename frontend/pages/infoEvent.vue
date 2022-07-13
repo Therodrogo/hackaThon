@@ -153,7 +153,7 @@ import API from '~/api'
 
 import {eventStore} from "../store/index.js"
 
-const eventoStore = eventStore()
+
 
   export default {
     data () {
@@ -171,9 +171,11 @@ const eventoStore = eventStore()
     }, 
     methods: {
       async getEventByID(){
+      
       try {
+        const eventoStore = eventStore()
         const res = await API.getEventByID(eventoStore.getEventId);
-
+        
         this.Descripcion=res.data.description
         this.Maps=res.data.mapUrl
         this.Banner=res.data.coverUrl
@@ -193,7 +195,7 @@ const eventoStore = eventStore()
 
         
       } catch (error) {
-        
+        console.log(error)
       }  
       }
 

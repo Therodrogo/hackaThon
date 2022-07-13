@@ -194,8 +194,7 @@
     import API from '~/api';
     import {usuarioStore} from "../store/index.js"
     import {groupStore} from "../store/index.js"
-    const grupoStore = groupStore()
-    const user = usuarioStore()
+    
 
     export default {
         data (){
@@ -211,20 +210,19 @@
                 dialog: false,
                 name: '',
                 save: false,
+                user: null,
+                grupoStore: null
               
             }
         },
         methods:{
           SelectGroup(n){
             this.selectedGroup = n.name
-            grupoStore.setGroupID(n._id)
+            this.grupoStore.setGroupID(n._id)
             //console.log("---------")
-            console.log(grupoStore.getGroupIDId)
+            console.log(this.grupoStore.getGroupIDId)
             //console.log("---------")
           },
-
-
-
           takeCode(){
             const codigo = this.code
             console.log(codigo)
@@ -240,7 +238,7 @@
 
           async isLeader(groupCode){
             const req ={
-              userID: user.getUserId,
+              userID: this.user.getUserId,
               code: groupCode
             }
             console.log(req)
@@ -277,13 +275,13 @@
             } catch (error) {
               console.log(error)
             }
-            this.getGroupsUser(user.getUserId)
+            this.getGroupsUser(this.user.getUserId)
           },
 
           async joinGroupCode(code){
             const req = {
               code: code,
-              userID: user.getUserId,
+              userID: this.user.getUserId,
             }
             try {
               const res = await API.joinGroup(req)
@@ -292,15 +290,14 @@
             } catch (error) {
               console.log(error)
             }
-            this.getGroupsUser(user.getUserId)
+            this.getGroupsUser(this.user.getUserId)
           },
 
           async updateNameGroup(name, id){
-
             const req = {
               nameGroup: name,
               groupID: id,
-              userID: user.getUserId,
+              userID: this.user.getUserId,
             }
             try {
               const res = await API.updateNameGroup(req);
@@ -310,14 +307,15 @@
             } catch (error) {
               console.log(error)
             }
-            this.getGroupsUser(user.getUserId)
+            this.getGroupsUser(this.user.getUserId)
           },
         }, beforeMount() {
-            const user = usuarioStore()
-             if (!user.getStatus){
+            this.user = usuarioStore()
+            this.grupoStore = groupStore()
+             if (!this.user.getStatus){
                 this.$router.push({ path: '/loginWindow' })
               }else{
-                this.getGroupsUser(user.getUserId);
+                this.getGroupsUser(this.user.getUserId);
               }
 
         }
