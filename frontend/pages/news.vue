@@ -58,7 +58,7 @@
 import {newsStore} from "../store/index.js";
 import API from '~/api';
 
-const ns = newsStore();
+
 
 export default {
   data: () => ({
@@ -74,8 +74,10 @@ export default {
   }),
   methods: {
     async getData() {
+      const ns = newsStore();
       this.id = ns.getNewId;
       console.log(this.id);
+      
       let post = await API.getPostByID(this.id);
       let allPost = await API.getAllPosts();
       this.allPosts = allPost.data;
@@ -87,6 +89,7 @@ export default {
     async parsePost() {
       this.title = this.post.title;
       this.description = this.post.description;
+      this.date = ""
       let dateNoParse = this.post.date;
       for (let i = 0; i < 10; i++) {
         this.date = this.date + dateNoParse[i];
@@ -96,6 +99,7 @@ export default {
 
     async selectPost(){
         let randomIndex = []
+        this.selectedPosts = []
         for (let i = 0; i<4; i++){
             let index =this.getRandomInt(0,this.allPosts.length)
             if (index in randomIndex){
@@ -126,9 +130,10 @@ export default {
     },
 
     selectNews(newsID){
+        const ns = newsStore();
         ns.setNews(newsID)
-        console.log(ns.selectNews);
         this.$forceUpdate();
+        this.getData()
     }
     
   },

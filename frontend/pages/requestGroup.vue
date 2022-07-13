@@ -1,9 +1,9 @@
 <template>
     <v-app id="inspire">
         <v-main class="white">
-            
+
             <v-container>
-                
+
         <v-row>
               <v-btn
               to='/userGroups'
@@ -21,7 +21,7 @@
             sm="7"
             xs="7">
                 <v-col align="center">
-                
+
                     <v-text-field
                         prepend-icon='mdi-card-search-outline'
                         label='Buscar Solicitudes'
@@ -32,7 +32,7 @@
                 <v-sheet
                 left min-height="100%"
                 rounded="lg">
-                    
+
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title>
@@ -43,10 +43,10 @@
                                     <v-btn @click="SelectedReq(n)"  text min-width="50%" mx-auto>
                                         {{n.name}}
                                     </v-btn>
-                                    
+
                                 </v-list-item>
 
-                                
+
                             </v-list-item-group>
                         </v-list-item-content>
                     </v-list-item>
@@ -77,33 +77,28 @@
                                 <v-btn @click="DeclineRequest(n)" class="white--text mx-auto"  color="#ff0000">denegar</v-btn>
                                 <v-divider class="my-2"></v-divider>
                             </v-card>
-                            
+
                         </p>
                         </span>
                     </template>
                 </v-sheet>
             </v-col>
         </v-row>
-        
+
             </v-container>
-            
+
         </v-main>
     </v-app>
 </template>
 
 
 <script>
-// nota de una reunion : tiene que tener un diseño similar a la de UserGroups  
+// nota de una reunion : tiene que tener un diseño similar a la de UserGroups
 
 import API from '~/api'
 import Swal from 'sweetalert2';
-import {usuarioStore} from "../store/index.js"
-import {usuarioActivo} from "../store/index.js"
-import {eventStore} from "../store/index.js"
 import {groupStore} from "../store/index.js"
-const userStore = usuarioStore()
-const eventoStore = eventStore()
-const grupoStore = groupStore()
+
   export default {
     data () {
       return {
@@ -113,6 +108,7 @@ const grupoStore = groupStore()
         Request:[
 
         ],
+        groupStore: null,
     }
     },
     computed:{
@@ -130,14 +126,11 @@ const grupoStore = groupStore()
 
         async getEventByID(){
             try {
-                console.log(grupoStore.groupID)
-                const gp = await API.getGroupByID(grupoStore.groupID)
-                const cosa = await API.getRequestGroup({groupID: grupoStore.groupID})
-                //const cosa = await API.getRequests();
+                const gp = await API.getGroupByID(this.groupStore.groupID)
+                const cosa = await API.getRequestGroup({groupID: this.groupStore.groupID})
                 this.Request = []
                 console.log(cosa.data);
                 cosa.data.forEach  (async n => {
-                    //await API.deleteRequestById(n._id)
                     const local = await API.getUserByID(n.postulant);
                     this.Request.push({_id: n._id,postulant: n.postulant,leader: gp.data.leaderID,name: local.data.name,description: n.description});
                 });
@@ -146,13 +139,13 @@ const grupoStore = groupStore()
             }
         },
         async AcceptRequest(data){
-            
-            const gp = await API.getGroupByID(grupoStore.groupID)
+
+            const gp = await API.getGroupByID(this.groupStore.groupID)
             if(gp.data.userID.length <= 5){
-                
+
                 await API.acceptRequest({requestID: data._id,leaderID: data.leader});
                 console.log(data)
-            
+
                 this.Request.splice(this.Request.indexOf(data),1);
                 Swal.fire({
                     title: "Postulante ingresado",
@@ -177,15 +170,15 @@ const grupoStore = groupStore()
 
         }
 
-    
+
 
 
     }, beforeMount() {
-        console.log("hola")
+      this.groupStore = groupStore()
       this.getEventByID()
     }
   }
-  
+
 
 
 
